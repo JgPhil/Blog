@@ -207,47 +207,7 @@ require_once 'elements/header.php';
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="text-center">
-        <div class="footer-above">
-            <div class="container">
-                <div class="row">
-                    <div class="footer-col col-md-4">
-                        <h3>Adresse</h3>
-                        <p>15, rue du docteur Albert Schweitzer
-                            <br>Drulingen, 67320</p>
-                    </div>
-                    <div class="footer-col col-md-4">
-                        <h3>Réseaux sociaux</h3>
-                        <ul class="list-inline">                           
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-google-plus"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-linkedin"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-github"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="footer-col col-md-4">
-                        <h3>A propos du site</h3>
-                        <p>Ce site a été créé par Jaming Philippe  <a href="http://startbootstrap.com">Mentions légales</a>.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-below">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        Copyright &copy; Your Website 2016
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+   <?php require 'elements/footer.php'; ?>
 
     <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
     <div class="scroll-top page-scroll hidden-sm hidden-xs hidden-lg hidden-md">
@@ -479,3 +439,4 @@ require_once 'elements/header.php';
             </div>
         </div>
     </div>
+
