@@ -11,5 +11,7 @@
             "App\\": "class/"
         }
     },
-    "require": {}
+    "require": {
+        "altorouter/altorouter": "1.2.0"
+    }
 }
