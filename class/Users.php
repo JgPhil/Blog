@@ -1,6 +1,5 @@
 <?php
 
-
 class User
 {
     const USERTYPE = [
@@ -14,12 +13,10 @@ class User
     private $username;
     private $email;
     private $pass;
-    private $activated;
-    private $validationKey;
     private $userType;
     private $dateCreation;
 
-    //SETTERS
+    //GETTERS
 
     public function getId()
     {
@@ -72,16 +69,6 @@ class User
     public function setPassword($password)
     {
         $this->password = $password;
-    }
-
-    public function setActivated($activated)
-    {
-        $this->activated = $activated;
-    }
-
-    public function setValidationKey($validationKey)
-    {
-        $this->validationKey = $validationKey;
     }
 
     public function setUserType($userType)
