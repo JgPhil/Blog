@@ -22,7 +22,7 @@ if ($match !== null) {
     
     require '../elements/header.php';
 } 
-/*
+/* -----------Version of the router with a switch element------------
 switch ($uri)
 {
     case '/':
