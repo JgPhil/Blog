@@ -13,22 +13,22 @@ class Comment
 
     //GETTERS
 
-    public function getCom_id() {
+    public function com_id() {
        return $this->$com_id;
     }
 
-    public function getBlog_id() {
+    public function blog_id() {
         return $this->$blog_id;
     }
 
-    public function getUs_id() {
+    public function us_id() {
         return $this->$us_id;
      }
  
-    public function getCom_date() {
+    public function com_date() {
         return $this->$com_date;
     }
-    public function getPublish() {
+    public function publish() {
         return $this->$publish;
     }
 

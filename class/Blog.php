@@ -13,27 +13,27 @@ class Blog
 
     //GETTERS
 
-    public function getBlog_id() {
+    public function blog_id() {
         return $this->$blog_id;
     }
 
-    public function getUs_id() {
+    public function us_id() {
         return $this->$us_id;
     }
 
-    public function getTitle() {
+    public function title() {
         return $this->$title;
     }
 
-    public function getContent() {
+    public function content() {
         return $this->$content;
     }
 
-    public function getChapo() {
+    public function chapo() {
         return $this->$chapo;
     }
 
-    public function getLast_update() {
+    public function last_update() {
         return $this->$last_update;
     }
 
