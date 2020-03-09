@@ -1,19 +1,19 @@
 <?php
 
-class Blog
+class Post
 {
     //ATTRIBUTES CLASS
     
-    private $blog_id;
-    private $us_id;   
-    private $title;
-    private $content;
-    private $chapo;
-    private $last_update;
+    protected $post_id,
+              $us_id,   
+              $title,
+              $content,
+              $chapo,
+              $last_update;
 
     //GETTERS
 
-    public function blog_id() {
+    public function post_id() {
         return $this->$blog_id;
     }
 
@@ -39,7 +39,7 @@ class Blog
 
     //SETTERS
 
-    public function setBlog_id() {
+    public function setPost_id() {
         $this->blog_id = $blog_id;
     }
 
