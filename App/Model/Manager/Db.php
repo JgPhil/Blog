@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Model\Manager;
+
 class database
 {
 public static function dbConnect() {
