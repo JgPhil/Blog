@@ -9,41 +9,57 @@ class User
 
     //ATTRIBUTES CLASS
 
-    private $id;
-    private $username;
-    private $email;
-    private $pass;
-    private $userType;
-    private $dateCreation;
+    protected $us_id,
+              $username,
+              $email,
+              $pass,
+              $userType,
+              $dateCreation;
+
+    public function __construct(array $donnees)
+    {
+        $this->hydrate($donnees);
+    }
+
+    public function hydrate(array $donnees)
+    {
+        foreach ($donnees as $key => $value) {
+            $method = 'set' . ucfirst($key);
+            
+            if (method_exists($this, $method)) {
+                $this->$method($value);
+            }
+        }
+    }          
 
     //GETTERS
 
-    public function getId()
+    public function id()
     {
         return $this->id;
     }
        
-    public function getUsername()
+    public function username()
     {
         return $this->username;
     }
     
-    public function getEmail()
+    public function  email()
     {
         return $this->email;
     }
 
-    public function getPassword()
+    public function  password()
     {
         return $this->password;
     }
 
-     public function getUserType()
+     public function  userType()
     {
         return $this->userType;
     }
 
-    public function getDateCreation()
+    public function  dateCreation()
     {
         return $this->dateCreation;
     }
@@ -53,23 +69,33 @@ class User
 
     public function setId($id)
     {
-        $this->id = $id;
+        if (is_int($this->id)){
+            $this->id = $id;
+        }
     }
 
     public function setUsername($username)
     {
-        $this->username = $username;
+        if (is_string($username) && strlen($username) <= 30){
+            $this->username = $username; 
+        }
+        
     }
 
     public function setEmail($email)
     {
-        $this->email = $email;
+        if (is_string($email) && strlen($email) <= 30) {
+            $this->_email = $email;
+        }
     }
 
     public function setPassword($password)
     {
-        $this->password = $password;
+        if (is_string($password) && strlen($password) <= 100) {
+            $this->_password = $password;
+        }
     }
+    
 
     public function setUserType($userType)
     {
