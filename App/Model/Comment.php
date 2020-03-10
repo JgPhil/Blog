@@ -7,19 +7,19 @@ class Comment
     //ATTRIBUTES CLASS
 
     private $com_id;
-    private $blog_id;
+    private $post_id;
     private $us_id;
     private $com_date;
     private $publish; //boolean
 
-    public function __construct(array $donnees)
+    public function __construct(array $data)
     {
-        $this->hydrate($donnees);
+        $this->hydrate($data);
     }
 
-    public function hydrate(array $donnees)
+    public function hydrate(array $data)
     {
-        foreach ($donnees as $key => $value) {
+        foreach ($data as $key => $value) {
             $method = 'set' . ucfirst($key);
             
             if (method_exists($this, $method)) {
@@ -27,6 +27,7 @@ class Comment
             }
         }
     }         
+      
 
 
     //GETTERS

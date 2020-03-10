@@ -115,7 +115,7 @@
   <table id="TAB30" populated="true" UUID="35e5cecf-0bbc-459b-be38-fe73fce151d7" name="Role" objectType="TABLE" physicalName="Role" >
    <remarks></remarks>
    <folder id="FOLTAB301" populated="true" name="Columns" physicalName="Columns" type="1">
-    <column id="COL31" populated="true" UUID="9be6d9da-0e1a-45c6-8186-2000166f2a42" autoIncrement="false" autoIncrementSequenceName="Role_role_id_seq" defaultValue="" name="role_id" nullable="0" physicalName="role_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL31" populated="true" UUID="9be6d9da-0e1a-45c6-8186-2000166f2a42" autoIncrement="false" autoIncrementSequenceName="Role_role_id_seq_1" defaultValue="" name="role_id" nullable="0" physicalName="role_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
     <column id="COL32" populated="true" UUID="a6f7a6da-71e6-45e6-9347-6854e5a589a3" autoIncrement="false" autoIncrementSequenceName="Role_role_seq" defaultValue="" name="role" nullable="0" physicalName="role" precision="255" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
@@ -127,27 +127,27 @@
     <folder id="FOLTAB302" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
     </folder>
     <folder id="FOLTAB304" populated="true" name="Indices" physicalName="Indices" type="4">
-    <index id="IDX33" populated="true" UUID="1480fa6e-13b4-4e42-adb4-c17fc1f3be97" clustered="false" name="Role_pk" physicalName="Role_pk" primaryKeyIndex="true" unique="false" >
+    <index id="IDX33" populated="true" UUID="1480fa6e-13b4-4e42-adb4-c17fc1f3be97" clustered="false" name="Role_pk" physicalName="role_pk" primaryKeyIndex="true" unique="false" >
      <index-column id="IDC34" populated="true" UUID="70104e7f-97d8-43a1-bae5-08bed480e2a4" ascendingOrDescending="UNSPECIFIED" column-ref="COL31" name="role_id" physicalName="role_id" />
     </index>
    </folder>
   </table>
   <relationships>
-   <relationship id="REL35" populated="true" UUID="a7a0c7e7-7d8d-4ce8-b813-a1bd6cfb607d" deferrability="7" deleteRule="3" fk-table-ref="TAB22" fkCardinality="7" identifying="false" name="Users_Comments_fk" physicalName="Users_Comments_fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
+   <relationship id="REL35" populated="true" UUID="a7a0c7e7-7d8d-4ce8-b813-a1bd6cfb607d" deferrability="7" deleteRule="3" fk-table-ref="TAB22" fkCardinality="7" identifying="false" name="Users_Comments_fk" physicalName="users_comments_fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP36" populated="true" UUID="30280e0d-dd85-4025-bbe9-4cb819d91e13" fk-column-ref="COL25" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL2" />
    </relationship>
-   <relationship id="REL37" populated="true" UUID="84a99fcc-1484-4dfb-b77b-e3282612a8a8" deferrability="7" deleteRule="3" fk-table-ref="TAB12" fkCardinality="7" identifying="false" name="Users_Blogs_fk" physicalName="Users_Blogs_fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
+   <relationship id="REL37" populated="true" UUID="84a99fcc-1484-4dfb-b77b-e3282612a8a8" deferrability="7" deleteRule="3" fk-table-ref="TAB12" fkCardinality="7" identifying="false" name="Users_Blogs_fk" physicalName="users_blogs_fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP38" populated="true" UUID="2323a272-1db6-4b82-a70c-5186ce840e00" fk-column-ref="COL14" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL2" />
    </relationship>
-   <relationship id="REL39" populated="true" UUID="cb8b765c-ef3e-4183-ae0c-6556cbefe3f2" deferrability="7" deleteRule="3" fk-table-ref="TAB22" fkCardinality="7" identifying="false" name="Blogs_Comments_fk" physicalName="Blogs_Comments_fk" pk-table-ref="TAB12" pkCardinality="2" updateRule="3" >
+   <relationship id="REL39" populated="true" UUID="cb8b765c-ef3e-4183-ae0c-6556cbefe3f2" deferrability="7" deleteRule="3" fk-table-ref="TAB22" fkCardinality="7" identifying="false" name="Blogs_Comments_fk" physicalName="blogs_comments_fk" pk-table-ref="TAB12" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP40" populated="true" UUID="0af52d97-81ea-473b-bc6b-450c2f0452fe" fk-column-ref="COL24" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL13" />
    </relationship>
-   <relationship id="REL41" populated="true" UUID="92cafcde-781e-40b9-8bf3-bc0e355bd62f" deferrability="7" deleteRule="3" fk-table-ref="TAB1" fkCardinality="7" identifying="false" name="Role_User_fk" physicalName="Role_User_fk" pk-table-ref="TAB30" pkCardinality="2" updateRule="3" >
+   <relationship id="REL41" populated="true" UUID="92cafcde-781e-40b9-8bf3-bc0e355bd62f" deferrability="7" deleteRule="3" fk-table-ref="TAB1" fkCardinality="7" identifying="false" name="Role_User_fk" physicalName="role_user_fk" pk-table-ref="TAB30" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP42" populated="true" UUID="43895a6c-0aef-4275-9c54-2004ce01b5fc" fk-column-ref="COL3" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL31" />
    </relationship>
   </relationships>
  </target-database>
- <ddl-generator type="ca.sqlpower.architect.ddl.MySqlDDLGenerator" allow-connection="true" target-catalog="blog"> </ddl-generator>
+ <ddl-generator type="ca.sqlpower.architect.ddl.MySqlDDLGenerator" allow-connection="false" target-catalog="blog"> </ddl-generator>
  <liquibase-settings useSeparateChangeSets="false" generateId="false" idStart="1"/>
  <create-kettle-job-settings filePath="" jobName="" schemaName="" kettleJoinType="0" savingToFile="true" />
  <play-pen zoom="1.6817928305074286" viewportX="0" viewportY="0" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">

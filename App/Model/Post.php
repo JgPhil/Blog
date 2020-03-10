@@ -13,14 +13,14 @@ class Post
               $chapo,
               $last_update;
 
-    public function __construct(array $donnees)
+    public function __construct(array $data)
     {
-        $this->hydrate($donnees);
+        $this->hydrate($data);
     }
 
-    public function hydrate(array $donnees)
+    public function hydrate(array $data)
     {
-        foreach ($donnees as $key => $value) {
+        foreach ($data as $key => $value) {
             $method = 'set' . ucfirst($key);
             
             if (method_exists($this, $method)) {
