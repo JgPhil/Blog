@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Model;
+namespace App\Model\Manager;
 
 class Db
 {
-public static function dbConnect() {
+public function dbConnect() {
 try{
 $db = new PDO('mysql:host=localhost;dbname=blog','root','', [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
