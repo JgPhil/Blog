@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\Manager;
+namespace App\Manager;
 use App\Model\Post;
 
 class PostManager extends Db

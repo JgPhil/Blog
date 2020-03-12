@@ -1,8 +1,9 @@
 <?php
+namespace App\Controller;
 require '../elements/header.php';
 
 if (!empty($_SERVER['REQUEST_URI'])) {
-    require '../templates/post.php';
+    require 'Templates/post.php';
 } else {
     echo '404';
 }

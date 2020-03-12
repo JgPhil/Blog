@@ -7,10 +7,10 @@ $uri = $_SERVER['REQUEST_URI'];
 
 switch ($uri) {
     case '/': 
-        require '../App/Model/Controller/homeController.php';
+        require '../App/Controller/homeController.php';
     break;
     case '/post':
-        require '../App/Model/Controller/postController.php';
+        require '../App/Controller/postController.php';
     break;
     case '/contact':
         require '../templates/contact.php';

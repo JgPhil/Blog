@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\Manager;
+namespace App\Manager;
 
 class Db
 {
