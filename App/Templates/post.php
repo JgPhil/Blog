@@ -5,7 +5,7 @@ use App\Manager\PostManager;
 
 
 $p = new PostManager;
-$result= $p->getPost(1);
+$result= $p->getPost(2);
 var_dump($result);
 ?>
 
