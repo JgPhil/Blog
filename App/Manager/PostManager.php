@@ -15,7 +15,7 @@ private $db;
 		$req->execute();
 
 		//$req->setFetchMode(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE, 'App\Model\Post');
-		$post = $req->fetch();
+		$post = $req->fetch(\PDO::FETCH_ASSOC);
 		return $post;
     }
 
