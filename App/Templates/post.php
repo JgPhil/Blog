@@ -5,7 +5,7 @@ use App\Model\Post;
 
 
 $p = new PostManager;
-$result= $p->getPost(1);
+$result= $p->getPost(2);
 
 
 ?>
