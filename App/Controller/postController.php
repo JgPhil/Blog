@@ -1,11 +1,36 @@
 <?php
 namespace App\Controller;
-require '../elements/header.php';
 
-if (!empty($_SERVER['REQUEST_URI'])) {
-    require '../App/Templates/post.php';
-} else {
-    echo '404';
+use App\Manager\PostManager;
+use App\Manager\UserManager;
+use App\Model\Post;
+use App\Manager\CommentManager;
+
+$p = new PostManager;
+$result = $p->getPost(1);
+
+$r = new UserManager;
+$author = $r->getAuthor($result['user_id']);
+
+$c = new CommentManager;
+$comments = $c->getComments();
+
+
+class PostController
+{
+    public function render() {
+
+        $p = new PostManager;
+        $result = $p->getPost(1);
+
+        $r = new UserManager;
+        $author = $r->getAuthor($result['user_id']);
+
+        $c = new CommentManager;
+        $comments = $c->getComments();
+        
+        require '../App/Templates/post.php';
+}
 }
 
-require '../elements/footer.php';
+   

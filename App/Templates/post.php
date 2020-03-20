@@ -1,12 +1,12 @@
 <?php
-namespace App\Templates;
+
 use App\Manager\PostManager;
 use App\Manager\UserManager;
 use App\Model\Post;
 use App\Manager\CommentManager;
 
 $p = new PostManager;
-$result = $p->getPost(2);
+$result = $p->getPost(1);
 
 $r = new UserManager;
 $author = $r->getAuthor($result['user_id']);

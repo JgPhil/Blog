@@ -1,10 +1,11 @@
 <?php
-require '../elements/header.php';
 
-if (!empty($_SERVER['REQUEST_URI'])) {
-    require '../App/Templates/home.php';
-} else {
-    echo '404';
+namespace App\Controller;
+
+class HomeController
+{
+    
+    public function render() {
+        require '../App/Templates/home.php';
 }
-
-require '../elements/footer.php';
+}
