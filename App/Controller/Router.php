@@ -10,13 +10,15 @@ class Router
 {
     public function route() {
 
-        var_dump($_SERVER);
+        $uri = $_SERVER['REQUEST_URI'];
 
-        if ($_SERVER['REQUEST_URI'] == '/') {
+        var_dump($uri);
+
+        if ($uri == '/') {
             $page = new HomeController;
             $page->render();
         }
-        elseif ($_SERVER['REQUEST_URI'] == '/post') {
+        elseif ($uri == '/post') {
             $page = new PostController;
             $page->render();           
         }
