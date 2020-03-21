@@ -25,6 +25,7 @@ class PostController
 
         $r = new UserManager;
         $author = $r->getAuthor($result['user_id']);
+        
 
         $c = new CommentManager;
         $comments = $c->getComments();

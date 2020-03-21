@@ -12,7 +12,6 @@ class Router
 
         $uri = $_SERVER['REQUEST_URI'];
 
-        var_dump($uri);
 
         if ($uri == '/') {
             $page = new HomeController;

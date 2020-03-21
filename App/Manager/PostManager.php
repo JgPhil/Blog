@@ -16,7 +16,9 @@ private $db;
 
 		$post = $req->fetch(\PDO::FETCH_ASSOC);
 		return $post;
-    }
+	}
+	
+	
 
 
 
