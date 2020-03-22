@@ -1,5 +1,6 @@
 
-<?php require '../elements/header.php';?>
+<?php  require '../elements/header.php';?>
+
 <div class="container">
 
     <h1><?= $result['title'] ?></h1><br>

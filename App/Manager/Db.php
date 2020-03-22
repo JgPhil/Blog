@@ -11,7 +11,7 @@ $db = new \PDO('mysql:host=localhost;dbname=blog','root','', [
 }
 catch(PDOException $e)
 {
-echo $e ;
+    echo $e ;
 }
 return $db;
 }
