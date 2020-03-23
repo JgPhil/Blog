@@ -1,7 +1,7 @@
 <?php 
 
 namespace App\Manager;
-
+use App\Model\User;
 
 class UserManager extends Db
 {
@@ -12,8 +12,9 @@ class UserManager extends Db
         $req = $db->prepare('SELECT * From user WHERE user_id = :user_id ');
         $req->bindValue(':user_id', $user_id);
         $req->execute();
-        $user = $req->fetch(\PDO::FETCH_ASSOC);
-
-        return $user;
+        $u = $req->fetch(\PDO::FETCH_ASSOC);
+        
+        $user = new User($u);
+        return $user->username();
     }
 }

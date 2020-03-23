@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Manager;
-
+use App\Model\Post;
 
 class PostManager extends Db
 {
@@ -14,7 +14,10 @@ private $db;
 		$req->bindValue(':post_id', $post_id);
 		$req->execute();
 
-		$post = $req->fetch(\PDO::FETCH_ASSOC);
+		$p = $req->fetch(\PDO::FETCH_ASSOC);
+		
+		$post = new Post($p);
+		var_dump($post);
 		return $post;
 	}
 	

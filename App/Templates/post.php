@@ -5,7 +5,7 @@
 
     <h1><?= $result['title'] ?></h1><br>
     <h3><?= $result['heading'] ?></h3><br>
-        <h4><em><b><?= $author['username']?></b>, le <b><?= $result['creation_date']?>.</b></em><h4><br>
+        <h4><em><b><?= $author->username()?></b>, le <b><?= $result['creation_date']?>.</b></em><h4><br>
         <p><?= $result['content'] ?> </p><br>
 
         

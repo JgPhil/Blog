@@ -11,12 +11,12 @@ class User
 
     //ATTRIBUTES CLASS
 
-    protected $us_id,
+    protected $user_id,
               $username,
               $email,
-              $pass,
-              $userType,
-              $dateCreation;
+              $password,
+              $role_id,
+              $creation_date;
 
     public function __construct(array $data)
     {
@@ -37,7 +37,7 @@ class User
 
     //GETTERS
 
-    public function id()
+    public function user_id()
     {
         return $this->id;
     }
@@ -57,23 +57,23 @@ class User
         return $this->password;
     }
 
-     public function  userType()
+     public function  role_id()
     {
-        return $this->userType;
+        return $this->role_id;
     }
 
-    public function  dateCreation()
+    public function  creation_date()
     {
-        return $this->dateCreation;
+        return $this->creation_date;
     }
 
 
     //SETTERS
 
-    public function setId($id)
+    public function setUser_id($user_id)
     {
-        if (is_int($this->id)){
-            $this->id = $id;
+        if (is_int($this->user_id)){
+            $this->user_id = $user_id;
         }
     }
 
@@ -88,26 +88,26 @@ class User
     public function setEmail($email)
     {
         if (is_string($email) && strlen($email) <= 30) {
-            $this->_email = $email;
+            $this->email = $email;
         }
     }
 
     public function setPassword($password)
     {
         if (is_string($password) && strlen($password) <= 100) {
-            $this->_password = $password;
+            $this->password = $password;
         }
     }
     
 
-    public function setUserType($userType)
+    public function setRole($role)
     {
-        $this->userType = $userType;
+        $this->role = $role;
     }
 
-    public function setDateCreation($dateCreation)
+    public function setCreationDate($creation_date)
     {
-        $this->dateCreation = $dateCreation;
+        $this->creation_date = $creation_date;
     }
 
 }
