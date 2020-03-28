@@ -2,14 +2,13 @@
 
 namespace App\Controller;
 
-use App\Templates\View;
+use App\Framework\Controller;
 
-class HomeController
+class HomeController extends Controller
 {
     
-    public function render() {
-        $home = new View;
-        return $home->view();
-      
+    public function index() {
+        
+        $this->generateView(array());    
 }
 }
