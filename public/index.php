@@ -1,16 +1,7 @@
-<?php  
+<?php
 
-// routeur/Contrôleur frontal : instancie un routeur pour traiter la requête entrante
-// Utilisation de l'autoloader de composer
+require '../config/dev.php';
+require '../vendor/autoload.php';
 
-require_once '../vendor/autoload.php';
-
-use App\Framework\Router;
-
-
-    $router = new Router;
-    $router->route();
-
-
-
-
+$router = new \App\config\Router();
+$router->run();
