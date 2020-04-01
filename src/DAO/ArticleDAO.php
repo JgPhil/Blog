@@ -47,9 +47,9 @@ class ArticleDAO extends DAO
       
         $sql = 'INSERT INTO article (title, content, heading, author, createdAt) VALUES (?, ?, ?, ?, NOW())';
         $this->createQuery($sql,[ 
-        $post->getParameter('title'),
-        $post->getParameter('heading'), 
+        $post->getParameter('title'), 
         $post->getParameter('content'),
+        $post->getParameter('heading'), 
         $post->getParameter('author')
         ]);
 

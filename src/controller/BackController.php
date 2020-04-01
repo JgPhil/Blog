@@ -10,10 +10,11 @@ class BackController extends Controller
     {
         if($post->getParameter('submit')) {
             $this->articleDAO->addArticle($post);
+            $this->session->set('add_article', 'Le nouvel article a bien été ajouté');
             header('Location: ../public/index.php');
         }
         return $this->view->render('add_article', [
             'post' => $post
         ]);
-    }
+    } 
 }
