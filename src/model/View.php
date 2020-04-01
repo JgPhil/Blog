@@ -15,11 +15,12 @@ class View
             'title' => $this->title,
             'content' => $content
         ]);
-        echo $view;
+        echo $view;    
     }
 
     private function renderFile($file, $data)
     {
+        
         if(file_exists($file)){
             extract($data);
             ob_start();

@@ -2,6 +2,7 @@
 
 namespace App\src\DAO;
 
+use App\config\Parameter;
 use App\src\model\Article;
 
 class ArticleDAO extends DAO
@@ -38,5 +39,19 @@ class ArticleDAO extends DAO
         $article = $result->fetch();
         $result->closeCursor();
         return $this->buildObject($article);
+    }
+
+    public function addArticle(Parameter $post)
+    {
+    
+      
+        $sql = 'INSERT INTO article (title, content, heading, author, createdAt) VALUES (?, ?, ?, ?, NOW())';
+        $this->createQuery($sql,[ 
+        $post->getParameter('title'),
+        $post->getParameter('heading'), 
+        $post->getParameter('content'),
+        $post->getParameter('author')
+        ]);
+
     }
 }
