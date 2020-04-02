@@ -54,4 +54,16 @@ class ArticleDAO extends DAO
         ]);
 
     }
+
+    public function editArticle(Parameter $post, $articleId)
+    {
+        $sql = 'UPDATE article SET title=:title, heading=:heading, content=:content, author=:author WHERE id=:articleId';
+        $this->createQuery($sql, [
+            'title' => $post->getParameter('title'),
+            'heading' => $post->getParameter('heading'),
+            'content' => $post->getParameter('content'),
+            'author' => $post->getParameter('author'),
+            'articleId' => $articleId
+        ]);
+    }
 }
