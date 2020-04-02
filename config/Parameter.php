@@ -18,10 +18,15 @@ class Parameter
             return $this->parameter[$name];
         }
     }
-    
+
     public function setParameter($name, $value)
     {
         $this->parameter[$name] = $value;
+    }
+    
+    public function allParameters()
+    {
+        return $this->parameter;
     }
 
 }
