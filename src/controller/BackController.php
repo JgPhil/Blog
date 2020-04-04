@@ -2,50 +2,50 @@
 
 namespace App\src\controller;
 
-use App\config\Parameter;
+use App\config\Method;
 
 class BackController extends Controller
 {
-    public function addArticle(Parameter $post)
+    public function addPost(Method $postMethod)
     {
-        if($post->getParameter('submit')) {
-            $errors = $this->validation->validate($post, 'Article');
+        if($postMethod->getParameter('submit')) {
+            $errors = $this->validation->validate($postMethod, 'Article');
             if(!$errors) {
-                $this->articleDAO->addArticle($post);
-                $this->session->set('add_article', 'Le nouvel article a bien été ajouté');
+                $this->postDAO->addPost($postMethod);
+                $this->session->set('add_post', 'Le nouvel article a bien été ajouté');
                 header('Location: ../public/index.php');
             }
-            return $this->view->render('add_article', [
-                'post' => $post,
+            return $this->view->render('add_post', [
+                'postMethod' => $postMethod,
                 'errors' => $errors
             ]);
         }
-        return $this->view->render('add_article');
+        return $this->view->render('add_post');
     }
     
     
-    public function editArticle(Parameter $post, $articleId)
+    public function editPost(Method $postMethod, $postId)
     {
-        $article = $this->articleDAO->getArticle($articleId);
-        if($post->getParameter('submit')) {
-            $errors = $this->validation->validate($post, 'Article');
+        $post = $this->postDAO->getPost($postId);
+        if($postMethod->getParameter('submit')) {
+            $errors = $this->validation->validate($postMethod, 'Post');
             if (!$errors){
-                $this->articleDAO->editArticle($post, $articleId);
-                $this->session->set('edit_article', 'L\' article a bien été modifié');
+                $this->postDAO->editPost($postMethod, $postId);
+                $this->session->set('edit_post', 'L\' article a bien été modifié');
                 header('Location: ../public/index.php');
             }
-            return $this->view->render('edit_article', [
-                'post' => $post,
+            return $this->view->render('edit_post', [
+                'postMethod' => $postMethod,
                 'errors' => $errors
             ]);
         } 
-        $post->setParameter('id', $article->getId());
-        $post->setParameter('title', $article->getTitle());
-        $post->setParameter('heading', $article->getHeading());
-        $post->setParameter('content', $article->getContent());
-        $post->setParameter('author', $article->getAuthor());
-        return $this->view->render('edit_article' , [              // préremplissage du formulaire
-            'post' => $post                                 
+        $postMethod->setParameter('id', $post->getId());
+        $postMethod->setParameter('title', $post->getTitle());
+        $postMethod->setParameter('heading', $post->getHeading());
+        $postMethod->setParameter('content', $post->getContent());
+        $postMethod->setParameter('author', $post->getAuthor());
+        return $this->view->render('edit_post' , [              // préremplissage du formulaire
+            'postMethod' => $postMethod                                 
         ]);
     }
 }

@@ -24,19 +24,19 @@ class Router
     public function run()
     {
         $route = $this->request->getGet()->getParameter('route');
-        $postId = $this->request->getGet()->getParameter('articleId');
+        $postId = $this->request->getGet()->getParameter('postId');
         
         try{
             if(isset($route))
             {
-                if($route === 'article' && (!empty($postId))){
-                    $this->frontController->article($postId);
+                if($route === 'post' && (!empty($postId))){
+                    $this->frontController->post($postId);
                 }
-                elseif ($route === 'addArticle'){
-                    $this->backController->addArticle($this->request->getPost());
+                elseif ($route === 'addPost'){
+                    $this->backController->addPost($this->request->getPost());
                 }
-                elseif ($route === 'editArticle'){
-                    $this->backController->editArticle($this->request->getPost(), $postId);
+                elseif ($route === 'editPost'){
+                    $this->backController->editPost($this->request->getPost(), $postId);
                 }
                 else{
                     $this->errorController->errorNotFound();

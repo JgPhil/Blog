@@ -2,4 +2,4 @@
 <h1>Mon blog</h1>
 <p>Modifier l'article</p>
 
- <?php include('form_article.php');?>
+ <?php include('form_post.php');?>

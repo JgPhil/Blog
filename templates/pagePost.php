@@ -4,16 +4,16 @@
 <p>En construction</p>
 <div class="card">
     <div class="card-body">
-        <h2 class="card-title"><?= htmlspecialchars($article->getTitle());?></h2>
-        <h3><?= htmlspecialchars($article->getHeading());?></h3>
-        <p><?= htmlspecialchars($article->getContent());?></p>
-        <p><?= htmlspecialchars($article->getAuthor());?></p>
-        <p>Créé le : <?= htmlspecialchars($article->getCreatedAt());?></p>
+        <h2 class="card-title"><?= htmlspecialchars($post->getTitle());?></h2>
+        <h3><?= htmlspecialchars($post->getHeading());?></h3>
+        <p><?= htmlspecialchars($post->getContent());?></p>
+        <p><?= htmlspecialchars($post->getAuthor());?></p>
+        <p>Créé le : <?= htmlspecialchars($post->getCreatedAt());?></p>
     </div>
 </div>
 <br>
 <div class="actions">
-    <a href="../public/index.php?route=editArticle&articleId=<?= $article->getId(); ?>">Modifier</a>
+    <a href="../public/index.php?route=editPost&postId=<?= $post->getId(); ?>">Modifier</a>
 </div>
 <a href="../public/index.php">Retour à l'accueil</a>
 <div id="comments" class="text-left" style="margin-left: 50px">

@@ -1,9 +1,9 @@
 <?php
 
 namespace App\src\constraint;
-use App\config\Parameter;
+use App\config\Method;
 
-class ArticleValidation extends Validation
+class PostValidation extends Validation
 {
     private $errors = [];
     private $constraint;
@@ -13,9 +13,9 @@ class ArticleValidation extends Validation
         $this->constraint = new Constraint();
     }
 
-    public function check(Parameter $post)
+    public function check(Method $postMethod)
     {
-        foreach ($post->allParameters() as $key => $value) {
+        foreach ($postMethod->allParameters() as $key => $value) {
             $this->checkField($key, $value);
         }
         return $this->errors;

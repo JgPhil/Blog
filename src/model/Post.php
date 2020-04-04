@@ -2,7 +2,7 @@
 
 namespace App\src\model;
 
-class Article
+class Post
 {
     private $id;
     private $title;

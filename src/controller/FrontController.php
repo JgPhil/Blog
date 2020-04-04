@@ -7,18 +7,18 @@ class FrontController extends Controller
 {
     public function home()
     {
-        $articles = $this->articleDAO->getArticles();
+        $posts = $this->postDAO->getPosts();
         return $this->view->render('home', [
-            'articles' => $articles
+            'posts' => $posts
         ]);
     }
 
-    public function article($articleId)
+    public function post($postId)
     {
-        $article = $this->articleDAO->getArticle($articleId);
-        $comments = $this->commentDAO->getCommentsFromArticle($articleId);
-        return $this->view->render('pageArticle', [
-            'article' => $article,
+        $post = $this->postDAO->getPost($postId);
+        $comments = $this->commentDAO->getCommentsFromPost($postId);
+        return $this->view->render('pagePost', [
+            'post' => $post,
             'comments' => $comments
         ]);
     }
