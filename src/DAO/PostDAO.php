@@ -7,7 +7,7 @@ use App\src\model\Post;
 
 class PostDAO extends DAO
 {
-    private function buildObject($row)
+    private function buildObject($row) //passage en  objet (utilisée dans la methode getPosts())
     {
         $post = new Post();
         $post->setId($row['id']);
@@ -23,13 +23,13 @@ class PostDAO extends DAO
     {
         $sql = 'SELECT id, title, content, heading, author, createdAt FROM post ORDER BY id DESC';
         $result = $this->createQuery($sql);
-        $posts = [];
+        $posts = []; // array
         foreach ($result as $row){
             $postId = $row['id'];
-            $posts[$postId] = $this->buildObject($row);
+            $posts[$postId] = $this->buildObject($row); //conversion par la method buildObject
         }
         $result->closeCursor();
-        return $posts;
+        return $posts; //objet
     }
 
     public function getPost($postId)
