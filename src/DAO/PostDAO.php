@@ -7,7 +7,7 @@ use App\src\model\Post;
 
 class PostDAO extends DAO
 {
-    private function buildObject($row) //passage en  objet (utilisée dans la methode getPosts())
+    private function buildObject($row) //passage en  objet (utilisée dans les methodes getPost() et getPosts())
     {
         $post = new Post();
         $post->setId($row['id']);
@@ -36,9 +36,9 @@ class PostDAO extends DAO
     {
         $sql = 'SELECT id, title, content, heading, author, createdAt FROM post WHERE id = ?';
         $result = $this->createQuery($sql, [$postId]);
-        $post = $result->fetch();
+        $post = $result->fetch(); //array
         $result->closeCursor();
-        return $this->buildObject($post);
+        return $this->buildObject($post); //objet
     }
 
     public function addPost(Method $postMethod)
@@ -65,5 +65,14 @@ class PostDAO extends DAO
             'author' => $postMethod->getParameter('author'),
             'postId' => $postMethod
         ]);
+    }
+
+    public function deletePost($postId)
+    {
+        $sql = 'DELETE FROM post WHERE id = ?';
+        $this->createQuery($sql,[$postId]);
+        $sql = 'DELETE FROM comment  WHERE post_id = ?';
+        $this->createQuery($sql,[$postId]);
+
     }
 }

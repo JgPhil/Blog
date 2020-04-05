@@ -3,6 +3,7 @@
 namespace App\src\DAO;
 
 use App\src\model\Comment;
+use App\config\Method;
 
 class CommentDAO extends DAO
 {
@@ -27,5 +28,11 @@ class CommentDAO extends DAO
         }
         $result->closeCursor();
         return $comments;
+    }
+
+    public function addComment(Method $postMethod, $postId)
+    {
+        $sql = 'INSERT INTO comment(pseudo, content, createdAt, post_id) VALUES(?,?,NOW(),?)';
+        $this->createQuery($sql, [$postMethod->getParameter('pseudo'), $postMethod->getParameter('content'), $postId]);
     }
 }
