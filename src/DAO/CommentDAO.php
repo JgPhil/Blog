@@ -35,4 +35,10 @@ class CommentDAO extends DAO
         $sql = 'INSERT INTO comment(pseudo, content, createdAt, post_id) VALUES(?,?,NOW(),?)';
         $this->createQuery($sql, [$postMethod->getParameter('pseudo'), $postMethod->getParameter('content'), $postId]);
     }
+
+    public function deleteComment($commentId)
+    {
+        $sql = 'DELETE FROM comment WHERE id = ?';
+        $this->createQuery($sql, [$commentId]);
+    }
 }

@@ -63,7 +63,7 @@ class PostDAO extends DAO
             'heading' => $postMethod->getParameter('heading'),
             'content' => $postMethod->getParameter('content'),
             'author' => $postMethod->getParameter('author'),
-            'postId' => $postMethod
+            'postId' => $postID
         ]);
     }
 
