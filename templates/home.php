@@ -8,10 +8,25 @@ $this->title = "Accueil"; ?>
     <?= $this->session->show('delete_post'); ?>
     <?= $this->session->show('add_comment');?>
     <?= $this->session->show('delete_comment'); ?>
-   
-    <a href="../public/index.php?route=addPost">Ajouter un article</a>  
-    
-    
+    <?= $this->session->show('register'); ?>
+    <?= $this->session->show('login'); ?>
+    <?= $this->session->show('logout'); ?>
+
+<?php
+    if ($this->session->get('pseudo')) {
+        ?>
+        <a href="../public/index.php?route=logout">Déconnexion</a>
+        <a href="../public/index.php?route=profile">Profil</a>
+        <a href="../public/index.php?route=addArticle">Nouvel article</a>
+    <?php
+    } else{
+        ?>
+        <a href="../public/index.php?route=register">Inscription</a>
+        <a href="../public/index.php?route=login">Connexion</a> 
+        <?php
+    }
+    ?>    
+
     <div class="row"> 
 
     <?php foreach($posts as $post)

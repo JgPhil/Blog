@@ -43,4 +43,45 @@ class FrontController extends Controller
             ]);
         }
     }
+
+    public function register(Method $postMethod)
+    {
+        if($postMethod->getParameter('submit')){
+            $errors = $this->validation->validate($postMethod, 'User');
+            if($this->userDAO->checkUser($postMethod)){
+                $errors['pseudo'] = $this->userDAO->checkUser($postMethod);
+            }
+            if (!$errors){
+                $this->userDAO->register($postMethod);
+                $this->session->set('register', 'votre inscription a bien été éffectuée');
+                header('Location: ../public/index.php');
+            }
+          
+        return $this->view->render('register',[
+            'postMethod' => $postMethod,
+            'errors' => $errors
+        ]);    
+        }
+        return $this->view->render('register');
+    }
+
+    public function login(Method $postMethod)
+    {
+        if ($postMethod->getParameter('submit')){
+            $result = $this->userDAO->login($postMethod);
+            if ($result && $result['isPasswordValid']) {
+                $this->session->set('login','Content de vous revoir');
+                $this->session->set('id',$result['result']['id']);
+                $this->session->set('pseudo',$postMethod->getParameter('pseudo'));
+                header('Location: ../public/index.php');
+            }
+            else {
+                $this->session->set('error_login', 'Vos identifiants sont incorrects');
+                return $this->view->render('login',[
+                    'postMethod' => $postMethod
+                ]);
+            }
+        }
+        return $this->view->render('login');
+    }
 }

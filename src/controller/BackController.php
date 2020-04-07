@@ -9,7 +9,7 @@ class BackController extends Controller
     public function addPost(Method $postMethod)
     {
         if($postMethod->getParameter('submit')) {
-            $errors = $this->validation->validate($postMethod, 'Article');
+            $errors = $this->validation->validate($postMethod, 'Post');
             if(!$errors) {
                 $this->postDAO->addPost($postMethod);
                 $this->session->set('add_post', 'Le nouvel article a bien été ajouté');
@@ -60,6 +60,29 @@ class BackController extends Controller
     {
         $this->commentDAO->deleteComment($commentId);
         $this->session->set('delete_comment', 'Le commentaire a bien été supprimé');
+        header('Location: ../public/index.php');
+    }
+
+    public function profile()
+    {
+        return $this->view->render('profile');
+    }
+
+    public function updatePassword(Method $postMethod)
+    {
+        if($postMethod->getParameter('submit')) {
+            $this->userDAO->updatePassword($postMethod, $this->session->get('pseudo'));
+            $this->session->set('update_password', 'Le mot de passe a été mis à jour');
+            header('Location: ../public/index.php?route=profile');
+        }
+        return $this->view->render('update_password');
+    }
+
+    public function logout()
+    {
+        $this->session->stop();
+        $this->session->start();
+        $this->session->set('logout', 'A bientôt');
         header('Location: ../public/index.php');
     }
 }

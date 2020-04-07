@@ -33,6 +33,7 @@ class PostValidation extends Validation
         }
         elseif ($name === 'heading') {
             $error = $this->checkHeading($name, $value);
+            $this->addError($name, $error);
         }
         elseif($name === 'author') {
             $error = $this->checkAuthor($name, $value);
