@@ -14,14 +14,15 @@ class PostDAO extends DAO
         $post->setTitle($row['title']);
         $post->setHeading($row['heading']);
         $post->setContent($row['content']);
-        $post->setAuthor($row['author']);
+        $post->setAuthor($row['pseudo']);
         $post->setCreatedAt($row['createdAt']);
         return $post;
     }
 
     public function getPosts()
     {
-        $sql = 'SELECT id, title, content, heading, author, createdAt FROM post ORDER BY id DESC';
+        $sql = 'SELECT post.id, post.title, post.content, post.heading, user.pseudo, post.createdAt FROM post 
+        INNER JOIN user ON post.user_id=user.id ORDER BY post.id DESC';
         $result = $this->createQuery($sql);
         $posts = []; // array
         foreach ($result as $row){
@@ -29,50 +30,48 @@ class PostDAO extends DAO
             $posts[$postId] = $this->buildObject($row); //conversion par la method buildObject
         }
         $result->closeCursor();
-        return $posts; //objet
+        return $posts; //object
     }
 
     public function getPost($postId)
     {
-        $sql = 'SELECT id, title, content, heading, author, createdAt FROM post WHERE id = ?';
+        $sql = 'SELECT post.id, post.title, post.content, post.heading, user.pseudo, post.createdAt FROM post
+        INNER JOIN user ON post.user_id=user.id WHERE post.id = ?';
         $result = $this->createQuery($sql, [$postId]);
         $post = $result->fetch(); //array
         $result->closeCursor();
-        return $this->buildObject($post); //objet
+        return $this->buildObject($post); //object
     }
 
-    public function addPost(Method $postMethod)
-    {
-    
-      
-        $sql = 'INSERT INTO post (title, content, heading, author, createdAt) VALUES (?, ?, ?, ?, NOW())';
+    public function addPost(Method $postMethod, $userId)
+    { 
+        $sql = 'INSERT INTO post (title, content, heading, user_id, createdAt) VALUES (?, ?, ?, ?, NOW())';
         $this->createQuery($sql,[ 
         $postMethod->getParameter('title'), 
         $postMethod->getParameter('content'),
         $postMethod->getParameter('heading'), 
-        $postMethod->getParameter('author')
+        $userId
         ]);
 
     }
 
-    public function editPost(Method $postMethod, $postId)
+    public function editPost(Method $postMethod, $postId, $userId)
     {
-        $sql = 'UPDATE post SET title=:title, heading=:heading, content=:content, author=:author WHERE id=:postId';
+        $sql = 'UPDATE post SET title=:title, heading=:heading, content=:content, user_id=:user_id WHERE id=:postId';
         $this->createQuery($sql, [
             'title' => $postMethod->getParameter('title'),
             'heading' => $postMethod->getParameter('heading'),
             'content' => $postMethod->getParameter('content'),
-            'author' => $postMethod->getParameter('author'),
-            'postId' => $postID
+            'user_id' => $userId,
+            'postId' => $postId
         ]);
     }
 
     public function deletePost($postId)
     {
-        $sql = 'DELETE FROM post WHERE id = ?';
-        $this->createQuery($sql,[$postId]);
         $sql = 'DELETE FROM comment  WHERE post_id = ?';
         $this->createQuery($sql,[$postId]);
-
+        $sql = 'DELETE FROM post WHERE id = ?';
+        $this->createQuery($sql,[$postId]);
     }
 }

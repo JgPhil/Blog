@@ -35,10 +35,6 @@ class PostValidation extends Validation
             $error = $this->checkHeading($name, $value);
             $this->addError($name, $error);
         }
-        elseif($name === 'author') {
-            $error = $this->checkAuthor($name, $value);
-            $this->addError($name, $error);
-        }
     }
 
     private function addError($name, $error) {
@@ -82,21 +78,6 @@ class PostValidation extends Validation
         }
         if($this->constraint->tooLong($name, $value, 255)) {
             return $this->constraint->tooLong('châpo', $value, 255);
-        }
-    }
-
-
-
-    private function checkAuthor($name, $value)
-    {
-        if($this->constraint->blank($name, $value)) {
-            return $this->constraint->blank('auteur', $value);
-        }
-        if($this->constraint->tooShort($name, $value, 2)) {
-            return $this->constraint->tooShort('auteur', $value, 2);
-        }
-        if($this->constraint->tooLong($name, $value, 255)) {
-            return $this->constraint->tooLong('auteur', $value, 255);
         }
     }
 }

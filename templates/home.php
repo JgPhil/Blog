@@ -3,22 +3,24 @@ use App\src\helpers\Text;
 
 $this->title = "Accueil"; ?>
     <h1>Mon blog</h1>
-    <?= $this->session->show('edit_post'); ?>
-    <?= $this->session->show('add_post'); ?>
-    <?= $this->session->show('delete_post'); ?>
+
     <?= $this->session->show('add_comment');?>
     <?= $this->session->show('delete_comment'); ?>
     <?= $this->session->show('register'); ?>
     <?= $this->session->show('login'); ?>
     <?= $this->session->show('logout'); ?>
+    <?= $this->session->show('delete_account'); ?>
 
 <?php
     if ($this->session->get('pseudo')) {
         ?>
         <a href="../public/index.php?route=logout">Déconnexion</a>
         <a href="../public/index.php?route=profile">Profil</a>
-        <a href="../public/index.php?route=addArticle">Nouvel article</a>
-    <?php
+        <?php 
+        if($this->session->get('role') === 'admin') {?>
+        <a href="../public/index.php?route=administration">Administration</a>
+        <?php 
+        } 
     } else{
         ?>
         <a href="../public/index.php?route=register">Inscription</a>
