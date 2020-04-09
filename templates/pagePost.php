@@ -12,10 +12,7 @@
     </div>
 </div>
 <br>
-<div class="actions">
-    <a href="../public/index.php?route=editPost&postId=<?= $post->getId(); ?>">Modifier</a>
-    <a href="../public/index.php?route=deletePost&postId=<?= $post->getId(); ?>">Supprimer</a>
-</div>
+
 <a href="../public/index.php">Retour à l'accueil</a>
 <div id="comments" class="text-left" style="margin-left: 50px">
 <h3>Ajouter un commentaire</h3>

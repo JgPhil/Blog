@@ -22,59 +22,11 @@ class Router
     }
 
     public function run()
-    {
-        $route = $this->request->getGet()->getParameter('route');
-        $postId = $this->request->getGet()->getParameter('postId');
-        
+    {   
+        require_once ('routes.php');
         try{
-            if(isset($route))
-            {
-                if($route === 'post' && (!empty($postId))){
-                    $this->frontController->post($postId);
-                }
-                elseif ($route === 'addPost'){
-                    $this->backController->addPost($this->request->getPost());
-                }
-                elseif ($route === 'editPost'){
-                    $this->backController->editPost($this->request->getPost(), $postId);
-                }
-                elseif ($route === 'deletePost'){
-                    $this->backController->deletePost($postId);
-                }
-                elseif($route === 'addComment'){
-                    $this->frontController->addComment($this->request->getPost(), $this->request->getGet()->getParameter('postId'));
-                } 
-                elseif($route === 'deleteComment'){
-                    $this->backController->deleteComment($this->request->getGet()->getParameter('commentId'));
-                }
-                elseif($route === 'register'){
-                    $this->frontController->register($this->request->getPost());
-                }
-                elseif($route === 'login'){
-                    $this->frontController->login($this->request->getPost());
-                }
-                elseif($route === 'profile'){
-                    $this->backController->profile();
-                }
-                elseif($route === 'updatePassword'){
-                    $this->backController->updatePassword($this->request->getPost());
-                }
-                elseif($route === 'logout'){
-                    $this->backController->logout();
-                }
-                elseif($route === 'deleteAccount'){
-                    $this->backController->deleteAccount();
-                }
-                elseif($route === 'administration'){
-                    $this->backController->administration();
-                }
-                else{
-                    $this->errorController->errorNotFound();
-                }
-            }
-            else{
-                $this->frontController->home();
-            }
+            if(isset($_SERVER['REQUEST_URI']))
+            {   return $action;}
         }
         catch (Exception $e)
         {
