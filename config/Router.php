@@ -25,8 +25,10 @@ class Router
     {   
         require_once ('routes.php');
         try{
-            if(isset($_SERVER['REQUEST_URI']))
-            {   return $action;}
+            if (isset($_SERVER['REQUEST_URI']))
+            {   
+                return $action;
+            }
         }
         catch (Exception $e)
         {

@@ -1,5 +1,5 @@
 <?php 
-use App\src\helpers\Text;
+use App\src\constraint\Text;
 
 $this->title = "Accueil"; ?>
     <h1>Mon blog</h1>

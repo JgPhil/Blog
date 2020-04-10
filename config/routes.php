@@ -2,6 +2,7 @@
 
 $route = $this->request->getGet()->getParameter('route');
 $postId = $this->request->getGet()->getParameter('postId');
+$commentId = $this->request->getGet()->getParameter('commentId');
 
 if (isset($route)){
     switch ($route) {
@@ -18,10 +19,10 @@ if (isset($route)){
         $action = $this->backController->deletePost($postId);
     break;
     case $route === 'addComment':
-        $action = $this->frontController->addComment($this->request->getPost(), $this->request->getGet()->getParameter('postId'));
+        $action = $this->frontController->addComment($this->request->getPost(), $postId);
     break;
     case $route === 'deleteComment':
-        $action = $this->backController->deleteComment($this->request->getGet()->getParameter('commentId'));
+        $action = $this->backController->deleteComment($commentId);
     break;
     case $route === 'register':
         $action = $this->frontController->register($this->request->getPost());

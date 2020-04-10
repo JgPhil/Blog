@@ -1,5 +1,5 @@
 <?php
-namespace App\src\helpers;
+namespace App\src\constraint;
 
 Class Text 
 {
