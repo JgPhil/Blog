@@ -27,8 +27,13 @@
         <h4><?= htmlspecialchars($comment->getPseudo());?></h4>
         <p><?= htmlspecialchars($comment->getContent());?></p>
         <p>Posté le <?= htmlspecialchars($comment->getCreatedAt());?></p>
+        <?php
+        if ($this->session->get('role') === 'admin'){
+            ?>
         <p><a href="../public/index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>">Supprimer le commentaire</a></p>
         <?php
+        }
+        
     }
     ?>
     

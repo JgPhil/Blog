@@ -8,6 +8,7 @@ class Comment
     private $pseudo;
     private $content;
     private $createdAt;
+    private $post_id;
 
     public function getId()
     {
@@ -39,13 +40,26 @@ class Comment
         $this->content = $content;
     }
 
-    public function getCreatedAt()
+     public function getCreatedAt()
     {
-        return $this->createdAt;
+        $createdAt = new \DateTime;
+        return $createdAt->format('d-m-Y à H:i:s');
     }
 
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
     }
+
+    public function getPost_id()
+    {
+        return $this->createdAt;
+    }
+
+    public function setPost_id($post_id)
+    {
+        $this->post_id = $post_id;
+    }
+
+   
 }

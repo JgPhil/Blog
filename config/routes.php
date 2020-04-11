@@ -3,6 +3,7 @@
 $route = $this->request->getGet()->getParameter('route');
 $postId = $this->request->getGet()->getParameter('postId');
 $commentId = $this->request->getGet()->getParameter('commentId');
+$userId =$this->request->getGet()->getParameter('userId');
 
 if (isset($route)){
     switch ($route) {
@@ -45,6 +46,11 @@ if (isset($route)){
     case $route === 'administration':
         $action = $this->backController->administration();
     break;
+    case $route === 'postComments' && (!empty($postId)):
+        $action = $this->backController->postComments($postId);
+    break;
+    case $route === 'deleteUser':
+        $action = $this->backController->deleteUser($userId);
     default: $action = $this->errorController->errorNotFound();
     }
 }

@@ -6,6 +6,7 @@
 <?= $this->session->show('add_post'); ?>
 <?= $this->session->show('edit_post'); ?>
 <?= $this->session->show('delete_post'); ?>
+<?= $this->session->show('delete_user'); ?>
 <h2>Articles</h2>
 <a href="../public/index.php?route=addPost">Nouvel article</a>
 <table class="table">
@@ -16,7 +17,9 @@
         <td>Contenu</td>
         <td>Auteur</td>
         <td>Date</td>
+        <td>Commentaires</td>
         <td>Actions</td>
+        
     </tr>
     <?php
     foreach ($posts as $post)
@@ -29,6 +32,7 @@
             <td><?= substr(htmlspecialchars($post->getContent()), 0, 150);?></td>
             <td><?= htmlspecialchars($post->getAuthor());?></td>
             <td>Créé le : <?= htmlspecialchars($post->getCreatedAt());?></td>
+            <td><a href="../public/index.php?route=postComments&postId=<?= htmlspecialchars($post->getId());?>">Voir les commentaires</a></td>
             <td>
                 <a href="../public/index.php?route=editPost&postId=<?= $post->getId(); ?>">Modifier</a>
                 <a href="../public/index.php?route=deletePost&postId=<?= $post->getId(); ?>">Supprimer</a>

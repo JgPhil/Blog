@@ -110,8 +110,21 @@ class BackController extends Controller
     public function profile()
     {
         if ($this->checkLoggedIn()){
-            return $this->view->render('profile');
+            $pseudo = $this->session->get('pseudo');
+            $comments = $this->commentDAO->getCommentsByPseudo($pseudo);
+            return $this->view->render('profile', [
+                'pseudo' => $pseudo,
+                'comments' => $comments
+            ]);
         }        
+    }
+
+    public function checkProfile($pseudo)
+    {
+        $comments = $this->commentDAO->getCommentsByPseudo($pseudo);
+        return $this->view->render('profilComments', [
+            'comments' => $comments
+        ]);
     }
 
     public function updatePassword(Method $postMethod)
@@ -158,5 +171,13 @@ class BackController extends Controller
             $this->session->set($param, 'Votre compte a bien été supprimé');
         }
         header('Location: ../public/index.php');
+    }
+
+    public function postComments($postId)
+    {
+        $comments = $this->commentDAO->getCommentsFromPost($postId);
+        return $this->view->render('postComments', [
+            'comments' => $comments
+        ]);
     }
 }
