@@ -31,7 +31,7 @@ class FrontController extends Controller
             if(!$errors){
                 $this->commentDAO->addComment($postMethod, $postId);
                 $this->session->set('add_comment', 'Votre commentaire a bien été ajouté');
-                header('Location: ../public/index.php');
+                header('Location: ../public/index.php?route=post&postId='.$postId);
             }
             $post = $this->postDAO->getPost($postId);
             $comments = $this->commentDAO->getValidCommentsFromPost($postId);

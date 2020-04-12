@@ -43,8 +43,7 @@ class Comment
 
      public function getCreatedAt()
     {
-        $createdAt = new \DateTime;
-        return $createdAt->format('d-m-Y à H:i:s');
+        return $this->createdAt;
     }
 
     public function setCreatedAt($createdAt)
@@ -54,7 +53,7 @@ class Comment
 
     public function getPost_id()
     {
-        return $this->createdAt;
+        return $this->post_id;
     }
 
     public function setPost_id($post_id)

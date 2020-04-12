@@ -2,7 +2,6 @@
 <h2>Commentaires de l'article : </h2>
 
 <?php
-var_dump($_SESSION);
         foreach ($comments as $comment) {
             ?>
             <div class="card">
