@@ -7,6 +7,9 @@
 <?= $this->session->show('edit_post'); ?>
 <?= $this->session->show('delete_post'); ?>
 <?= $this->session->show('delete_user'); ?>
+<?= $this->session->show('delete_comment');?>
+<?= $this->session->show('validate_comment'); ?>
+
 <h2>Articles</h2>
 <a href="../public/index.php?route=addPost">Nouvel article</a>
 <table class="table">
@@ -73,6 +76,40 @@
                 <?php
                 }
                 ?>
+            </td>
+        </tr>
+        <?php
+    }
+    ?>
+</table>
+
+<h2>Commentaires</h2>
+<table class="table">
+    <tr>
+        <td>Id</td>
+        <td>Pseudo</td>
+        <td>Message</td>
+        <td>Date</td>
+        <td>Validation</td>
+        <td>Suppression</td>
+    </tr>
+    <?php
+    foreach ($comments as $comment)
+    {
+        ?>
+        <tr>
+            <td><?= htmlspecialchars($comment->getId());?></td>
+            <td><?= htmlspecialchars($comment->getPseudo());?></td>
+            <td><?= substr(htmlspecialchars($comment->getContent()), 0, 150);?></td>
+            <td>Créé le : <?= htmlspecialchars($comment->getCreatedAt());?></td>
+            <td>
+            <?php
+            if ($comment->getValidate() === '0') 
+            { ?>
+                <a href="../public/index.php?route=validateComment&commentId=<?= $comment->getId(); ?>">Valider le commentaire</a></td><br>
+                <?php
+            } ?>   
+            <td><a href="../public/index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>">Supprimer </a>
             </td>
         </tr>
         <?php

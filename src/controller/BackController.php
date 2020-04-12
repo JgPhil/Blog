@@ -32,10 +32,12 @@ class BackController extends Controller
         if($this->checkAdmin()){
             $posts = $this->postDAO->getPosts();
             $users = $this->userDAO->getUsers();
+            $comments = $this->commentDAO->getComments();
 
             return $this->view->render('administration', [
                 'posts' => $posts,
-                'users' => $users
+                'users' => $users,
+                'comments' => $comments
         ]); 
         }
         
@@ -103,7 +105,7 @@ class BackController extends Controller
         if ($this->checkAdmin()){
             $this->commentDAO->deleteComment($commentId);
             $this->session->set('delete_comment', 'Le commentaire a bien été supprimé');
-            header('Location: ../public/index.php');
+            header('Location: ../public/index.php?route=administration');
         }      
     }
 
@@ -185,6 +187,6 @@ class BackController extends Controller
     {
         $this->commentDAO->validateComment($commentId);
         $this->session->set('validate_comment', 'commentaire validé');
-        header('Location: ../public/index.php');
+        header('Location: ../public/index.php?route=administration');
 }
 }

@@ -66,6 +66,10 @@ class Comment
     {
         return $this->validate;
     }
+    public function setValidate($validate)
+    {
+        $this->validate= $validate;
+    }
 
    
 }
