@@ -17,7 +17,7 @@ class FrontController extends Controller
     public function post($postId)
     {
         $post = $this->postDAO->getPost($postId);
-        $comments = $this->commentDAO->getCommentsFromPost($postId);
+        $comments = $this->commentDAO->getValidCommentsFromPost($postId);
         return $this->view->render('pagePost', [
             'post' => $post,
             'comments' => $comments
@@ -34,7 +34,7 @@ class FrontController extends Controller
                 header('Location: ../public/index.php');
             }
             $post = $this->postDAO->getPost($postId);
-            $comments = $this->commentDAO->getCommentsFromPost($postId);
+            $comments = $this->commentDAO->getValidCommentsFromPost($postId);
             return $this->view->render('pagePost', [
                 'post' => $post,
                 'comments' => $comments,

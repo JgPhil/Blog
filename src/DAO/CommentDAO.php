@@ -31,6 +31,20 @@ class CommentDAO extends DAO
         return $comments ;
     }
 
+    public function getValidCommentsFromPost($postId)
+    {
+        $sql = 'SELECT comment.id, comment.pseudo, comment.content, comment.createdAt, post.title FROM comment JOIN post 
+        ON comment.post_id = post.id WHERE post_id = ? AND validate = 1  ORDER BY comment.createdAt DESC';
+        $result = $this->createQuery($sql, [$postId]);
+        $comments = [];
+        foreach ($result as $row) {
+            $commentId = $row['id'];
+            $comments[$commentId] = $this->buildObject($row);
+        }
+        $result->closeCursor();
+        return $comments ;
+    }
+
     public function addComment(Method $postMethod, $postId)
     {
         $sql = 'INSERT INTO comment(pseudo, content, createdAt, post_id) VALUES(?,?,NOW(),?)';
@@ -45,7 +59,7 @@ class CommentDAO extends DAO
 
     public function getCommentsByPseudo($pseudo)
     {
-        $sql = 'SELECT id, pseudo, content, createdAt, post_id FROM comment WHERE pseudo = ?';
+        $sql = 'SELECT id, pseudo, content, createdAt, post_id, validate FROM comment WHERE pseudo = ?';
         $result = $this->createQuery($sql, [$pseudo]);
         $comments = [];
         foreach ($result as $row) {
@@ -57,10 +71,10 @@ class CommentDAO extends DAO
 
     }
 
-    public function validate($commentId)
+    public function validateComment($commentId)
     {
-
         $sql = 'UPDATE comment  SET validate = 1 WHERE id = ?';
-        $this->createQuery($sql, $commentId);
+        $this->createQuery($sql, [$commentId]);
+        
     }
 }

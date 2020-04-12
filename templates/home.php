@@ -10,6 +10,7 @@ $this->title = "Accueil"; ?>
     <?= $this->session->show('login'); ?>
     <?= $this->session->show('logout'); ?>
     <?= $this->session->show('delete_account'); ?>
+    <?= $this->session->show('validate_comment'); ?>
 
 <?php
     if ($this->session->get('pseudo')) {

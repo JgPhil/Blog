@@ -9,6 +9,7 @@ class Comment
     private $content;
     private $createdAt;
     private $post_id;
+    private $validate;
 
     public function getId()
     {
@@ -59,6 +60,11 @@ class Comment
     public function setPost_id($post_id)
     {
         $this->post_id = $post_id;
+    }
+
+    public function getValidate()
+    {
+        return $this->validate;
     }
 
    

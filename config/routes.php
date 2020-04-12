@@ -51,6 +51,10 @@ if (isset($route)){
     break;
     case $route === 'deleteUser':
         $action = $this->backController->deleteUser($userId);
+    break;
+    case $route === 'validateComment':
+        $action = $this->backController->validateComment($commentId);
+    break;
     default: $action = $this->errorController->errorNotFound();
     }
 }

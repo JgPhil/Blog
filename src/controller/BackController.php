@@ -180,4 +180,11 @@ class BackController extends Controller
             'comments' => $comments
         ]);
     }
+
+    public function validateComment($commentId)
+    {
+        $this->commentDAO->validateComment($commentId);
+        $this->session->set('validate_comment', 'commentaire validé');
+        header('Location: ../public/index.php');
+}
 }
