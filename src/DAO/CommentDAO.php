@@ -15,12 +15,13 @@ class CommentDAO extends DAO
         $comment->setContent($row['content']);
         $comment->setCreatedAt($row['createdAt']);
         $comment->setValidate($row['validate']);
+        $comment->setPost_id($row['post_id']);
         return $comment;
     }
 
     public function getComments()
     {
-        $sql = 'SELECT id, pseudo, content, createdAt, validate FROM comment ORDER BY createdAt DESC';
+        $sql = 'SELECT id, pseudo, content, createdAt, validate, post_id FROM comment ORDER BY createdAt DESC';
         $result = $this->createQuery($sql);
         $comments = [];
         foreach ($result as $row){
@@ -33,7 +34,9 @@ class CommentDAO extends DAO
 
     public function getCommentsFromPost($postId)
     {
-        $sql = 'SELECT comment.id, comment.pseudo, comment.content, comment.createdAt, comment.validate FROM comment JOIN post 
+        $sql = 'SELECT comment.id AS id, comment.pseudo AS pseudo, comment.content AS content, 
+        DATE_FORMAT(comment.createdAt, "%d/%m/%Y à %H:%i") AS createdAt,
+          comment.validate AS validate, comment.post_id AS post_id FROM comment JOIN post 
         ON comment.post_id = post.id WHERE post_id = ? ORDER BY comment.createdAt DESC';
         $result = $this->createQuery($sql, [$postId]);
         $comments = [];
@@ -47,7 +50,9 @@ class CommentDAO extends DAO
 
     public function getValidCommentsFromPost($postId)
     {
-        $sql = 'SELECT comment.id, comment.pseudo, comment.content, comment.createdAt, comment.validate FROM comment JOIN post 
+        $sql = 'SELECT comment.id AS id, comment.pseudo AS pseudo, comment.content AS content, 
+        DATE_FORMAT(comment.createdAt, "%d/%m/%Y à %H:%i") AS createdAt,
+        comment.validate AS validate, comment.post_id AS post_id  FROM comment JOIN post 
         ON comment.post_id = post.id WHERE post_id = ? AND validate = 1  ORDER BY comment.createdAt DESC';
         $result = $this->createQuery($sql, [$postId]);
         $comments = [];
@@ -73,7 +78,7 @@ class CommentDAO extends DAO
 
     public function getCommentsByPseudo($pseudo)
     {
-        $sql = 'SELECT id, pseudo, content, createdAt, post_id, validate FROM comment WHERE pseudo = ?';
+        $sql = 'SELECT id, pseudo, content, DATE_FORMAT(createdAt, "%d/%m/%Y à %H:%i") AS createdAt, post_id, validate FROM comment WHERE pseudo = ?';
         $result = $this->createQuery($sql, [$pseudo]);
         $comments = [];
         foreach ($result as $row) {

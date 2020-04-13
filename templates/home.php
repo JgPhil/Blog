@@ -3,14 +3,10 @@ use App\src\constraint\Text;
 
 $this->title = "Accueil"; ?>
     <h1>Mon blog</h1>
-
-    <?= $this->session->show('add_comment');?>
-    <?= $this->session->show('delete_comment'); ?>
     <?= $this->session->show('register'); ?>
     <?= $this->session->show('login'); ?>
     <?= $this->session->show('logout'); ?>
     <?= $this->session->show('delete_account'); ?>
-    <?= $this->session->show('validate_comment'); ?>
 
 <?php
     if ($this->session->get('pseudo')) {

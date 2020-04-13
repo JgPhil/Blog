@@ -32,7 +32,7 @@
             <td><?= htmlspecialchars($post->getId());?></td>
             <td><a href="../public/index.php?route=post&postId=<?= htmlspecialchars($post->getId());?>"><?= htmlspecialchars($post->getTitle());?></a></td>
             <td> <?= htmlspecialchars($post->getHeading()); ?></td>
-            <td><?= substr(htmlspecialchars($post->getContent()), 0, 150);?></td>
+            <td><?= substr(htmlspecialchars($post->getContent()), 0, 80);?></td>
             <td><?= htmlspecialchars($post->getAuthor());?></td>
             <td>Créé le : <?= htmlspecialchars($post->getCreatedAt());?></td>
             <td><a href="../public/index.php?route=postComments&postId=<?= htmlspecialchars($post->getId());?>">Voir les commentaires</a></td>
@@ -88,6 +88,7 @@
     <tr>
         <td>Id</td>
         <td>Pseudo</td>
+        <td>Article</td>
         <td>Message</td>
         <td>Date</td>
         <td>Validation</td>
@@ -95,11 +96,15 @@
     </tr>
     <?php
     foreach ($comments as $comment)
-    {
+    { 
+        $p = $posts[$comment->getPost_id()]; // recherche du post concerné par le commentaire. On parcourt le tableau des posts.
+        $title =$p->getTitle();
+        
         ?>
         <tr>
             <td><?= htmlspecialchars($comment->getId());?></td>
             <td><?= htmlspecialchars($comment->getPseudo());?></td>
+            <td><?= htmlspecialchars($title);?></td>
             <td><?= substr(htmlspecialchars($comment->getContent()), 0, 150);?></td>
             <td>Créé le : <?= htmlspecialchars($comment->getCreatedAt());?></td>
             <td>
@@ -108,8 +113,8 @@
             { ?>
                 <a href="../public/index.php?route=validateComment&commentId=<?= $comment->getId(); ?>">Valider le commentaire</a></td><br>
                 <?php
-            } ?>   
-            <td><a href="../public/index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>">Supprimer </a>
+            } else {echo ('Commentaire validé');}?>   
+            <td><a href="../public/index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>">Supprimer le commentaire</a>
             </td>
         </tr>
         <?php

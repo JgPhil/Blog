@@ -9,7 +9,7 @@
             "type": "php",
             "request": "launch",
             "port": 9000,
-            "runtimeExecutable": "C:\\wamp64\\bin\\php\\php7.3.12"
+            "runtimeExecutable": "C:\\wamp64\\bin\\php\\php7.4.0"
         },
         {
             "name": "Launch currently open script",
@@ -18,7 +18,7 @@
             "program": "${file}",
             "cwd": "${fileDirname}",
             "port": 9000,
-            "runtimeExecutable": "C:\\wamp64\\bin\\php\\php7.3.12"
+            "runtimeExecutable": "C:\\wamp64\\bin\\php\\php7.4.0"
         }
     ]
 }
