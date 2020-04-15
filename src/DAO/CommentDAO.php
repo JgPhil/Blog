@@ -7,6 +7,21 @@ use App\config\Method;
 
 class CommentDAO extends DAO
 {
+    public function buildObject($row) // méthode alternative plus générique que celle en-dessous;
+    {
+    $comment = new Comment;
+        foreach ($row as $key => $value)
+        {
+            if (!is_numeric($key))
+            {
+                $method = 'set'.ucfirst($key);
+                $comment->$method($row[$key]);
+            }
+                $comment->getPostObj($row['id']);      
+        }
+        return $comment;
+    }
+    /*
     private function buildObject($row)
     {
         $comment = new Comment();
@@ -18,13 +33,15 @@ class CommentDAO extends DAO
         $comment->setPost_id($row['post_id']);
         return $comment;
     }
+    */
 
     public function getComments()
     {
-        $sql = 'SELECT id, pseudo, content, createdAt, validate, post_id FROM comment ORDER BY createdAt DESC';
+        $sql = 'SELECT id, pseudo, content, DATE_FORMAT(createdAt, "%d/%m/%Y à %H:%i") AS createdAt, validate, post_id FROM comment ORDER BY createdAt DESC';
         $result = $this->createQuery($sql);
         $comments = [];
-        foreach ($result as $row){
+        foreach ($result as $row)
+        {
             $commentId = $row['id'];
             $comments[$commentId] = $this->buildObject($row);
         }
@@ -40,13 +57,16 @@ class CommentDAO extends DAO
         ON comment.post_id = post.id WHERE post_id = ? ORDER BY comment.createdAt DESC';
         $result = $this->createQuery($sql, [$postId]);
         $comments = [];
-        foreach ($result as $row) {
+        foreach ($result as $row) 
+        {
             $commentId = $row['id'];
             $comments[$commentId] = $this->buildObject($row);
         }
         $result->closeCursor();
         return $comments ;
     }
+
+
 
     public function getValidCommentsFromPost($postId)
     {
@@ -56,7 +76,8 @@ class CommentDAO extends DAO
         ON comment.post_id = post.id WHERE post_id = ? AND validate = 1  ORDER BY comment.createdAt DESC';
         $result = $this->createQuery($sql, [$postId]);
         $comments = [];
-        foreach ($result as $row) {
+        foreach ($result as $row) 
+        {
             $commentId = $row['id'];
             $comments[$commentId] = $this->buildObject($row);
         }
@@ -81,19 +102,36 @@ class CommentDAO extends DAO
         $sql = 'SELECT id, pseudo, content, DATE_FORMAT(createdAt, "%d/%m/%Y à %H:%i") AS createdAt, post_id, validate FROM comment WHERE pseudo = ?';
         $result = $this->createQuery($sql, [$pseudo]);
         $comments = [];
-        foreach ($result as $row) {
+        foreach ($result as $row) 
+        {
             $commentId = $row['id'];
             $comments[$commentId] = $this->buildObject($row);
         }
         $result->closeCursor();
         return $comments;
-
     }
 
     public function validateComment($commentId)
     {
         $sql = 'UPDATE comment  SET validate = 1 WHERE id = ?';
         $this->createQuery($sql, [$commentId]);
-
     }
+
+    public function invalidateComment($commentId)
+    {
+        $sql = 'UPDATE comment  SET validate = 0 WHERE id = ?';
+        $this->createQuery($sql, [$commentId]);
+    }
+
+    public function getPostFromComment($commentId)
+    {
+        $sql = 'SELECT post.id, post.title, post.content, post.heading, post.user_id as author, comment.id, 
+        DATE_FORMAT(post.createdAt, "%d/%m/%Y à %H:%i") AS createdAt FROM comment 
+        INNER JOIN post on post.id=comment.post_id  WHERE comment.id = ?';
+        $result = $this->createQuery($sql, [$commentId]);
+        $row = $result->fetch(); //array
+        $result->closeCursor();
+        $post = new PostDAO;
+        return  $post->buildObject($row); //object Post
+    }  
 }

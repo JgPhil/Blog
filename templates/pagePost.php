@@ -1,8 +1,7 @@
-<!DOCTYPE html>
 <?php $this->title = "Article"; ?>
 <h1>Mon blog</h1>
 <p>En construction</p>
-<?= $this->session->show('add_comment'); ?>
+
 <div class="card">
     <div class="card-body">
         <h2 class="card-title"><?= htmlspecialchars($post->getTitle());?></h2>
@@ -18,11 +17,12 @@
 <div id="comments" class="text-left" style="margin-left: 50px">
 
 <?php
+
     if ($this->session->get('pseudo'))
     {
         ?>
     <h3>Ajouter un commentaire</h3>
-
+        <?= $this->session->show('add_comment'); ?> <!-- problème d'affichage du message-->
             <form class="form-group" method="post" action="../public/index.php?route=addComment&postId=<?= htmlspecialchars($post->getId()); ?>">
                 <div class="form-group">
                     <label for="pseudo">Pseudo</label><br>

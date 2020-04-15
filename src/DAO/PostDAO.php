@@ -7,6 +7,18 @@ use App\src\model\Post;
 
 class PostDAO extends DAO
 {
+    public function buildObject($row) // méthode alternative plus générique que celle plus bas;
+    {
+    $post = new Post;
+        foreach ($row as $key => $value){
+            if (!is_numeric($key)){
+                $method = 'set'.ucfirst($key);
+                $post->$method($row[$key]);
+            }          
+        }
+    return $post;
+    }
+    /*
     private function buildObject($row) //passage en  objet (utilisée dans les methodes getPost() et getPosts())
     {
         $post = new Post();
@@ -14,15 +26,16 @@ class PostDAO extends DAO
         $post->setTitle($row['title']);
         $post->setHeading($row['heading']);
         $post->setContent($row['content']);
-        $post->setAuthor($row['pseudo']);
-        $post->setCreatedAt($row['date']);
+        $post->setAuthor($row['author']);
+        $post->setCreatedAt($row['createdAt']);
         return $post;
     }
+    */
 
     public function getPosts()
     {
-        $sql = 'SELECT post.id, post.title, post.content, post.heading, user.pseudo, 
-        DATE_FORMAT(post.createdAt, "%d/%m/%Y à %H:%i") AS date FROM post 
+        $sql = 'SELECT post.id, post.title, post.content, post.heading, user.pseudo as author, 
+        DATE_FORMAT(post.createdAt, "%d/%m/%Y à %H:%i") AS createdAt FROM post 
         INNER JOIN user ON post.user_id=user.id ORDER BY post.id DESC';
         $result = $this->createQuery($sql);
         $posts = []; // array
@@ -36,8 +49,8 @@ class PostDAO extends DAO
 
     public function getPost($postId)
     {
-        $sql = 'SELECT post.id, post.title, post.content, post.heading, user.pseudo,
-        DATE_FORMAT(post.createdAt, "%d/%m/%Y à %H:%i") AS date FROM post
+        $sql = 'SELECT post.id, post.title, post.content, post.heading, user.pseudo as author,
+        DATE_FORMAT(post.createdAt, "%d/%m/%Y à %H:%i") AS createdAt FROM post
         INNER JOIN user ON post.user_id=user.id WHERE post.id = ?';
         $result = $this->createQuery($sql, [$postId]);
         $post = $result->fetch(); //array

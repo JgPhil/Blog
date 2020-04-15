@@ -1,6 +1,6 @@
 
-<h2>Commentaires de l'article : </h2>
-
+<h2>Commentaires de l'article : <?= htmlspecialchars($comments[array_key_first($comments)]->getPostObj()->getTitle());?></h2>
+<a href="../public/index.php?route=administration">Retour</a>
 <?php
         foreach ($comments as $comment) {
             ?>

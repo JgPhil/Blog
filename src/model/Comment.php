@@ -2,6 +2,8 @@
 
 namespace App\src\model;
 
+use App\src\DAO\CommentDAO;
+
 class Comment
 {
     private $id;
@@ -10,6 +12,8 @@ class Comment
     private $createdAt;
     private $post_id;
     private $validate;
+    private $postObj; // Post Object refers to post_id.
+   
 
     public function getId()
     {
@@ -68,6 +72,12 @@ class Comment
     public function setValidate($validate)
     {
         $this->validate= $validate;
+    }
+
+    public function getPostObj()
+    {
+        $this->postObj = new CommentDAO ; // Instanciation de la classe CommentDAO, puis appel de la ...
+        return $this->postObj->getPostFromComment($this->id); // ...méthode getPostFromComment() qui retourne un objet "Post"
     }
 
    

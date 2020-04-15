@@ -15,10 +15,10 @@ class Router
 
     public function __construct()
     {
-        $this->request = new Request();
-        $this->frontController = new FrontController();
-        $this->backController = new BackController();
-        $this->errorController = new ErrorController();
+        $this->request = new Request;
+        $this->frontController = new FrontController;
+        $this->backController = new BackController;
+        $this->errorController = new ErrorController;
     }
 
     public function run()

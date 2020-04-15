@@ -188,5 +188,12 @@ class BackController extends Controller
         $this->commentDAO->validateComment($commentId);
         $this->session->set('validate_comment', 'commentaire validé');
         header('Location: ../public/index.php?route=administration');
-}
+    }
+
+    public function inValidateComment($commentId)
+    {
+        $this->commentDAO->inValidateComment($commentId);
+        $this->session->set('invalidate_comment', 'commentaire invalidé');
+        header('Location: ../public/index.php?route=administration');
+    }
 }

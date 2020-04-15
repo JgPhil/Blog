@@ -55,6 +55,9 @@ if (isset($route)){
     case $route === 'validateComment':
         $action = $this->backController->validateComment($commentId);
     break;
+    case $route === 'invalidateComment':
+        $action = $this->backController->invalidateComment($commentId);
+    break;
     default: $action = $this->errorController->errorNotFound();
     }
 }

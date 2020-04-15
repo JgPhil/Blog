@@ -9,6 +9,7 @@
 <?= $this->session->show('delete_user'); ?>
 <?= $this->session->show('delete_comment');?>
 <?= $this->session->show('validate_comment'); ?>
+<?= $this->session->show('invalidate_comment'); ?>
 
 <h2>Articles</h2>
 <a href="../public/index.php?route=addPost">Nouvel article</a>
@@ -97,14 +98,13 @@
     <?php
     foreach ($comments as $comment)
     { 
-        $p = $posts[$comment->getPost_id()]; // recherche du post concerné par le commentaire. On parcourt le tableau des posts.
-        $title =$p->getTitle();
-        
+        //$p = $posts[$comment->getPost_id()];  recherche du post concerné par le commentaire. On parcourt le tableau des posts.
+        //$title =$p->getTitle();  $title= $comment->getPost()->getTitle();
         ?>
         <tr>
             <td><?= htmlspecialchars($comment->getId());?></td>
             <td><?= htmlspecialchars($comment->getPseudo());?></td>
-            <td><?= htmlspecialchars($title);?></td>
+            <td><?= htmlspecialchars($comment->getPostObj()->getTitle());?></td>
             <td><?= substr(htmlspecialchars($comment->getContent()), 0, 150);?></td>
             <td>Créé le : <?= htmlspecialchars($comment->getCreatedAt());?></td>
             <td>
@@ -113,7 +113,14 @@
             { ?>
                 <a href="../public/index.php?route=validateComment&commentId=<?= $comment->getId(); ?>">Valider le commentaire</a></td><br>
                 <?php
-            } else {echo ('Commentaire validé');}?>   
+            } else 
+            {
+                echo ('Commentaire validé');
+               ?>
+                <a href="../public/index.php?route=invalidateComment&commentId=<?= $comment->getId(); ?>">Invalider le commentaire</a></td><br>
+            <?php
+            }
+            ?> 
             <td><a href="../public/index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>">Supprimer le commentaire</a>
             </td>
         </tr>
