@@ -2,6 +2,8 @@
 
 namespace App\src\model;
 
+use App\src\DAO\PostDAO;
+
 class Post
 {
     private $id;
@@ -10,6 +12,7 @@ class Post
     private $heading;
     private $author;
     private $createdAt;
+    private $userObj;
 
     public function getId()
     {
@@ -70,5 +73,11 @@ class Post
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
+    }
+
+    public function getUserObj()
+    {
+        $this->userObj = new PostDAO ; // Instanciation de la classe UserDAO, puis appel de la ...
+        return $this->userObj->getUserFromPost($this->id); // ...méthode getUserFromPost() qui retourne un objet "User"
     }
 }

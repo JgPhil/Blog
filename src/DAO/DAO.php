@@ -45,4 +45,24 @@ abstract class DAO
         $result = $this->checkConnection()->query($sql);
         return $result;
     }
+
+    protected function buildObject($row) 
+    {   
+        $class = "App\\src\\model\\".substr((new \ReflectionClass($this))->getShortName(),0,-3);
+        $obj = new $class;
+        foreach ($row as $key => $value)
+        {
+            if (!is_numeric($key))
+            {
+                $method = 'set'.ucfirst($key);
+                $obj->$method($row[$key]);
+            }
+            if ($class === 'Comment')
+            {
+              $obj->getPostObj($row['id']);  
+            }
+                  
+        }
+        return $obj;
+    }
 }

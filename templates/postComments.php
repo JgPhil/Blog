@@ -3,7 +3,7 @@
 <a href="../public/index.php?route=administration">Retour</a>
 <?php
         foreach ($comments as $comment) {
-            ?>
+            ?>  
             <div class="card">
                 <div class="card-body"><h5>Posté le <?= htmlspecialchars($comment->getCreatedAt());?> par <?= htmlspecialchars($comment->getPseudo());?></h5>
                 <p><?= htmlspecialchars($comment->getContent());?></p>

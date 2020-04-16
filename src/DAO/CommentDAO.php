@@ -7,34 +7,6 @@ use App\config\Method;
 
 class CommentDAO extends DAO
 {
-    public function buildObject($row) // méthode alternative plus générique que celle en-dessous;
-    {
-    $comment = new Comment;
-        foreach ($row as $key => $value)
-        {
-            if (!is_numeric($key))
-            {
-                $method = 'set'.ucfirst($key);
-                $comment->$method($row[$key]);
-            }
-                $comment->getPostObj($row['id']);      
-        }
-        return $comment;
-    }
-    /*
-    private function buildObject($row)
-    {
-        $comment = new Comment();
-        $comment->setId($row['id']);
-        $comment->setPseudo($row['pseudo']);
-        $comment->setContent($row['content']);
-        $comment->setCreatedAt($row['createdAt']);
-        $comment->setValidate($row['validate']);
-        $comment->setPost_id($row['post_id']);
-        return $comment;
-    }
-    */
-
     public function getComments()
     {
         $sql = 'SELECT id, pseudo, content, DATE_FORMAT(createdAt, "%d/%m/%Y à %H:%i") AS createdAt, validate, post_id FROM comment ORDER BY createdAt DESC';

@@ -7,31 +7,6 @@ use App\src\model\Post;
 
 class PostDAO extends DAO
 {
-    public function buildObject($row) // méthode alternative plus générique que celle plus bas;
-    {
-    $post = new Post;
-        foreach ($row as $key => $value){
-            if (!is_numeric($key)){
-                $method = 'set'.ucfirst($key);
-                $post->$method($row[$key]);
-            }          
-        }
-    return $post;
-    }
-    /*
-    private function buildObject($row) //passage en  objet (utilisée dans les methodes getPost() et getPosts())
-    {
-        $post = new Post();
-        $post->setId($row['id']);
-        $post->setTitle($row['title']);
-        $post->setHeading($row['heading']);
-        $post->setContent($row['content']);
-        $post->setAuthor($row['author']);
-        $post->setCreatedAt($row['createdAt']);
-        return $post;
-    }
-    */
-
     public function getPosts()
     {
         $sql = 'SELECT post.id, post.title, post.content, post.heading, user.pseudo as author, 
@@ -89,4 +64,20 @@ class PostDAO extends DAO
         $sql = 'DELETE FROM post WHERE id = ?';
         $this->createQuery($sql,[$postId]);
     }
+
+    public function getUserFromPost($postId)
+    {
+        $sql = 
+        'SELECT user.id, user.pseudo, role.name AS role, 
+        DATE_FORMAT(user.createdAt, "%d/%m/%Y à %H:%i")AS createdAt
+        FROM post 
+        INNER JOIN user on user.id=post.user_id
+        INNER JOIN role on role.id=user.role_id
+        WHERE post.id = ?';
+        $result = $this->createQuery($sql, [$postId]);
+        $row = $result->fetch(); //array
+        $result->closeCursor();
+        $user = new UserDAO;
+        return  $user->buildObject($row); 
+    }  
 }
