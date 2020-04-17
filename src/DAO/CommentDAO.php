@@ -4,6 +4,7 @@ namespace App\src\DAO;
 
 use App\src\model\Comment;
 use App\config\Method;
+use App\Framework\DAO;
 
 class CommentDAO extends DAO
 {
@@ -104,6 +105,6 @@ class CommentDAO extends DAO
         $row = $result->fetch(); //array
         $result->closeCursor();
         $post = new PostDAO;
-        return  $post->buildObject($row); //object Post
+        return  $post->buildObject($row); 
     }  
 }

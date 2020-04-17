@@ -5,6 +5,7 @@ namespace App\src\DAO;
 
 use App\config\Method;
 use App\src\model\User;
+use App\Framework\DAO;
 
 class UserDAO extends DAO
 {

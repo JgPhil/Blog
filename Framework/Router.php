@@ -1,6 +1,6 @@
 <?php
 
-namespace App\config;
+namespace App\Framework;
 use App\src\controller\BackController;
 use App\src\controller\ErrorController;
 use App\src\controller\FrontController;
@@ -23,7 +23,7 @@ class Router
 
     public function run()
     {   
-        require_once ('routes.php');
+        require_once ('../config/routes.php');
         try{
             if (isset($_SERVER['REQUEST_URI']))
             {   

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\src\model;
+namespace App\Framework;
 
-use App\config\Request;
+use App\Framework\Request;
 
 class View
 {

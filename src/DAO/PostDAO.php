@@ -4,6 +4,7 @@ namespace App\src\DAO;
 
 use App\config\Method;
 use App\src\model\Post;
+use App\Framework\DAO;
 
 class PostDAO extends DAO
 {

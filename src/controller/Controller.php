@@ -3,11 +3,12 @@
 namespace App\src\controller;
 
 use App\src\DAO\PostDAO;
+use App\src\DAO\UserDAO;
 use App\src\DAO\CommentDAO;
 use App\src\constraint\Validation;
-use App\src\model\View;
-use App\config\Request;
-use App\src\DAO\UserDAO;
+use App\Framework\View;
+use App\Framework\Request;
+
 
 
 abstract class Controller
