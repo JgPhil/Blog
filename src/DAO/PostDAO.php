@@ -2,7 +2,7 @@
 
 namespace App\src\DAO;
 
-use App\config\Method;
+use App\Framework\Method;
 use App\src\model\Post;
 use App\Framework\DAO;
 

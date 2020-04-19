@@ -3,7 +3,7 @@
 namespace App\src\DAO;
 
 use App\src\model\Comment;
-use App\config\Method;
+use App\Framework\Method;
 use App\Framework\DAO;
 
 class CommentDAO extends DAO

@@ -2,7 +2,6 @@
 
 namespace App\Framework;
 
-use App\Framework\Request;
 
 class View
 {
@@ -20,14 +19,14 @@ class View
 
     public function render($template, $data = [])
     {
-        $this->file = '../templates/'.$template.'.php';
+        $this->file =  \TEMPLATES_PATH.$template.'.php';
         $content  = $this->renderFile($this->file, $data);
-        $view = $this->renderFile('../templates/layout.php', [
+        $view = $this->renderFile( \LAYOUT_PATH, [
             'title' => $this->title,
             'content' => $content,
             'session' => $this->session
         ]);
-        echo $view;    
+        echo $view;
     }
 
     private function renderFile($file, $data)

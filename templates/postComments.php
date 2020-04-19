@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-body"><h5>Posté le <?= htmlspecialchars($comment->getCreatedAt());?> par <?= htmlspecialchars($comment->getPseudo());?></h5>
                 <p><?= htmlspecialchars($comment->getContent());?></p>
-                <p><a href="../public/index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>">Supprimer le commentaire</a></p>
+                <p><a href="../public/index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>" onclick="return confirm('Vous allez supprimer définitivement ce message. êtes-vous certain de vouloir faire ça ?  ( Irréverssible !!)')">Supprimer le commentaire</a></p>
                 <?php
                 if ($comment->getValidate() === null) {
                 ?>

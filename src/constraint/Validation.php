@@ -4,7 +4,7 @@ namespace App\src\constraint;
 
 class Validation
 {
-    public function validate($data, $name)
+    public function validate($data, $name) 
     {
         if($name === 'Post') {
             $postValidation = new PostValidation;

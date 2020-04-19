@@ -13,6 +13,7 @@ class Post
     private $author;
     private $createdAt;
     private $userObj;
+    private $img;
 
     public function getId()
     {
@@ -79,5 +80,10 @@ class Post
     {
         $this->userObj = new PostDAO ; // Instanciation de la classe UserDAO, puis appel de la ...
         return $this->userObj->getUserFromPost($this->id); // ...méthode getUserFromPost() qui retourne un objet "User"
+    }
+
+    public function getImg($c)
+    {
+        return $this->img = IMG_PATH.$c.".png";
     }
 }

@@ -8,7 +8,7 @@ Class Text
         if (mb_strlen($content) < $limit){
             return $content;
         }
-        $lastSpace = mb_strpos($content, ' ', $limit);
+        $lastSpace = mb_strpos($content, ' ', $limit); // on coupe le texte au dernier espace, pas au dernier caractère de la limite
         return mb_substr($content, 0, $lastSpace). '...';
     }
     

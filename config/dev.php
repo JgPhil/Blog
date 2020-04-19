@@ -11,3 +11,11 @@ const DB_PASS = '';
 //PATH
 const MODEL_PATH = "App\\src\\model\\";
 const DAO_PATH = "App\\src\\DAO\\";
+const TEMPLATES_PATH = "../\\templates\\";
+const LAYOUT_PATH = "../\\templates\\layout.php";
+const INDEX_PATH = "../public/index.php";
+const SLUG = "?route=";
+const IMG_PATH = "../public/img/portfolio/";
+
+
+

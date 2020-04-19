@@ -22,7 +22,7 @@
     {
         ?>
     <h3>Ajouter un commentaire</h3>
-        <?= $this->session->show('add_comment'); ?> <!-- problème d'affichage du message-->
+        <?= $this->session->show('add_comment'); ?>
             <form class="form-group" method="post" action="../public/index.php?route=addComment&postId=<?= htmlspecialchars($post->getId()); ?>">
                 <div class="form-group">
                     <label for="pseudo">Pseudo</label><br>
