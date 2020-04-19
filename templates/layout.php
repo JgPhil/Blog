@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
   <!-- Fontawesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
   <!-- slick slider -->
   <link rel="stylesheet" href="plugins/slick/slick.css">
   <!-- themefy-icon -->
@@ -95,20 +96,33 @@
 <footer class="bg-dark footer-section">
   <div class="section">
     <div class="container">
-      <div class="row">
-        <div class="col-md-4">
-          <h5 class="text-light">Email</h5>
-          <p class="text-white paragraph-lg font-secondary">steve.fruits@email.com</p>
+        <div>
+        <div class="container">
+                <hr />
+                    <div class="text-center center-block">
+                        <br />
+                            <a href="https://github.com/JgPhil"><i class="fab fa-github-square fa-3x social"></i></a>
+                            <a href="https://twitter.com/bootsnipp"><i class="fa fa-twitter-square fa-3x social"></i></a>
+                            <a href="https://openclassrooms.com/fr/membres/philippe-jaming"><i class="fas fa-graduation-cap fa-3x social"></i></a>
+                            <a href="mailto:bootsnipp@gmail.com"><i class="fa fa-envelope-square fa-3x social"></i></a>
+                <hr />
+            </div>
         </div>
-        <div class="col-md-4">
-          <h5 class="text-light">Phone</h5>
-          <p class="text-white paragraph-lg font-secondary">+880 2544 658 256</p>
-        </div>
-        <div class="col-md-4">
-          <h5 class="text-light">Address</h5>
-          <p class="text-white paragraph-lg font-secondary">125/A, CA Commercial Area, California, USA</p>
-        </div>
-      </div>
+            <div class="row">
+                <div class="col-md-4">
+                <h5 class="text-light">Email</h5>
+                <p class="text-white paragraph-lg font-secondary">steve.fruits@email.com</p>
+                </div>
+                <div class="col-md-4">
+                <h5 class="text-light">Phone</h5>
+                <p class="text-white paragraph-lg font-secondary">+880 2544 658 256</p>
+                </div>
+                <div class="col-md-4">
+                <h5 class="text-light">Address</h5>
+                <p class="text-white paragraph-lg font-secondary">125/A, CA Commercial Area, California, USA</p>
+                </div>
+            </div>
+        
     </div>
   </div>
   <div class="border-top text-center border-dark py-5">
