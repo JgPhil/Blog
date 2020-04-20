@@ -3,7 +3,7 @@ namespace App\src\constraint;
 
 Class Text 
 {
-    public static function excerpt(string $content, int $limit = 150)
+    public static function excerpt(string $content, int $limit = 145)
     {
         if (mb_strlen($content) < $limit){
             return $content;

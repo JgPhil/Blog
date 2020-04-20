@@ -1,7 +1,7 @@
 <?php
 
 namespace App\src\constraint;
-use App\config\Method;
+use App\Framework\Method;
 
 class UserValidation extends Validation
 {

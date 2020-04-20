@@ -32,6 +32,8 @@
 
 <body>
 
+<!-- Navbar -->
+
 <header class="navigation fixed-top">
   <nav class="navbar navbar-expand-lg navbar-dark">
     <a class="navbar-brand font-tertiary h3" href=<?=INDEX_PATH?>><img src="images/logo.png" alt="Myself"></a>
@@ -51,16 +53,43 @@
         <li class="nav-item">
           <a class="nav-link" href="contact.html">Contact</a>
         </li>
-      </ul>
+      
 
-        <ul class="nav navbar-nav ml-auto">
+      <?php if ($this->session->get('pseudo'))
+            {
+                if ($this->session->get('role') === 'admin')
+                {
+                ?>
+                  <li class="nav-item">
+                      <a class="nav-link" href=<?=INDEX_PATH.SLUG."administration"?>><span class="fas fa-toolbox"></span>  Administration</a>
+                  </li> 
+                <?php
+                }
+            ?>
             <li class="nav-item">
-                <a class="nav-link" href=<?=INDEX_PATH.SLUG."register"?>><span class="fas fa-user"></span> S'inscrire</a>
+                <a class="nav-link" href=<?=INDEX_PATH.SLUG."profile"?>><span class="fas fa-id-card"></span>   Mon profil</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href=<?=INDEX_PATH.SLUG."login"?>><span class="fas fa-sign-in-alt"></span> Connexion</a>
-            </li>
-        </ul>
+                <a class="nav-link" href=<?=INDEX_PATH.SLUG."logout"?>><span class="fas fa-sign-out_alt"></span>   Se déconnecter</a>
+            </li> 
+            
+            <?php
+            }
+            else
+            {
+            ?>
+               
+                    <li class="nav-item">
+                        <a class="nav-link" href=<?=INDEX_PATH.SLUG."register"?>><span class="fas fa-user"></span> S'inscrire</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href=<?=INDEX_PATH.SLUG."login"?>><span class="fas fa-sign-in-alt"></span> Connexion</a>
+                    </li>
+                </ul>
+            <?php
+            }
+            ?>
+        
     </div>
   </nav>
   

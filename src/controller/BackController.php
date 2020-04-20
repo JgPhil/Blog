@@ -2,7 +2,7 @@
 
 namespace App\src\controller;
 
-use App\config\Method;
+use App\Framework\Method;
 
 class BackController extends Controller
 

@@ -1,9 +1,7 @@
 <?php
 
-
-
 namespace App\src\constraint;
-use App\config\Method;
+use App\Framework\Method;
 
 class PasswordValidation extends Validation
 {

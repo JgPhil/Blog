@@ -5,7 +5,7 @@
   <div class="container">
     <div class="row">
       <div class="col-12 text-center">
-        <h1 class="text-white font-tertiary">Blogs</h1>
+        <h1 class="text-white font-tertiary">Blog</h1>
       </div>
     </div>
   </div>
@@ -56,8 +56,8 @@
         foreach ($comments as $comment)
         {
         ?>
-            <div class="bg-gray p-5 mb-4">
-                <div class="media border-bottom py-4">
+            <div class="bg-gray p-4 mb-4">
+                <div class="media border-bottom py-2">
                     <img src="images/user-1.jpg" class="img-fluid align-self-start rounded-circle mr-3" alt="">
                     <div class="media-body">
                         <h5 class="mt-0"><?= htmlspecialchars($comment->getPseudo());?></h5>
@@ -81,11 +81,10 @@
             ?>    
             <h4 >Laissez un commentaire</h4>
             <form method="post" action=<?=INDEX_PATH.SLUG."addComment&postId=".htmlspecialchars($post->getId()); ?> class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <input type="text" class="form-control mb-3" placeholder="First Name" name="pseudo" id="pseudo"value="<?=$this->session->get('pseudo'); ?> " readonly>
                 </div>
-                
-                <div class="col-md-8">
+                <div class="col-md-6">
                 <?php
                 if (isset($errors['content']))
                 {
