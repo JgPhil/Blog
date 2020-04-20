@@ -36,7 +36,7 @@ $h2 = $route === 'addPost' ? 'Rédaction d\'un article' : 'Mis à jour de l\'art
 <section class="section">
     <div class="container">
         <div>
-            <p><a href="../public/index.php" ><i class="fas fa-long-arrow-alt-left"></i>  Retour à l'accueil</a></p>
+            <p><a href=<?=INDEX_PATH?> ><i class="fas fa-long-arrow-alt-left"></i>  Retour à l'accueil</a></p>
         </div>
             <form method="post" action=<?=INDEX_PATH.SLUG.$route;?>>
                 <div class="form-group">

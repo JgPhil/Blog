@@ -5,35 +5,23 @@ namespace App\src\controller;
 use App\src\DAO\PostDAO;
 use App\src\DAO\UserDAO;
 use App\src\DAO\CommentDAO;
+use App\Framework\Controller;
 use App\src\constraint\Validation;
-use App\Framework\View;
-use App\Framework\Request;
 
-
-
-abstract class Controller
+abstract class BlogController extends Controller
 {
     protected $postDAO;
     protected $commentDAO;
     protected $userDAO;
-    protected $view;
-    private $request;
-    protected $getMethod;
-    protected $postMethod;
-    protected $session;
     protected $validation;
-    
 
     public function __construct()
     {
+        parent::__construct();
         $this->postDAO = new PostDAO;
         $this->commentDAO = new CommentDAO;
         $this->userDAO = new UserDAO;
-        $this->view = new View;
         $this->validation = new Validation;
-        $this->request = new Request;
-        $this->getMethod = $this->request->getGet();
-        $this->postMethod = $this->request->getPost();
-        $this->session = $this->request->getSession();
     }
+
 }

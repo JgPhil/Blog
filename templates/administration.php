@@ -139,7 +139,7 @@ $this->title = 'Administration'; ?>
                 <tr>
                     <td><?= htmlspecialchars($comment->getId());?></td>
                     <td><?= htmlspecialchars($comment->getPseudo());?></td>
-                    <td><?= htmlspecialchars($comment->getPostObj()->getTitle());?></td> <!--Appel à la méthode "getPostObj" du modèle "Comment" qui retourne un objet Post -->
+                    <td><?= htmlspecialchars($comment->getPost()->getTitle());?></td> <!--Appel à la méthode "getPostObj" du modèle "Comment" qui retourne un objet Post -->
                     <td><?= substr(htmlspecialchars($comment->getContent()), 0, 150);?></td>
                     <td>Créé le : <?= htmlspecialchars($comment->getCreatedAt());?></td>
                     <td>

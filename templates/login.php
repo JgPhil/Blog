@@ -1,16 +1,46 @@
 <?php $this->title = "Connexion"; ?>
-<h1>Mon blog</h1>
-<p>En construction</p>
 <?= $this->session->show('error_login');?>
-<div>
-    <form method="post" action="../public/index.php?route=login">
-        <div class="form-group">
-            <label for="pseudo">Pseudo</label><br>
-            <input type="text" class="form-control" id="pseudo" name="pseudo"><br>
-            <label for="password">Mot de passe</label><br>
-            <input type="password" class="form-control" id="password" name="password"><br>
-            <input type="submit" class="btn btn-primary" value="Connexion" id="submit" name="submit">
-        </form>
-        <a href="../public/index.php">Retour à l'accueil</a>
+
+<!-- page title -->
+<section class="page-title bg-primary position-relative">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center">
+        <h1 class="text-white font-tertiary">Connexion</h1>
+      </div>
     </div>
+  </div>
+  <!-- background shapes -->
+  <img src="images/illustrations/page-title.png" alt="illustrations" class="bg-shape-1 w-100">
+  <img src="images/illustrations/leaf-pink-round.png" alt="illustrations" class="bg-shape-2">
+  <img src="images/illustrations/dots-cyan.png" alt="illustrations" class="bg-shape-3">
+  <img src="images/illustrations/leaf-orange.png" alt="illustrations" class="bg-shape-4">
+  <img src="images/illustrations/leaf-yellow.png" alt="illustrations" class="bg-shape-5">
+  <img src="images/illustrations/dots-group-cyan.png" alt="illustrations" class="bg-shape-6">
+  <img src="images/illustrations/leaf-cyan-lg.png" alt="illustrations" class="bg-shape-7">
+</section>
+<!-- /page title -->
+
+
+
+<div class="section">
+    <div class="container">
+        <div>
+        <p><a href=<?=INDEX_PATH?> ><i class="fas fa-long-arrow-alt-left"></i>  Retour à l'accueil</a></p>
+        </div>
+        <form method="post" action="../public/index.php?route=login">
+            <div class="form-group">
+                <label for="pseudo">Pseudo</label><br>
+                <input type="text" class="form-control" id="pseudo" name="pseudo"><br>
+                <label for="password">Mot de passe</label><br>
+                <input type="password" class="form-control" id="password" name="password"><br>
+                <input type="submit" class="btn btn-primary" value="Connexion" id="submit" name="submit">
+            </div>    
+        </form>
+    </div>
+</div>
+<div>
+    
+       
+    
 </div>

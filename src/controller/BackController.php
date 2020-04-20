@@ -4,7 +4,8 @@ namespace App\src\controller;
 
 use App\Framework\Method;
 
-class BackController extends Controller
+
+class BackController extends BlogController
 
 {
     private function checkLoggedIn()

@@ -13,7 +13,7 @@ $this->title = "Accueil"; ?>
   <div class="container">
     <div class="row">
       <div class="col-lg-11 mx-auto">
-        <h1 class="text-white font-tertiary"><br> Phil J.<br> Web developer</h1>
+        <h1 class="text-white font-tertiary"><br> Philippe Jaming<br> Web developer</h1>
       </div>
     </div>
   </div>

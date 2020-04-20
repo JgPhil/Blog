@@ -55,7 +55,7 @@ class UserValidation extends Validation
     }
 
     private function checkPassword($name, $value)
-    {
+    {        
         if($this->constraint->blank($name, $value)) {
             return $this->constraint->blank('password', $value);
         }
@@ -64,6 +64,9 @@ class UserValidation extends Validation
         }
         if($this->constraint->tooLong($name, $value, 255)) {
             return $this->constraint->tooLong('password', $value, 255);
+        }
+        if($this->constraint->weakPassword($name, $value)) {
+            return $this->constraint->weakPassword($name, $value);
         }
     }
 }

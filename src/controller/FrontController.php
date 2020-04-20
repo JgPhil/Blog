@@ -4,7 +4,7 @@ namespace App\src\controller;
 
 use App\Framework\Method;
 
-class FrontController extends Controller
+class FrontController extends BlogController
 {
     public function home()
     {

@@ -13,7 +13,7 @@ class Comment
     private $post_id;
     private $validate;
     private $postObj; // Post Object refers to post_id.
-   
+    private $post = null;
 
     public function getId()
     {
@@ -78,6 +78,15 @@ class Comment
     {
         $this->postObj = new CommentDAO ; // Instanciation de la classe CommentDAO, puis appel de la ...
         return $this->postObj->getPostFromComment($this->id); // ...méthode getPostFromComment() qui retourne un objet "Post"
+    }
+
+    public function getPost()
+    {
+        if (empty($post))
+            {
+               $this->post = $this->getPostObj($this->id);
+            }
+        return $this->post;
     }
 
    

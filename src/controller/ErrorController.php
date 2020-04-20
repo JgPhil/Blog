@@ -2,7 +2,7 @@
 
 namespace App\src\controller;
 
-class ErrorController extends Controller
+class ErrorController extends BlogController
 {
     public function errorNotFound()
     {
