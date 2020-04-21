@@ -145,35 +145,35 @@ class BackController extends BlogController
     public function logout()
     {
         if ($this->checkLoggedIn()){
-            $this->logoutOrDelete('logout');
+            $this->session->stop();
+            $this->session->start();
+            $this->session->set($param, 'À bientôt');
+            header('Location: ../public/index.php');
         }
     }
 
-    public function deleteAccount()
+    public function desactivateAccount($pseudo)
     {
-        $this->userDAO->deleteAccount($this->session->get('pseudo'));
-        $this->logoutOrDelete('delete_account');
+        $this->userDAO->desactivateAccount($this->session->get('pseudo'));
+        $this->session->set('desactivate_account', 'Le compte a bien été désactivé');
+        header('Location: ../public/index.php');
     }
+
+    public function desactivateAccountAdmin($pseudo)
+    {
+        $this->userDAO->desactivateAccount($pseudo);
+        $this->session->set('desactivate_account', 'Le compte a bien été désactivé');
+        header('Location: ../public/index.php?route=administration');
+    }
+
 
     public function deleteUser($userId)
     {
         if($this->checkAdmin()) {
             $this->userDAO->deleteUser($userId);
-            $this->session->set('delete_user', 'L\'utilisateur a bien été supprimé');
+            $this->session->set('delete_account', 'Le compte a bien été supprimé');
             header('Location: ../public/index.php?route=administration');
         }
-    }
-
-    private function logoutOrDelete($param)
-    {
-        $this->session->stop();
-        $this->session->start();
-        if($param === 'logout') {
-            $this->session->set($param, 'À bientôt');
-        } else {
-            $this->session->set($param, 'Votre compte a bien été supprimé');
-        }
-        header('Location: ../public/index.php');
     }
 
     public function postComments($postId)
@@ -196,5 +196,14 @@ class BackController extends BlogController
         $this->commentDAO->inValidateComment($commentId);
         $this->session->set('invalidate_comment', 'commentaire invalidé');
         header('Location: ../public/index.php?route=administration');
+    }
+
+    public function activateAccount($pseudo)
+    {
+        if ($this->checkAdmin())
+        {   $this->userDAO->activateAccount($pseudo);
+            $this->session->set('activate_acccount', 'Le compte vient d\'être activé !');
+            header('Location: ../public/index.php?route=administration');
+        }
     }
 }

@@ -16,6 +16,7 @@ const LAYOUT_PATH = "../\\templates\\layout.php";
 const INDEX_PATH = "../public/index.php";
 const SLUG = "?route=";
 const IMG_PATH = "../public/img/portfolio/";
+const CONSTRAINT_PATH = "App\\src\\constraint\\";
 
 
 

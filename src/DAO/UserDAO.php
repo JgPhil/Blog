@@ -12,8 +12,8 @@ class UserDAO extends DAO
     public function getUsers()
     {
         $sql = 'SELECT user.id AS id, user.pseudo AS pseudo,DATE_FORMAT(user.createdAt, "%d/%m/%Y à %H:%i") 
-        AS createdAt, role.name AS role FROM user
-                INNER JOIN role ON user.role_id = role.id ORDER BY user.id DESC';
+        AS createdAt, role.name AS role, user.activated AS activated FROM user
+        INNER JOIN role ON user.role_id = role.id ORDER BY user.id DESC';
         $result = $this->createQuery($sql);
         $users = [];
         foreach ($result as $row){
@@ -44,11 +44,10 @@ class UserDAO extends DAO
     public function login(Method $postMethod)
     {
         $sql = 'SELECT user.id, user.role_id, user.password, role.name FROM user 
-        INNER JOIN role ON role.id = user.role_id WHERE pseudo = ?';
+        INNER JOIN role ON role.id = user.role_id WHERE pseudo = ? AND activated = 1';
         $data = $this->createQuery($sql, [$postMethod->getParameter('pseudo')]);
         $result = $data->fetch();
         $isPasswordValid = password_verify($postMethod->getParameter('password'), $result['password']);
-        var_dump($isPasswordValid);
         return [
             'result' => $result,
             'isPasswordValid' => $isPasswordValid
@@ -57,19 +56,32 @@ class UserDAO extends DAO
 
     public function updatePassword(Method $postMethod, $pseudo)
     {
-    $sql = 'UPDATE user SET password = ? WHERE pseudo = ?';
-    $this->createQuery($sql, [password_hash($postMethod->getParameter('password'), PASSWORD_BCRYPT), $pseudo]);
+        $sql = 'UPDATE user SET password = ? WHERE pseudo = ?';
+        $this->createQuery($sql, [password_hash($postMethod->getParameter('password'), PASSWORD_BCRYPT), $pseudo]);
     }
 
-    public function deleteAccount($pseudo)
-    {
-        $sql = 'DELETE FROM user WHERE pseudo = ?';
+    public function desactivateAccount($pseudo)
+    {   
+        $sql = 'UPDATE comment INNER JOIN user ON comment.pseudo= user.pseudo SET validate = 0 WHERE user.pseudo = ?';
+        $this->createQuery($sql, [$pseudo]); 
+        $sql = 'UPDATE user SET activated = 0 WHERE pseudo = ?';
         $this->createQuery($sql, [$pseudo]);
+              
+    }
+
+    public function activateAccount($pseudo)
+    {
+        $sql = 'UPDATE user SET activated = 1 WHERE pseudo = ?';
+        $this->createQuery($sql, [$pseudo]);     
     }
 
     public function deleteUser($userId)
     {
+        $sql = 'DELETE FROM comment WHERE pseudo IN
+        (SELECT pseudo FROM user WHERE id = ?)';
+        $this->createQuery($sql, [$userId]); 
         $sql = 'DELETE FROM user WHERE id = ?';
+
         $this->createQuery($sql, [$userId]);
     }
 

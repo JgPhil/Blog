@@ -9,6 +9,7 @@ class User
     private $password;
     private $createdAt;
     private $role;
+    private $activated;
 
     public function getId()
     {
@@ -58,5 +59,15 @@ class User
     public function setRole($role)
     {
         $this->role = $role;
-    } 
+    }
+
+    public function getActivated()
+    {
+        return $this->activated;
+    }
+    
+    public function setActivated($activated)
+    {
+        $this->activated = $activated;
+    }
 }

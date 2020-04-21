@@ -4,6 +4,8 @@ namespace App\src\constraint;
 
 class Constraint
 {
+    
+
     public function blank($name, $value)
     {
         if(empty($value)) {

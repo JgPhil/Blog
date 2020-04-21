@@ -4,6 +4,7 @@ $route = $this->request->getGet()->getParameter('route');
 $postId = $this->request->getGet()->getParameter('postId');
 $commentId = $this->request->getGet()->getParameter('commentId');
 $userId =$this->request->getGet()->getParameter('userId');
+$pseudo = $this->request->getGet()->getParameter('pseudo');
 
 if (isset($route)){
     switch ($route) {
@@ -40,8 +41,11 @@ if (isset($route)){
     case $route === 'logout':
         $action = $this->backController->logout();
     break;
-    case $route === 'deleteAccount':
-        $action = $this->backController->deleteAccount();
+    case $route === 'desactivateAccountAdmin' :
+        $action = $this->backController->desactivateAccountAdmin($pseudo);
+    break;
+    case $route === 'desactivateAccount':
+        $action = $this->backController->desactivateAccount($pseudo);
     break;
     case $route === 'administration':
         $action = $this->backController->administration();
@@ -57,6 +61,9 @@ if (isset($route)){
     break;
     case $route === 'invalidateComment':
         $action = $this->backController->invalidateComment($commentId);
+    break;
+    case $route === 'activateAccount':
+        $action = $this->backController->activateAccount($pseudo);
     break;
     default: $action = $this->errorController->errorNotFound();
     }

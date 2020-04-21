@@ -31,7 +31,7 @@
 <div>
     <h2><?= $this->session->get('pseudo'); ?></h2>
     <a href="../public/index.php?route=updatePassword">Modifier son mot de passe</a>
-    <a href="../public/index.php?route=deleteAccount">Supprimer mon compte</a>
+    <a href="../public/index.php?route=desactivateAccount&pseudo=<?= $this->session->get('pseudo'); ?>" onclick="return confirm('êtes-vous sûr de vouloir supprimer votre compte ?')">Supprimer mon compte</a>
 </div>
     <div class="card">
     <?php

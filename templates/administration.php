@@ -12,6 +12,7 @@ $this->title = 'Administration'; ?>
     <?= $this->session->show('delete_comment');?>
     <?= $this->session->show('validate_comment'); ?>
     <?= $this->session->show('invalidate_comment'); ?>
+    <?= $this->session->show('activate_account'); ?>
 
 <!-- page title -->
 <section class="page-title bg-primary position-relative">
@@ -91,6 +92,7 @@ $this->title = 'Administration'; ?>
                 <td>Pseudo</td>
                 <td>Date</td>
                 <td>Rôle</td>
+                <td>Activation compte</td>
                 <td>Actions</td>
             </tr>
             <?php
@@ -103,18 +105,30 @@ $this->title = 'Administration'; ?>
                     <td>Créé le : <?= htmlspecialchars($user->getCreatedAt());?></td>
                     <td><?= htmlspecialchars($user->getRole());?></td>
                     <td>
-                        <?php
+                        <?php 
                         if($user->getRole() != 'admin') {
-                        ?>
-                        <a href="../public/index.php?route=deleteUser&userId=<?= $user->getId(); ?>" onclick="return confirm('êtes-vous sûr de vouloir supprimer définitivement l\'utilisateur ?')">Supprimer</a>
-                        <?php }
+                            if ($user->getActivated() === '1')
+                            {
+                            ?>
+                                 Compte actif 
+                                <a href="../public/index.php?route=desactivateAccountAdmin&pseudo=<?= $user->getPseudo();?>" onclick="return confirm('êtes-vous sûr de vouloir désactiver l\'utilisateur ?')">Désactiver</a>
+                            <?php
+                            }
+                            else 
+                            {?>
+                                <a href="../public/index.php?route=activateAccount&pseudo=<?=$user->getPseudo();?>" onclick="return confirm('êtes-vous sûr de vouloir activer l\'utilisateur ?')">Activer</a>
+                            <?php
+                            }?>
+                        </td>                                                    
+                            <td><a href="../public/index.php?route=deleteUser&userId=<?= $user->getId(); ?>" onclick="return confirm('êtes-vous sûr de vouloir supprimer définitivement l\'utilisateur ?')">Supprimer</a>
+                            </td>
+                            <?php }
                         else {
                             ?>
                         Suppression impossible
                         <?php
                         }
                         ?>
-                    </td>
                 </tr>
                 <?php
             }

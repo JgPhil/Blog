@@ -3,25 +3,9 @@
 namespace App\src\constraint;
 use App\Framework\Method;
 
-class PostValidation extends Validation
+class PostValidation extends BlogValidationComponent
 {
-    private $errors = [];
-    private $constraint;
-
-    public function __construct()
-    {
-        $this->constraint = new Constraint();
-    }
-
-    public function check(Method $postMethod)
-    {
-        foreach ($postMethod->allParameters() as $key => $value) {
-            $this->checkField($key, $value);
-        }
-        return $this->errors;
-    }
-
-    private function checkField($name, $value)
+    public function checkField($name, $value)
     {
         if($name === 'title') {
             $error = $this->checkTitle($name, $value);
@@ -34,14 +18,6 @@ class PostValidation extends Validation
         elseif ($name === 'heading') {
             $error = $this->checkHeading($name, $value);
             $this->addError($name, $error);
-        }
-    }
-
-    private function addError($name, $error) {
-        if($error) {
-            $this->errors += [
-                $name => $error
-            ];
         }
     }
 
