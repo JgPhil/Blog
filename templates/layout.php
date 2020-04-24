@@ -99,7 +99,7 @@
     
 
         <div id="content">
-            <?= $content ?>
+            <?= $content ?>  <!--View Class renderView method-->
         </div>
 
 

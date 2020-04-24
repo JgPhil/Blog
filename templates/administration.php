@@ -72,7 +72,7 @@ $this->title = 'Administration'; ?>
                     <td><a href="../public/index.php?route=post&postId=<?= htmlspecialchars($post->getId());?>"><?= htmlspecialchars($post->getTitle());?></a></td>
                     <td> <?= htmlspecialchars($post->getHeading()); ?></td>
                     <td><?= substr(htmlspecialchars($post->getContent()), 0, 80);?></td>
-                    <td><?= htmlspecialchars($post->getUserObj()->getPseudo());?> (<?=htmlspecialchars($post->getUserObj()->getRole())?>)</td>
+                    <td><?= htmlspecialchars($post->getUser()->getPseudo());?> (<?=htmlspecialchars($post->getUser()->getRole())?>)</td>
                     <td>Créé le : <?= htmlspecialchars($post->getCreatedAt());?></td>
                     <td><a href="../public/index.php?route=postComments&postId=<?= htmlspecialchars($post->getId());?>">Voir les commentaires</a></td>
                     <td>

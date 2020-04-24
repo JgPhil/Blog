@@ -5,7 +5,7 @@ namespace App\src\DAO;
 use App\Framework\DAO;
 use App\Framework\Method;
 use App\src\model\User;
-
+use App\Framework\SendMail;
 
 class UserDAO extends DAO
 {
@@ -27,8 +27,11 @@ class UserDAO extends DAO
     public function register(Method $postMethod)
     {
         $this->checkUser($postMethod);
-        $sql = 'INSERT INTO user (pseudo, password, createdAt, role_id) VALUES (?, ?, NOW(), ?)';
-        $this->createQuery($sql, [$postMethod->getParameter('pseudo'), password_hash($postMethod->getParameter('password'), PASSWORD_BCRYPT), 2]);
+        $mail = new SendMail;
+        $token = $mail->createToken();
+        $sql = 'INSERT INTO user (pseudo, password, email,  token, activated, role_id, createdAt, tokenTimeOut) VALUES (?, ?, ?, ?, 0, 2, NOW(), NOW())';
+        $this->createQuery($sql, [$postMethod->getParameter('pseudo'), password_hash($postMethod->getParameter('password'), PASSWORD_BCRYPT), $postMethod->getParameter('email'), $token]);
+        $mail->sendMail($postMethod, $token);    
     }
 
     public function checkUser(Method $postMethod)
@@ -46,12 +49,35 @@ class UserDAO extends DAO
         $sql = 'SELECT user.id, user.role_id, user.password, role.name FROM user 
         INNER JOIN role ON role.id = user.role_id WHERE pseudo = ? AND activated = 1';
         $data = $this->createQuery($sql, [$postMethod->getParameter('pseudo')]);
-        $result = $data->fetch();
+        $result = $data->fetch(); 
         $isPasswordValid = password_verify($postMethod->getParameter('password'), $result['password']);
         return [
             'result' => $result,
             'isPasswordValid' => $isPasswordValid
         ];
+    }
+
+    public function emailConfirm(Method $getMethod) //the return from the confirmation email link.
+    {                                                  //Query the database to check if the token is similar/not empty. Also check if tokenTimeOut not exceeded;
+        $sql = 'SELECT * FROM user WHERE pseudo = ?';
+        $data = $this->createQuery($sql, [$getMethod->getParameter('pseudo')]);
+        $result = $data->fetch();
+        if (!empty($result['token'])){
+            return 'Votre compte est déja activé  !';
+        }
+        if ($getMethod->getParameter('token') !== $result['token'] || time() > (strtotime($result['tokenTimeOut']) + (48*60*60)))
+        {
+            return 'Ce lien ne fonctionne pas';
+        }
+        return $result;
+    }
+
+    public function tokenReset($pseudo)
+    {
+        $sql = 'UPDATE user SET token = null WHERE pseudo = ?';
+        $this->createQuery($sql, [$pseudo]);
+        $sql = 'UPDATE user SET tokenTimeOut = now() WHERE pseudo = ?';
+        $this->createQuery($sql, [$pseudo]);
     }
 
     public function updatePassword(Method $postMethod, $pseudo)

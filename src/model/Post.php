@@ -13,7 +13,7 @@ class Post
     private $author;
     private $createdAt;
     private $userObj;
-    private $img;
+    private $user;
 
     public function getId()
     {
@@ -82,8 +82,12 @@ class Post
         return $this->userObj->getUserFromPost($this->id); // ...méthode getUserFromPost() qui retourne un objet "User"
     }
 
-    public function getImg($c)
+    public function getUser() 
     {
-        return $this->img = IMG_PATH.$c.".png";
+        if (empty($user))
+            {
+               $this->user = $this->getUserObj($this->id);
+            }
+        return $this->user;
     }
 }

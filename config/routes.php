@@ -65,6 +65,9 @@ if (isset($route)){
     case $route === 'activateAccount':
         $action = $this->backController->activateAccount($pseudo);
     break;
+    case $route === 'emailConfirm':
+        $action = $this->frontController->emailConfirm($this->request->getGet());
+    break;
     default: $action = $this->errorController->errorNotFound();
     }
 }

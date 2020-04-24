@@ -32,7 +32,7 @@
             <div class="bg-white rounded text-center p-5 shadow-down">
             <h4 class="mb-80">Merci de renseigner un pseudonyme et un mot de passe valide.<br><b>( Au moins: une minuscule, une majuscule et un carctère spécial )</b> </h4>
             <form method="post" action=<?=INDEX_PATH.SLUG."register"?> class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <input type="text" id="pseudo" name="pseudo" placeholder="Votre pseudonyme" class="form-control px-0 mb-4">
                 <?php
                 if (isset($errors['pseudo']))
@@ -43,7 +43,7 @@
                 }
                 ?> 
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <input type="text" id="password" name="password" placeholder="Entrez un mot de passe" class="form-control px-0 mb-4">
                 <?php
                 if (isset($errors['password']))
@@ -53,7 +53,18 @@
                 <?php    
                 }
                 ?>    
-            </div>
+            </div> <!-- EMAIL-->
+            <div class="col-md-4">
+                <input type="email" id="email" name="email" placeholder="Entrez votre email" class="form-control px-0 mb-4">
+                <?php
+                if (isset($errors['email']))
+                {
+                ?>    
+                    <div class="alert alert-danger" role="alert"><?= $errors['email']; ?></div>
+                <?php    
+                }
+                ?>    
+            </div><!-- /EMAIL-->
             <div class="col-lg-6 col-10 mx-auto">
                 <input type="submit" value="Inscription" id="submit" name="submit" class="btn btn-primary">
             </div>

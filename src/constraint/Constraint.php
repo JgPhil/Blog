@@ -31,7 +31,7 @@ class Constraint
         $lowercase = preg_match('@[a-z]@', $value);
         $number    = preg_match('@[0-9]@', $value);
 
-        if(!$uppercase || !$lowercase || !$number || strlen($value) < 8 || strlen($value) > 255) {
+        if(!$uppercase || !$lowercase || !$number || strlen($value) < 4 || strlen($value) > 255) {
             return '<p>Le champ "Mot de passe" doit contenir au moins 8 caractères, dont:  au moins un chiffre, une majuscule et une minuscule.</p>';
         }
     }

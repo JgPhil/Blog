@@ -52,8 +52,8 @@ class FrontController extends BlogController
             }
             if (!$errors){
                 $this->userDAO->register($postMethod);
-                $this->session->set('register', 'votre inscription a bien été éffectuée');
-                header('Location: ../public/index.php');
+                $this->session->set('register', 'votre inscription a bien été éffectuée, Merci de cliquer sur le lien présent dans le mail de confirmation qui vient de vous être envoyé.' );
+                return $this->view->render('register2');
             }
           
         return $this->view->render('register',[
@@ -64,18 +64,32 @@ class FrontController extends BlogController
         return $this->view->render('register');
     }
 
+    public function emailConfirm(Method $getMethod)
+    {
+        $this->userDAO->emailConfirm($getMethod);       
+        $this->userDAO->activateAccount($getMethod->getParameter('pseudo'));
+        $this->userDAO->tokenReset($getMethod->getParameter('pseudo')); 
+        $this->session->set('email_confirmation', 'Votre compte est à présent activé. Bienvenue ! <br> Vous pouvez maintenant vous connecter avec vos identifiants et mot de passe.');
+        return $this->view->render('register3');
+    }
+
+
     public function login(Method $postMethod)
     {
-        if ($postMethod->getParameter('submit')){
+        if ($postMethod->getParameter('submit'))
+        {
             $result = $this->userDAO->login($postMethod);
-            if ($result && $result['isPasswordValid']) {
+            if ($result && $result['isPasswordValid']) 
+            {
                 $this->session->set('login','Content de vous revoir');
                 $this->session->set('id',$result['result']['id']);
                 $this->session->set('role',$result['result']['name']);
                 $this->session->set('pseudo',$postMethod->getParameter('pseudo'));
                 header('Location: ../public/index.php');
+                
             }
-            else {
+            else 
+            {
                 $this->session->set('error_login', 'Vos identifiants sont incorrects');
                 return $this->view->render('login',[
                     'postMethod' => $postMethod

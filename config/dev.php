@@ -1,7 +1,7 @@
 <?php
 
 //Connexion DATABASE
-const HOST = 'localhost';
+const HOST = "localhost";
 const DB_NAME = 'blog';
 const CHARSET = 'utf8';
 const DB_HOST = 'mysql:host='.HOST.';dbname='.DB_NAME.';charset='.CHARSET;
@@ -18,5 +18,7 @@ const SLUG = "?route=";
 const IMG_PATH = "../public/img/portfolio/";
 const CONSTRAINT_PATH = "App\\src\\constraint\\";
 
+const ADMIN_EMAIL_ADRESS = "blogjamingphilippe@gmail.com";
+const PASSWORD = "Flor@lysFr33";
 
 

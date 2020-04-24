@@ -147,7 +147,7 @@ class BackController extends BlogController
         if ($this->checkLoggedIn()){
             $this->session->stop();
             $this->session->start();
-            $this->session->set($param, 'À bientôt');
+            $this->session->set('logout', 'À bientôt');
             header('Location: ../public/index.php');
         }
     }

@@ -10,6 +10,8 @@ class User
     private $createdAt;
     private $role;
     private $activated;
+    private $token;
+    private $tokenTimeOut;
 
     public function getId()
     {
@@ -69,5 +71,25 @@ class User
     public function setActivated($activated)
     {
         $this->activated = $activated;
+    }
+
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    public function setToken($token)
+    {
+        $this->token = $token;
+    }
+
+    public function getTokenTimeOut()
+    {
+        return $this->tokenTimeOut;
+    }
+
+    public function setTokenTimeOut($tokenTimeOut)
+    {
+        $this->tokenTimeOut = $tokenTimeOut;
     }
 }

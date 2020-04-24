@@ -2,10 +2,7 @@
 use App\src\constraint\Text;
 
 $this->title = "Accueil"; ?>
-    <?= $this->session->show('register'); ?>
-    <?= $this->session->show('login'); ?>
-    <?= $this->session->show('logout'); ?>
-    <?= $this->session->show('delete_account'); ?>
+    
 
 
     <!-- hero area -->
@@ -59,18 +56,28 @@ $this->title = "Accueil"; ?>
 <section class="section">
   <div class="container">
     <div class="row">
-      <div class="col-12 text-center">
-        <h2 class="section-title">Blog</h2>
+      <div class="col-lg-12 text-center">
+        <div class="container row">
+            <div class="col-lg-8 mx-auto">
+            <h4 class="mb-80">
+              <?= $this->session->show('register'); ?>
+              <?= $this->session->show('login'); ?>
+              <?= $this->session->show('logout'); ?>
+              <?= $this->session->show('delete_account'); ?></h4>
+            </div>
         </div>
+        <h2 class="section-title">Blog</h2>
+        
+      </div>
       <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
         <article class="card shadow">
           <img class="rounded card-img-top" src="images/blog/post-3.jpg" alt="post-thumb">
           <div class="card-body">
-            <h4 class="card-title"><a href=<?=INDEX_PATH.SLUG."post&postId=".htmlspecialchars($posts[14]->getId());?>><?= htmlspecialchars($posts[14]->getTitle());?></a></h4>
-            <h5><?= htmlspecialchars($posts[14]->getHeading());?></h5>
-            <p>Ajouté le : <?= htmlspecialchars($posts[14]->getCreatedAt());?></p> 
-            <p class="cars-text"><?= htmlspecialchars(Text::excerpt($posts[14]->getContent()));?></p>
-            <a href=<?=INDEX_PATH.SLUG."post&postId=".htmlspecialchars($posts[14]->getId());?> class="btn btn-xs btn-primary">Voir Plus</a>
+            <h4 class="card-title"><a href=<?=INDEX_PATH.SLUG."post&postId=".htmlspecialchars($posts[23]->getId());?>><?= htmlspecialchars($posts[23]->getTitle());?></a></h4>
+            <h5><?= htmlspecialchars($posts[23]->getHeading());?></h5>
+            <p>Ajouté le : <?= htmlspecialchars($posts[23]->getCreatedAt());?></p> 
+            <p class="cars-text"><?= htmlspecialchars(Text::excerpt($posts[23]->getContent()));?></p>
+            <a href=<?=INDEX_PATH.SLUG."post&postId=".htmlspecialchars($posts[23]->getId());?> class="btn btn-xs btn-primary">Voir Plus</a>
           </div>
         </article>
       </div>
@@ -78,11 +85,11 @@ $this->title = "Accueil"; ?>
       <article class="card shadow">
           <img class="rounded card-img-top" src="images/blog/post-3.jpg" alt="post-thumb">
           <div class="card-body">
-            <h4 class="card-title"><a href=<?=INDEX_PATH.SLUG."post&postId=".htmlspecialchars($posts[13]->getId());?>><?= htmlspecialchars($posts[13]->getTitle());?></a></h4>
-            <h5><?= htmlspecialchars($posts[13]->getHeading());?></h5>
-            <p>Ajouté le : <?= htmlspecialchars($posts[13]->getCreatedAt());?></p> 
-            <p class="cars-text"><?= htmlspecialchars(Text::excerpt($posts[13]->getContent()));?></p>
-            <a href=<?=INDEX_PATH.SLUG."post&postId=".htmlspecialchars($posts[13]->getId());?> class="btn btn-xs btn-primary">Voir Plus</a>
+            <h4 class="card-title"><a href=<?=INDEX_PATH.SLUG."post&postId=".htmlspecialchars($posts[22]->getId());?>><?= htmlspecialchars($posts[22]->getTitle());?></a></h4>
+            <h5><?= htmlspecialchars($posts[22]->getHeading());?></h5>
+            <p>Ajouté le : <?= htmlspecialchars($posts[22]->getCreatedAt());?></p> 
+            <p class="cars-text"><?= htmlspecialchars(Text::excerpt($posts[22]->getContent()));?></p>
+            <a href=<?=INDEX_PATH.SLUG."post&postId=".htmlspecialchars($posts[22]->getId());?> class="btn btn-xs btn-primary">Voir Plus</a>
           </div>
         </article>
       </div>
@@ -90,11 +97,11 @@ $this->title = "Accueil"; ?>
       <article class="card shadow">
           <img class="rounded card-img-top" src="images/blog/post-3.jpg" alt="post-thumb">
           <div class="card-body">
-            <h4 class="card-title"><a href=<?=INDEX_PATH.SLUG."post&postId=".htmlspecialchars($posts[1]->getId());?>><?= htmlspecialchars($posts[1]->getTitle());?></a></h4>
-            <h5><?= htmlspecialchars($posts[1]->getHeading());?></h5>
-            <p>Ajouté le : <?= htmlspecialchars($posts[1]->getCreatedAt());?></p> 
-            <p class="cars-text"><?= htmlspecialchars(Text::excerpt($posts[1]->getContent()));?></p>
-            <a href=<?=INDEX_PATH.SLUG."post&postId=".htmlspecialchars($posts[1]->getId());?> class="btn btn-xs btn-primary">Voir Plus</a>
+            <h4 class="card-title"><a href=<?=INDEX_PATH.SLUG."post&postId=".htmlspecialchars($posts[21]->getId());?>><?= htmlspecialchars($posts[21]->getTitle());?></a></h4>
+            <h5><?= htmlspecialchars($posts[21]->getHeading());?></h5>
+            <p>Ajouté le : <?= htmlspecialchars($posts[21]->getCreatedAt());?></p> 
+            <p class="cars-text"><?= htmlspecialchars(Text::excerpt($posts[21]->getContent()));?></p>
+            <a href=<?=INDEX_PATH.SLUG."post&postId=".htmlspecialchars($posts[21]->getId());?> class="btn btn-xs btn-primary">Voir Plus</a>
           </div>
         </article>
       </div>
