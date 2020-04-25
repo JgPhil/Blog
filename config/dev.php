@@ -18,6 +18,7 @@ const SLUG = "?route=";
 const IMG_PATH = "../public/img/portfolio/";
 const CONSTRAINT_PATH = "App\\src\\constraint\\";
 
-
+const ADMIN_EMAIL_ADRESS = "blogjamingphilippe@gmail.com";
+const PASSWORD = "Flor@lysFr33";
 
 
