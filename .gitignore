@@ -1,3 +1,4 @@
 /vendor/
-/config/dev.php
+config/
 /sql/
+Blog\config
