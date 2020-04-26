@@ -70,7 +70,7 @@
         <?php
         }
         
-        if ($this->session->get('pseudo'))
+        if ($this->session->get('pseudo')) //si l'utilisateur est connecté avec un compte validé Alors on affiche le formulaire commentaire
         {
             if ($this->session->get('add_comment'))
             {

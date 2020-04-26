@@ -42,6 +42,7 @@ class FrontController extends BlogController
             ]);
         }
     }
+    
 
     public function register(Method $postMethod)
     {

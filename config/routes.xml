@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<routes>
+    <!--FRONTEND ROUTES--> 
+    <route url=""  application= "frontend" action= "home" ></route>
+    <route url="addComment"  application= "frontend" action="addComment" param="getPost,postId"></route>
+    <route url="register" application= "frontend" action="register" param="getPost"></route>
+    <route url="login"  application="frontend" action="login" param="getPost"></route>
+    <route url="logout"  application= "frontend" action= "logout"></route>
+    <route url="emailConfirm"  application="frontend" action="emailConfirm" param="getGet"></route>
+    <route url="profile"  application= "frontend" action= "profile"></route>
+    <route url="updatePassword"  application= "frontend" action= "updatePassword" param="getPost"></route>
+    
+
+    <!--BACKEND ROUTES--> 
+    <route url="addPost"  application= "backend" action= "addPost" param="getPost"></route>
+    <route url="editPost"  application= "backend" action= "editPost" param="getPost,postId"></route>
+    <route url="deletePost"  application= "backend" action= "deletePost" param="postId"></route>
+    <route url="deleteComment"  application= "backend" action= "deleteComment" param="commentId"></route>
+    <route url="deleteComment"  application= "backend" action= "deleteComment" param="commentId"></route>
+    <route url="desactivateAccountAdmin"  application= "backend" action= "desactivateAccountAdmin" param="pseudo"></route>
+    <route url="desactivateAccount"  application= "backend" action= "desactivateAccount" param="pseudo"></route>
+    <route url="administration"  application= "backend" action= "administration"></route>
+    <route url="postComments"  application= "backend" action= "postComments" param="postId"></route>
+    <route url="deleteUser"  application= "backend" action= "deleteUser" param="userId"></route>
+    <route url="validateComment"  application= "backend" action= "validateComment" param="commentId"></route>
+    <route url="inValidateComment"  application= "backend" action= "inValidateComment" param="commentId"></route>
+    <route url="activateAccount"  application= "backend" action= "activateAccount" param="pseudo"></route>
+    
+</routes>

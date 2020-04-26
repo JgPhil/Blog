@@ -2,23 +2,21 @@
 
 $this->title = 'Administration'; ?>
 
-
-
-    
-    <?= $this->session->show('add_post'); ?>
-    <?= $this->session->show('edit_post'); ?>
-    <?= $this->session->show('delete_post'); ?>
-    <?= $this->session->show('delete_user'); ?>
-    <?= $this->session->show('delete_comment');?>
-    <?= $this->session->show('validate_comment'); ?>
-    <?= $this->session->show('invalidate_comment'); ?>
-    <?= $this->session->show('activate_account'); ?>
-
 <!-- page title -->
 <section class="page-title bg-primary position-relative">
   <div class="container">
     <div class="row">
         <div class="col-12 text-center">
+            <h3 class="text-white font-tertiary">
+            <?= $this->session->show('add_post'); ?>
+            <?= $this->session->show('edit_post'); ?>
+            <?= $this->session->show('delete_post'); ?>
+            <?= $this->session->show('delete_user'); ?>
+            <?= $this->session->show('delete_comment');?>
+            <?= $this->session->show('validate_comment'); ?>
+            <?= $this->session->show('invalidate_comment'); ?>
+            <?= $this->session->show('activate_account'); ?>
+            </h3>
             <h1 class="text-white font-tertiary">Espace <br>Administration</h1>
         </div>
     </div>
@@ -93,7 +91,7 @@ $this->title = 'Administration'; ?>
                 <td>Date</td>
                 <td>Rôle</td>
                 <td>Activation compte</td>
-                <td>Actions</td>
+                <td>Suppression</td>
             </tr>
             <?php
             foreach ($users as $user)
@@ -103,7 +101,20 @@ $this->title = 'Administration'; ?>
                     <td><?= htmlspecialchars($user->getId());?></td>
                     <td><?= htmlspecialchars($user->getPseudo());?></td>
                     <td>Créé le : <?= htmlspecialchars($user->getCreatedAt());?></td>
-                    <td><?= htmlspecialchars($user->getRole());?></td>
+                    <td>
+
+                    <?php
+                    
+                    
+                    if($user->getRole() != 'admin')
+                    { 
+                    ?>Utilisateur
+                        <a href="../public/index.php?route=setAdmin&pseudo=<?=$user->getPseudo();?>" onclick="return confirm('êtes-vous sûr de vouloir donner le statut administrateur à l\'utilisateur '.$pseudo.' ?')">Promouvoir</a>
+                    <?php
+                    }
+                    ?>
+                    </td>
+                    
                     <td>
                         <?php 
                         if($user->getRole() != 'admin') {

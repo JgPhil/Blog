@@ -66,7 +66,7 @@ class CommentDAO extends DAO
 
     public function deleteComment($commentId)
     {
-        $sql = 'DELETE FROM comment WHERE id = ?';
+        $sql = 'UPDATE comment SET visible = 0 WHERE id = ?';
         $this->createQuery($sql, [$commentId]);
     }
 

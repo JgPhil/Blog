@@ -96,7 +96,7 @@ class BackController extends BlogController
     {
         if ($this->checkAdmin()){
             $this->postDAO->deletePost($postId);
-            $this->session->set('delete_post','L\'article a bien été supprimé');
+            $this->session->set('delete_post','L\'article a bien été supprimé');           
             header('Location: ../public/index.php?route=administration');
         }       
     }
@@ -163,6 +163,14 @@ class BackController extends BlogController
     {
         $this->userDAO->desactivateAccount($pseudo);
         $this->session->set('desactivate_account', 'Le compte a bien été désactivé');
+        header('Location: ../public/index.php?route=administration');
+    }
+
+
+    public function setAdmin($pseudo)
+    {
+        $this->userDAO->setAdmin($pseudo);
+        $this->session->set('set_admin', 'Le rôle "admin" a bien été appliqué à l\'utilisateur '.$pseudo);
         header('Location: ../public/index.php?route=administration');
     }
 

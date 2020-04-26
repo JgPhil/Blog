@@ -60,9 +60,9 @@ class PostDAO extends DAO
 
     public function deletePost($postId)
     {
-        $sql = 'DELETE FROM comment  WHERE post_id = ?';
+        $sql = 'UPDATE comment SET visible = 0 WHERE post_id = ?';
         $this->createQuery($sql,[$postId]);
-        $sql = 'DELETE FROM post WHERE id = ?';
+        $sql = 'UPDATE post SET visible = 0 WHERE id = ?';
         $this->createQuery($sql,[$postId]);
     }
 

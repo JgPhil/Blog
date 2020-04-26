@@ -68,6 +68,9 @@ if (isset($route)){
     case $route === 'emailConfirm':
         $action = $this->frontController->emailConfirm($this->request->getGet());
     break;
+    case $route === 'setAdmin':
+        $action = $this->backController->setAdmin($pseudo);
+    break;
     default: $action = $this->errorController->errorNotFound();
     }
 }

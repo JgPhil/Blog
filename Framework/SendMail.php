@@ -5,46 +5,45 @@ namespace App\Framework;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-class SendMail
+class SendMail extends Request
 
 {
     private $token;
 
-    public function sendMail(Method $postMethod, $token)
-    {
+    public function sendMail(Method $postMethod, $token) 
+    {   
+        $pseudo = $this->postMethod->getParameter('pseudo');
+        $email = $this->postMethod->getParameter('email');
+
+        $mail = new PHPMailer();                            
+        $mail->isSMTP();                                  
+        $mail->SMTPDebug = 0;
+        $mail->SMTPAuth = true;
+        $mail->SMTPSecure = 'ssl';
+        $mail->Host = 'smtp.gmail.com';
+        $mail->Port = 465;                                  
+        $mail->Username   = ADMIN_EMAIL_ADRESS;              
+        $mail->Password = PASSWORD;                                  
+        $mail->setFrom (ADMIN_EMAIL_ADRESS , 'Philippe Jaming');
+        $mail->Subject = 'Finalisez votre inscription   '.$pseudo;
+        $mail->addAddress($email, $pseudo);
+        $mail->isHTML(true);
         
-            $mail = new PHPMailer();
-                              
-            $mail->isSMTP();                                   // Enable SMTP authentication
-            $mail->SMTPDebug = 1;
-            $mail->SMTPAuth = true;
-            $mail->SMTPSecure = 'ssl';
-            $mail->Host = 'smtp.gmail.com';
-            $mail->Port = 465;                                  
-            $mail->Username   = ADMIN_EMAIL_ADRESS;                     // SMTP username      
-            $mail->Password = PASSWORD;                                  
-            $mail->setFrom (ADMIN_EMAIL_ADRESS , 'Philippe Jaming');  //expediteur
-            $mail->Subject = 'Finalisez votre inscription'.$_POST['pseudo'];
-            $mail->addAddress($_POST['email'], $_POST['pseudo']); //destinataire
-            $mail->Subject = 'Lien de confirmation';
-            //Keep it simple - don't use HTML
-            $mail->isHTML(true);
-            
-            $link = '<a href="blog/public/index.php?route=emailConfirm&pseudo='.$_POST['pseudo'].'&token='.$token.'" target="_blank">ClIQUER ICI</a>';
-            $mail->Body ='
-            <html>
-            <body>
-                <div>
-                Bonjour '.$_POST['pseudo'].'! <br><br>
-                Pour finaliser votre inscription, merci de <br>'
-                .$link.'<br>
-                pour vérifier votre adresse email. <br><br>
-                A Bientôt
-            </div>
-            </body>
-            </html> ';
-            
-            $mail->send();   
+        $link = '<a href="blog/public/index.php?route=emailConfirm&pseudo='.$pseudo.'&token='.$token.'" target="_blank">CLIQUER ICI</a>';
+        $mail->Body ='
+        <html>
+        <body>
+            <div>
+            Bonjour '.$_POST['pseudo'].'! <br><br>
+            Pour finaliser votre inscription, merci de <br>'
+            .$link.'<br>
+            pour vérifier votre adresse email. <br><br>
+            A Bientôt
+        </div>
+        </body>
+        </html> ';
+        
+        $mail->send();   
             
 }
 

@@ -40,6 +40,9 @@ $h2 = $route === 'addPost' ? 'Rédaction d\'un article' : 'Mis à jour de l\'art
         </div>
             <form method="post" action=<?=INDEX_PATH.SLUG.$route;?>>
                 <div class="form-group">
+                    <label for="title">Auteur</label><br>
+                    <input type="text" class="form-control"id="author" name="author" value="<?= isset($postMethod) ? htmlspecialchars($postMethod->getParameter('author')): ''; ?>"><br>
+                    <?= isset($errors['author']) ? $errors['author'] : ''; ?>
                     <label for="title">Titre</label><br>
                     <input type="text" class="form-control"id="title" name="title" value="<?= isset($postMethod) ? htmlspecialchars($postMethod->getParameter('title')): ''; ?>"><br>
                     <?= isset($errors['title']) ? $errors['title'] : ''; ?>

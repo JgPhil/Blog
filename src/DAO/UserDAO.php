@@ -103,12 +103,17 @@ class UserDAO extends DAO
 
     public function deleteUser($userId)
     {
-        $sql = 'DELETE FROM comment WHERE pseudo IN
+        $sql = 'UPDATE comment SET visible = 0 WHERE pseudo IN
         (SELECT pseudo FROM user WHERE id = ?)';
         $this->createQuery($sql, [$userId]); 
-        $sql = 'DELETE FROM user WHERE id = ?';
-
+        $sql = 'UPDATE user SET visible = 0 WHERE id = ?';
         $this->createQuery($sql, [$userId]);
+    }
+
+    public function setAdmin($pseudo)
+    {
+        $sql = 'UPDATE user SET role_id = 1 WHERE pseudo = ?';
+        $this->createQuery($sql, [ $pseudo]);
     }
 
     

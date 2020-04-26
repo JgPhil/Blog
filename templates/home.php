@@ -60,10 +60,32 @@ $this->title = "Accueil"; ?>
         <div class="container row">
             <div class="col-lg-8 mx-auto">
             <h4 class="mb-80">
-              <?= $this->session->show('register'); ?>
-              <?= $this->session->show('login'); ?>
-              <?= $this->session->show('logout'); ?>
-              <?= $this->session->show('delete_account'); ?></h4>
+            <?php
+            if ($this->session->get('register'))
+            {
+            ?>    
+                <h4 class="alert alert-success" role="alert"><?= $this->session->show('register').' <b>'.$this->session->get('pseudo').'</b>'; ?></h4>
+            <?php    
+            }
+            elseif ($this->session->get('login'))
+            {
+            ?>    
+                  <h4 class="alert alert-success" role="alert"><?= $this->session->show('login').' <b>'.$this->session->get('pseudo').'</b>'; ?></h4>
+            <?php    
+            }
+            elseif ($this->session->get('logout'))
+            {
+            ?>    
+                  <h4 class="alert alert-success" role="alert"><?= $this->session->show('logout').' <b>'.$this->session->get('pseudo').'</b>'; ?></h4>
+            <?php    
+            }
+            elseif ($this->session->get('delete_account'))
+            {
+            ?>    
+                  <h4 class="alert alert-success" role="alert"><?= $this->session->show('delete_account').' <b>'.$this->session->get('pseudo').'</b>'; ?></h4>
+            <?php    
+            }
+            ?>
             </div>
         </div>
         <h2 class="section-title">Blog</h2>
