@@ -12,8 +12,8 @@ class SendMail extends Request
 
     public function sendMail(Method $postMethod, $token) 
     {   
-        $pseudo = $this->postMethod->getParameter('pseudo');
-        $email = $this->postMethod->getParameter('email');
+        $pseudo = filter_var($this->postMethod->getParameter('pseudo'), FILTER_SANITIZE_STRING);
+        $email = filter_var($this->postMethod->getParameter('email'),FILTER_SANITIZE_EMAIL);
 
         $mail = new PHPMailer();                            
         $mail->isSMTP();                                  

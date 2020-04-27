@@ -59,7 +59,6 @@ $this->title = "Accueil"; ?>
       <div class="col-lg-12 text-center">
         <div class="container row">
             <div class="col-lg-8 mx-auto">
-            <h4 class="mb-80">
             <?php
             if ($this->session->get('register'))
             {

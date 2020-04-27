@@ -34,11 +34,13 @@ class BackController extends BlogController
             $posts = $this->postDAO->getPosts();
             $users = $this->userDAO->getUsers();
             $comments = $this->commentDAO->getComments();
+            $messages = ADMIN_MESSAGES;
 
             return $this->view->render('administration', [
                 'posts' => $posts,
                 'users' => $users,
-                'comments' => $comments
+                'comments' => $comments,
+                'messages' => $messages
         ]); 
         }
         
@@ -187,9 +189,11 @@ class BackController extends BlogController
     public function postComments($postId)
     {
         $comments = $this->commentDAO->getCommentsFromPost($postId);
-        return $this->view->render('postComments', [
-            'comments' => $comments
-        ]);
+        $alert = "<script>alert('Pas de commentaire sur cet article');</script>";
+            return $this->view->render('postComments', [
+            'comments' => $comments,
+            'alert' => $alert 
+            ]);
     }
 
     public function validateComment($commentId)

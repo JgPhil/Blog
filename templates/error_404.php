@@ -1,3 +1,3 @@
 <?php
 
-echo 'page non trouvée';
+return ERROR_404;

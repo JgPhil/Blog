@@ -4,23 +4,94 @@ $this->title = 'Administration'; ?>
 
 <!-- page title -->
 <section class="page-title bg-primary position-relative">
-  <div class="container">
-    <div class="row">
-        <div class="col-12 text-center">
-            <h3 class="text-white font-tertiary">
-            <?= $this->session->show('add_post'); ?>
-            <?= $this->session->show('edit_post'); ?>
-            <?= $this->session->show('delete_post'); ?>
-            <?= $this->session->show('delete_user'); ?>
-            <?= $this->session->show('delete_comment');?>
-            <?= $this->session->show('validate_comment'); ?>
-            <?= $this->session->show('invalidate_comment'); ?>
-            <?= $this->session->show('activate_account'); ?>
-            </h3>
-            <h1 class="text-white font-tertiary">Espace <br>Administration</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">                            
+                <?php
+                /*
+                foreach ($messages as $message)
+                {
+                    if (htmlspecialchars($this->session->similar($this->session->get())))
+                    {
+                    ?>    
+                    <div>
+                        <h3 class="text-white font-tertiary"><?php print_r(htmlspecialchars($this->session->show($message))); ?></h3>
+                    </div>
+
+                    <?php
+                    }
+                  
+                }
+                */
+                ?>
+
+
+                    <div class="col-lg-12 text-center">
+                        <div class="container row">
+                            <div class="col-lg-8 mx-auto">
+                                <?php
+                                if ($this->session->get('add_post'))
+                                {
+                                ?>    
+                                    <h4 class="alert alert-success" role="alert"><?= $this->session->show('add_post')?></h4>
+                                <?php    
+                                }
+                                elseif ($this->session->get('edit_post'))
+                                {
+                                ?>    
+                                    <h4 class="alert alert-success" role="alert"><?= $this->session->show('edit_post')?></h4>
+                                <?php    
+                                }
+                                elseif ($this->session->get('delete_post'))
+                                {
+                                ?>    
+                                    <h4 class="alert alert-success" role="alert"><?= $this->session->show('delete_post')?></h4>
+                                <?php    
+                                }
+                                elseif ($this->session->get('delete_comment'))
+                                {
+                                ?>    
+                                    <h4 class="alert alert-success" role="alert"><?= $this->session->show('delete_comment')?></h4>
+                                <?php    
+                                }
+                                elseif ($this->session->get('validate_comment'))
+                                {
+                                ?>    
+                                    <h4 class="alert alert-success" role="alert"><?= $this->session->show('validate_comment')?></h4>
+                                <?php    
+                                }
+                                elseif ($this->session->get('invalidate_comment'))
+                                {
+                                ?>    
+                                    <h4 class="alert alert-success" role="alert"><?= $this->session->show('invalidate_comment')?></h4>
+                                <?php    
+                                }
+                                elseif ($this->session->get('activate_account'))
+                                {
+                                ?>    
+                                    <h4 class="alert alert-success" role="alert"><?= $this->session->show('activate_account')?></h4>
+                                <?php    
+                                }
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <?php /*
+                
+                 print_r(htmlspecialchars($this->session->show('add_post'))); ?>
+                <?php print_r(htmlspecialchars($this->session->show('edit_post'))) ; ?>
+                <?php print_r(htmlspecialchars($this->session->show('delete_post')))  ; ?>
+                <?php print_r(htmlspecialchars($this->session->show('delete_user')))  ; ?>
+                <?php print_r(htmlspecialchars($this->session->show('delete_comment')))  ;?>
+                <?php print_r(htmlspecialchars($this->session->show('validate_comment')))  ; ?>
+                <?php print_r(htmlspecialchars($this->session->show('invalidate_comment')))  ; ?>
+                <?php print_r(htmlspecialchars($this->session->show('activate_account')))  ; */?>
+                <h1 class="text-white font-tertiary">Espace <br>Administration</h1>
+            </div>
         </div>
     </div>
-  </div>
   <!-- background shapes -->
   <img src="images/illustrations/page-title.png" alt="illustrations" class="bg-shape-1 w-100">
   <img src="images/illustrations/leaf-pink-round.png" alt="illustrations" class="bg-shape-2">
@@ -66,16 +137,16 @@ $this->title = 'Administration'; ?>
             { 
                 ?>
                 <tr>
-                    <td><?= htmlspecialchars($post->getId());?></td>
-                    <td><a href="../public/index.php?route=post&postId=<?= htmlspecialchars($post->getId());?>"><?= htmlspecialchars($post->getTitle());?></a></td>
-                    <td> <?= htmlspecialchars($post->getHeading()); ?></td>
-                    <td><?= substr(htmlspecialchars($post->getContent()), 0, 80);?></td>
-                    <td><?= htmlspecialchars($post->getUser()->getPseudo());?> (<?=htmlspecialchars($post->getUser()->getRole())?>)</td>
-                    <td>Créé le : <?= htmlspecialchars($post->getCreatedAt());?></td>
-                    <td><a href="../public/index.php?route=postComments&postId=<?= htmlspecialchars($post->getId());?>">Voir les commentaires</a></td>
+                    <td><?php print_r(htmlspecialchars($post->getId())) ;?></td>
+                    <td><a href="../public/index.php?route=post&postId=<?php print_r(htmlspecialchars($post->getId())) ;?>"><?php print_r(htmlspecialchars($post->getTitle())) ;?></a></td>
+                    <td> <?php print_r(htmlspecialchars($post->getHeading())) ; ?></td>
+                    <td><?php print_r(substr(htmlspecialchars($post->getContent()), 0, 80)) ;?></td>
+                    <td><?php print_r(htmlspecialchars($post->getUser()->getPseudo())) ;?> (<?php print_r(htmlspecialchars($post->getUser()->getRole()))?>)</td>
+                    <td>Créé le : <?php print_r(htmlspecialchars($post->getCreatedAt())) ;?></td>
+                    <td><a href="../public/index.php?route=postComments&postId=<?php print_r(htmlspecialchars($post->getId())) ;?>">Voir les commentaires</a></td>
                     <td>
-                        <a href="../public/index.php?route=editPost&postId=<?= $post->getId(); ?>">Modifier</a>
-                        <a href="../public/index.php?route=deletePost&postId=<?= $post->getId(); ?>" onclick="return confirm('êtes-vous sûr de vouloir supprimer définitivement l\'article ?')">Supprimer</a>
+                        <a href="../public/index.php?route=editPost&postId=<?php print_r(htmlspecialchars($post->getId())); ?>">Modifier</a>
+                        <a href="../public/index.php?route=deletePost&postId=<?php print_r(htmlspecialchars($post->getId())); ?>" onclick="return confirm('êtes-vous sûr de vouloir supprimer définitivement l\'article ?')">Supprimer</a>
                     </td>
                 </tr>
                 <?php
@@ -98,9 +169,9 @@ $this->title = 'Administration'; ?>
             {
                 ?>
                 <tr>
-                    <td><?= htmlspecialchars($user->getId());?></td>
-                    <td><?= htmlspecialchars($user->getPseudo());?></td>
-                    <td>Créé le : <?= htmlspecialchars($user->getCreatedAt());?></td>
+                    <td><?php print_r(htmlspecialchars($user->getId()));?></td>
+                    <td><?php print_r(htmlspecialchars($user->getPseudo())) ;?></td>
+                    <td>Créé le : <?php print_r(htmlspecialchars($user->getCreatedAt()));?></td>
                     <td>
 
                     <?php
@@ -109,8 +180,10 @@ $this->title = 'Administration'; ?>
                     if($user->getRole() != 'admin')
                     { 
                     ?>Utilisateur
-                        <a href="../public/index.php?route=setAdmin&pseudo=<?=$user->getPseudo();?>" onclick="return confirm('êtes-vous sûr de vouloir donner le statut administrateur à l\'utilisateur '.$pseudo.' ?')">Promouvoir</a>
+                        <a href="../public/index.php?route=setAdmin&pseudo=<?php print_r(htmlspecialchars($user->getPseudo()));?>" onclick="return confirm('êtes-vous sûr de vouloir donner le statut administrateur à l\'utilisateur ?')">Promouvoir</a>
                     <?php
+                    } else {
+                        print_r('Administrateur');
                     }
                     ?>
                     </td>
@@ -122,16 +195,16 @@ $this->title = 'Administration'; ?>
                             {
                             ?>
                                  Compte actif 
-                                <a href="../public/index.php?route=desactivateAccountAdmin&pseudo=<?= $user->getPseudo();?>" onclick="return confirm('êtes-vous sûr de vouloir désactiver l\'utilisateur ?')">Désactiver</a>
+                                <a href="../public/index.php?route=desactivateAccountAdmin&pseudo=<?php print_r(htmlspecialchars($user->getPseudo())) ;?>" onclick="return confirm('êtes-vous sûr de vouloir désactiver l\'utilisateur ?')">Désactiver</a>
                             <?php
                             }
                             else 
                             {?>
-                                <a href="../public/index.php?route=activateAccount&pseudo=<?=$user->getPseudo();?>" onclick="return confirm('êtes-vous sûr de vouloir activer l\'utilisateur ?')">Activer</a>
+                                <a href="../public/index.php?route=activateAccount&pseudo=<?php print_r(htmlspecialchars($user->getPseudo())) ;?>" onclick="return confirm('êtes-vous sûr de vouloir activer l\'utilisateur ?')">Activer</a>
                             <?php
                             }?>
                         </td>                                                    
-                            <td><a href="../public/index.php?route=deleteUser&userId=<?= $user->getId(); ?>" onclick="return confirm('êtes-vous sûr de vouloir supprimer définitivement l\'utilisateur ?')">Supprimer</a>
+                            <td><a href="../public/index.php?route=deleteUser&userId=<?php print_r(htmlspecialchars($user->getId())) ; ?>" onclick="return confirm('êtes-vous sûr de vouloir supprimer définitivement l\'utilisateur ?')">Supprimer</a>
                             </td>
                             <?php }
                         else {
@@ -162,26 +235,26 @@ $this->title = 'Administration'; ?>
             {
                 ?> 
                 <tr>
-                    <td><?= htmlspecialchars($comment->getId());?></td>
-                    <td><?= htmlspecialchars($comment->getPseudo());?></td>
-                    <td><?= htmlspecialchars($comment->getPost()->getTitle());?></td> <!--Appel à la méthode "getPostObj" du modèle "Comment" qui retourne un objet Post -->
-                    <td><?= substr(htmlspecialchars($comment->getContent()), 0, 150);?></td>
-                    <td>Créé le : <?= htmlspecialchars($comment->getCreatedAt());?></td>
+                    <td><?php print_r(htmlspecialchars($comment->getId())) ;?></td>
+                    <td><?php print_r(htmlspecialchars($comment->getPseudo())) ;?></td>
+                    <td><?php print_r(htmlspecialchars($comment->getPost()->getTitle())) ;?></td> <!--Appel à la méthode "getPostObj" du modèle "Comment" qui retourne un objet Post -->
+                    <td><?php print_r(substr(htmlspecialchars($comment->getContent()), 0, 150)) ;?></td>
+                    <td>Créé le : <?php print_r(htmlspecialchars($comment->getCreatedAt())) ;?></td>
                     <td>
                     <?php
                     if ($comment->getValidate() === '0') 
                     { ?>
-                        <a href="../public/index.php?route=validateComment&commentId=<?= $comment->getId(); ?>">Valider le commentaire</a></td>
+                        <a href="../public/index.php?route=validateComment&commentId=<?php print_r(htmlspecialchars($comment->getId())) ; ?>">Valider le commentaire</a></td>
                         <?php
                     } else 
                     {
                         echo ('Commentaire validé');
                     ?>
-                        <a href="../public/index.php?route=invalidateComment&commentId=<?= $comment->getId(); ?>">Invalider le commentaire</a></td>
+                        <a href="../public/index.php?route=invalidateComment&commentId=<?php print_r(htmlspecialchars($comment->getId())); ?>">Invalider le commentaire</a></td>
                     <?php
                     }
                     ?>
-                    <td><a href="../public/index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>" class="text-danger" onclick=" return confirm('êtes-vous sûr de vouloir supprimer définitivement le commentaire')">Supprimer le commentaire</a></td>
+                    <td><a href="../public/index.php?route=deleteComment&commentId=<?php print_r(htmlspecialchars($comment->getId())); ?>" class="text-danger" onclick=" return confirm('êtes-vous sûr de vouloir supprimer définitivement le commentaire')">Supprimer le commentaire</a></td>
                     
                 </tr>
                 <?php

@@ -1,3 +1,3 @@
 <?php
 
-echo 'problème serveur';
+return ERROR_500;

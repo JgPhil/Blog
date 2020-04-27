@@ -5,7 +5,6 @@ namespace App\Framework;
 class Session
 {
     private $session;
-    private $name;
     
 
     public function __construct($session)
@@ -15,19 +14,32 @@ class Session
 
     public function set($name, $value)
     {
-        $this->session[$name] = $value;
+        $_SESSION[$name] = $value;
     }
 
-    public function get($name)
+    public function get($name = "")
     {
-        if(isset($this->session[$name])) {
-            return $this->session[$name];
+        if(isset($_SESSION[$name])) {
+            return $_SESSION[$name];
         }
+    }
+
+    public function similar($name)
+    {
+        
+            foreach (ADMIN_MESSAGES as $key => $message)
+            {
+                if (isset($_SESSION[$name]) === $message )
+                {
+                    $message = $_SESSION[$name];
+                }
+            }
+           
     }
 
     public function show($name)
     {
-        if(isset($this->session[$name]))
+        if(isset($_SESSION[$name]))
         {
             $key = $this->get($name);
             $this->remove($name);
@@ -37,7 +49,7 @@ class Session
 
     public function remove($name)
     {
-        unset($this->session[$name]);
+        unset($_SESSION[$name]);
     }
 
     public function start()
