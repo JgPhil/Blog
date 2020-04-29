@@ -117,8 +117,10 @@ class BackController extends BlogController
         if ($this->checkLoggedIn()){
             $pseudo = $this->session->get('pseudo');
             $comments = $this->commentDAO->getCommentsByPseudo($pseudo);
+            $posts = $this->postDAO->getPostsFromPseudo($pseudo);
             return $this->view->render('profile', [
                 'pseudo' => $pseudo,
+                'posts' =>$posts,
                 'comments' => $comments
             ]);
         }        
@@ -177,11 +179,11 @@ class BackController extends BlogController
     }
 
 
-    public function deleteUser($userId)
+    public function HideUser($userId)
     {
         if($this->checkAdmin()) {
-            $this->userDAO->deleteUser($userId);
-            $this->session->set('delete_account', 'Le compte a bien été supprimé');
+            $this->userDAO->HideUser($userId);
+            $this->session->set('delete_account', 'Le compte a bien été mis à la corbeille');
             header('Location: ../public/index.php?route=administration');
         }
     }

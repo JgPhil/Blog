@@ -25,27 +25,101 @@
 </section>
 <!-- /page title -->
 
+<section class="section">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-lg-8 mx-auto">
 
 
-<?= $this->session->show('update_password'); ?>
-<div>
-    <h2><?= $this->session->get('pseudo'); ?></h2>
-    <a href="../public/index.php?route=updatePassword">Modifier son mot de passe</a>
-    <a href="../public/index.php?route=desactivateAccount&pseudo=<?= $this->session->get('pseudo'); ?>" onclick="return confirm('êtes-vous sûr de vouloir supprimer votre compte ?')">Supprimer mon compte</a>
-</div>
-    <div class="card">
-    <?php
-        foreach ($comments as $comment) {
-            ?>
-            <div class="card">
-                <div class="card-body"><h5>Posté le <?= htmlspecialchars($comment->getCreatedAt());?></h5>
-                <p><?= htmlspecialchars($comment->getContent());?></p>
-                </div>          
+
+        <div class="row ">
+          <div class="col-lg-12 ">
+            <div class="row text-center">
+              <div class="col-lg-12 ">
+                <p><a href="../public/index.php"><i class="fas fa-long-arrow-alt-left"></i> Retour à l'accueil</a></p>
+                <div class="col-lg-12 text-center">
+                  <h1><?= $this->session->get('pseudo'); ?></h1>
+                </div>
+              </div>
             </div>
+          </div>
+
+
+
+
+          <?php
+          if ($this->session->get('update_password')) {
+          ?>
+            <h4 class="alert alert-success" role="alert"><?= $this->session->show('update_password') . ' <b>' . $this->session->get('pseudo') . '</b>'; ?></h4>
+          <?php
+          }
+          ?>
+        </div>
+        <div class="row text-center">
+          <div class="col-lg-12 text-center">
+            <a class="btn btn-primary btn-sm mr-8" href="../public/index.php?route=updatePassword">Modifier son mot de passe</a>
+            <a class="btn btn-primary btn-sm mt-8" href="../public/index.php?route=desactivateAccount&pseudo=<?= $this->session->get('pseudo') ?>" onclick="return confirm('êtes-vous sûr de vouloir supprimer votre compte ?')">Supprimer mon compte</a>
+          </div>
+        </div>
+        <div class="text-center">
+          <h2>Commentaires</h2>
+          <div class="card">
             <?php
+            if ($comments)
+            {
+              foreach ($comments as $comment) {
+            ?>
+              <div class="card">
+                <div class="card-body">
+                  <h5>Posté le <?= htmlspecialchars($comment->getCreatedAt()) ?> dans l'article <?= htmlspecialchars($comment->getPost()->getTitle()) ?></h5>
+                  <p><?= htmlspecialchars($comment->getContent()); ?></p>
+                </div>
+              </div>
+            <?php
+              }
+            }else
+            {
+              ?>
+              <div class="card">
+                  <div class="card-body">
+                    <h5>Rien pour le moment</h5>
+                  </div>
+                </div>
+              <?php
             }
-    ?>
-    
-</div>
-<br>
-<a href="../public/index.php">Retour à l'accueil</a>
+            ?>
+          </div>
+        </div>
+        <div class="text-center">
+          <h2>Articles</h2>
+          <div class="card">
+            <?php
+            if($posts)
+            {
+                foreach ($posts as $post) {
+              ?>
+                <div class="card">
+                  <div class="card-body">
+                    <h5> Date: <?php print_r(htmlspecialchars($post->getCreatedAt())) ?></h5>
+                    <h4><a href="../public/index.php?route=post&postId=<?php print_r(htmlspecialchars($post->getId())); ?>"><?php print_r(htmlspecialchars($post->getTitle())); ?></a></h4>
+                  </div>
+                </div>
+              <?php
+              }
+            } else
+            {
+              ?>
+              <div class="card">
+                  <div class="card-body">
+                    <h5>Rien pour le moment</h5>
+                  </div>
+                </div>
+              <?php
+            }
+            ?>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

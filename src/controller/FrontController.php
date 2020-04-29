@@ -67,14 +67,23 @@ class FrontController extends BlogController
 
     public function emailConfirm(Method $getMethod)
     {
-        $this->userDAO->emailConfirm($getMethod);       
-        $this->userDAO->activateAccount($getMethod->getParameter('pseudo'));
-        $this->userDAO->tokenReset($getMethod->getParameter('pseudo')); 
-        $this->session->set('email_confirmation', 'Votre compte est à présent activé. Bienvenue ! <br> Vous pouvez maintenant vous connecter avec vos identifiants et mot de passe.');
-        return $this->view->render('register3');
+        $this->userDAO->tokenErase($getMethod->getParameter('pseudo'));  
+        if (!empty($this->userDAO->emailConfirm($getMethod)))
+        { 
+            $this->userDAO->activateAccount($getMethod->getParameter('pseudo'));
+            $this->session->set('email_confirmation', 'Votre compte est à présent activé. Bienvenue ! <br> Vous pouvez maintenant vous connecter avec vos identifiants et mot de passe.');
+            return $this->view->render('register3');
+        }
+        $this->userDAO->deleteUser($getMethod->getParameter('pseudo'));
+        $this->session->set('error_account', 'Il y a eu un problème, merci de vous réinscrire ');
+        return $this->view->render('error_account');                   
     }
 
-
+/*    public function resendMail(Method $getMethod)
+    {
+        $this->userDAO->resendMail($getMethod);
+    }
+*/
     public function login(Method $postMethod)
     {
         if ($postMethod->getParameter('submit'))

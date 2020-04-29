@@ -29,11 +29,23 @@ class UserDAO extends DAO
         $this->checkUser($postMethod);
         $mail = new SendMail;
         $token = $mail->createToken();
-        $sql = 'INSERT INTO user (pseudo, password, email,  token, activated, role_id, createdAt, tokenTimeOut) VALUES (?, ?, ?, ?, 0, 2, NOW(), NOW())';
-        $this->createQuery($sql, [$postMethod->getParameter('pseudo'), password_hash($postMethod->getParameter('password'), PASSWORD_BCRYPT), $postMethod->getParameter('email'), $token]);
+        $sql = 'INSERT INTO user (pseudo, password, email, activated, role_id, createdAt) VALUES (?, ?, ?, 0, 2, NOW())';
+        $this->createQuery($sql, [$postMethod->getParameter('pseudo'), password_hash($postMethod->getParameter('password'), PASSWORD_BCRYPT), $postMethod->getParameter('email')]);
+        $sql = ' INSERT INTO token (user_id, token, createdAt) VALUES (LAST_INSERT_ID(), ?, NOW())' ;
+        $this->createQuery($sql, [$token]);
         $mail->sendMail($postMethod, $token);    
     }
 
+/*
+    public function resendMail(Method $getMethod)
+    {
+        $mail = new SendMail;
+        $token = $mail->createToken();
+        $sql = 'INSERT INTO token (user_id, token, createdAt) VALUES ((SELECT id FROM user WHERE pseudo = ?), ?, NOW())' ;
+        $this->createQuery($sql, [$getMethod->getParameter('pseudo'), $token]);
+        $mail->sendMail($getMethod, $token);  
+    }
+*/
     public function checkUser(Method $postMethod)
     {
         $sql = 'SELECT COUNT(pseudo) FROM user WHERE pseudo = ?';
@@ -50,33 +62,35 @@ class UserDAO extends DAO
         INNER JOIN role ON role.id = user.role_id WHERE pseudo = ? AND activated = 1';
         $data = $this->createQuery($sql, [$postMethod->getParameter('pseudo')]);
         $result = $data->fetch(); 
-        $isPasswordValid = password_verify($postMethod->getParameter('password'), $result['password']);
+        if($result)
+        {
+            $isPasswordValid = password_verify($postMethod->getParameter('password'), $result['password']);
         return [
             'result' => $result,
             'isPasswordValid' => $isPasswordValid
         ];
+    }   
+        
     }
 
-    public function emailConfirm(Method $getMethod) //the return from the confirmation email link.
-    {                                                  //Query the database to check if the token is similar/not empty. Also check if tokenTimeOut not exceeded;
-        $sql = 'SELECT * FROM user WHERE pseudo = ?';
-        $data = $this->createQuery($sql, [$getMethod->getParameter('pseudo')]);
-        $result = $data->fetch();
-        if (!empty($result['token'])){
-            return 'Votre compte est déja activé  !';
-        }
-        if ($getMethod->getParameter('token') !== $result['token'] || time() > (strtotime($result['tokenTimeOut']) + (48*60*60)))
-        {
-            return 'Ce lien ne fonctionne pas';
-        }
-        return $result;
-    }
-
-    public function tokenReset($pseudo)
+    public function emailConfirm(Method $getMethod)
     {
-        $sql = 'UPDATE user SET token = null WHERE pseudo = ?';
-        $this->createQuery($sql, [$pseudo]);
-        $sql = 'UPDATE user SET tokenTimeOut = now() WHERE pseudo = ?';
+            $sql = 'SELECT * FROM token INNER JOIN user ON token.user_id = user.id WHERE user.pseudo = ?';
+            $data = $this->createQuery($sql, [$getMethod->getParameter('pseudo')]);
+            $result = $data->fetch();
+            if (isset($result['token']))
+            {
+                if($getMethod->getParameter('token') === $result['token'] && time() < (strtotime($result['createdAt']) + (48*60*60)))
+                {
+                    return $result ;
+                }
+                
+            }
+    }
+
+    public function tokenErase($pseudo)
+    {
+        $sql = 'DELETE FROM token WHERE user_id = (SELECT id FROM user WHERE pseudo = ?)';
         $this->createQuery($sql, [$pseudo]);
     }
 
@@ -101,13 +115,19 @@ class UserDAO extends DAO
         $this->createQuery($sql, [$pseudo]);     
     }
 
-    public function deleteUser($userId)
+    public function HideUser($userId)
     {
         $sql = 'UPDATE comment SET visible = 0 WHERE pseudo IN
         (SELECT pseudo FROM user WHERE id = ?)';
         $this->createQuery($sql, [$userId]); 
         $sql = 'UPDATE user SET visible = 0 WHERE id = ?';
         $this->createQuery($sql, [$userId]);
+    }
+
+    public function deleteUser($pseudo)
+    {
+        $sql = 'DELETE FROM user WHERE pseudo = ?';
+        $this->createQuery($sql, [$pseudo]);
     }
 
     public function setAdmin($pseudo)

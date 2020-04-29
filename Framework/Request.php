@@ -4,9 +4,9 @@ namespace App\Framework;
 
 class Request
 {
-    private $getMethod;
-    private $postMethod;
-    private $session;
+    protected $getMethod;
+    protected $postMethod;
+    protected $session;
 
     public function __construct()
     {

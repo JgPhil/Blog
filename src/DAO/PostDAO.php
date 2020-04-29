@@ -81,4 +81,18 @@ class PostDAO extends DAO
         $user = new UserDAO;
         return  $user->buildObject($row); 
     }  
+
+    public function getPostsFromPseudo($pseudo)
+    {
+        $sql = 'SELECT  post.createdAt as createdAt, post.content as content, post.id as id, post.title as title   FROM post INNER JOIN user ON post.user_id = user.id WHERE user.pseudo = ?';
+        $result = $this->createQuery($sql, [$pseudo]);
+        $posts = []; // array
+        foreach ($result as $row){
+            $postId = $row['id'];
+            $posts[$postId] = $this->buildObject($row); //conversion par la method buildObject
+        }
+        $result->closeCursor();
+        return $posts; //object
+
+    }
 }

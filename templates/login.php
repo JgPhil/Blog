@@ -1,5 +1,5 @@
 <?php $this->title = "Connexion"; ?>
-<?= $this->session->show('error_login');?>
+
 
 <!-- page title -->
 <section class="page-title bg-primary position-relative">
@@ -28,6 +28,16 @@
         <div>
         <p><a href=<?=INDEX_PATH?> ><i class="fas fa-long-arrow-alt-left"></i>  Retour à l'accueil</a></p>
         </div>
+            <div class="col-md-4">
+                <?php
+                if (null !== $this->session->get('error_login'))
+                {
+                ?>    
+                    <div class="alert alert-danger" role="alert"><?= $this->session->show('error_login'); ?></div>
+                <?php    
+                }
+                ?> 
+            </div>
         <form method="post" action="../public/index.php?route=login">
             <div class="form-group">
                 <label for="pseudo">Pseudo</label><br>

@@ -12,8 +12,8 @@ class SendMail extends Request
 
     public function sendMail(Method $postMethod, $token) 
     {   
-        $pseudo = filter_var($this->postMethod->getParameter('pseudo'), FILTER_SANITIZE_STRING);
-        $email = filter_var($this->postMethod->getParameter('email'),FILTER_SANITIZE_EMAIL);
+        $pseudo = $this->postMethod->getParameter('pseudo');
+        $email = $this->postMethod->getParameter('email');
 
         $mail = new PHPMailer();                            
         $mail->isSMTP();                                  
@@ -34,7 +34,7 @@ class SendMail extends Request
         <html>
         <body>
             <div>
-            Bonjour '.$_POST['pseudo'].'! <br><br>
+            Bonjour '.$_POST['pseudo'].' ! <br><br>
             Pour finaliser votre inscription, merci de <br>'
             .$link.'<br>
             pour vérifier votre adresse email. <br><br>
