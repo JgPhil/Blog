@@ -5,7 +5,7 @@ namespace App\src\DAO;
 use App\Framework\DAO;
 use App\Framework\Method;
 use App\src\model\User;
-use App\Framework\SendMail;
+use App\Framework\Mail;
 
 class UserDAO extends DAO
 {
@@ -27,13 +27,21 @@ class UserDAO extends DAO
     public function register(Method $postMethod)
     {
         $this->checkUser($postMethod);
-        $mail = new SendMail;
+        $mail = new Mail;
         $token = $mail->createToken();
         $sql = 'INSERT INTO user (pseudo, password, email, activated, role_id, createdAt) VALUES (?, ?, ?, 0, 2, NOW())';
         $this->createQuery($sql, [$postMethod->getParameter('pseudo'), password_hash($postMethod->getParameter('password'), PASSWORD_BCRYPT), $postMethod->getParameter('email')]);
         $sql = ' INSERT INTO token (user_id, token, createdAt) VALUES (LAST_INSERT_ID(), ?, NOW())' ;
         $this->createQuery($sql, [$token]);
-        $mail->sendMail($postMethod, $token);    
+        $mail->registerMail($postMethod, $token);    
+    }
+
+    public function contactEmail(Method $postMethod)
+    {
+        $mail = new Mail;
+        $sql = 'INSERT INTO contact (name, email, message, phone, createdAt) VALUES (?, ?, ?, ?, NOW())';
+        $this->createQuery($sql, [$postMethod->getParameter('name'), $postMethod->getParameter('email'),$postMethod->getParameter('message'), $postMethod->getParameter('phone')]);
+        $mail->contactMail($postMethod);
     }
 
 /*

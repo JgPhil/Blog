@@ -8,12 +8,22 @@ $this->title = "Accueil"; ?>
     <!-- hero area -->
 <section class="hero-area bg-primary" id="parallax">
   <div class="container">
-    <div class="row">
+    <div class="row text-center">
       <div class="col-lg-11 mx-auto">
-        <h1 class="text-white font-tertiary"><br><strong></strong> Philippe Jaming<br> Web developer</strong></h1>
+        <h1 class="text-white font-tertiary"><br><strong> Philippe Jaming<br> Web developer</strong></h1>
       </div>
     </div>
   </div>
+
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-lg-10 mx-auto">
+        <h4 class="text-white font-tertiary"><br><strong> Expression numérique et personnelle de mon parcours professionnel dans le développement informatique</strong></h4>
+      </div>
+    </div>
+  </div>
+
+
   <div class="layer-bg w-100">
     <img class="img-fluid w-100" src="images/illustrations/leaf-bg.png" alt="bg-shape">
   </div>
@@ -43,10 +53,10 @@ $this->title = "Accueil"; ?>
   </div>
   <!-- social icon -->
   <ul class="list-unstyled ml-5 mt-3 position-relative zindex-1">
-    <li class="mb-3"><a class="text-white" href="#"><i class="ti-facebook"></i></a></li>
-    <li class="mb-3"><a class="text-white" href="#"><i class="ti-instagram"></i></a></li>
-    <li class="mb-3"><a class="text-white" href="#"><i class="ti-dribbble"></i></a></li>
-    <li class="mb-3"><a class="text-white" href="#"><i class="ti-twitter"></i></a></li>
+    <li class="mb-3"><a class="text-white" href="https://github.com/JgPhil"><i class="ti-github"></i></a></li>
+    <li class="mb-3"><a class="text-white" href="https://twitter.com/bootsnipp"><i class="ti-twitter"></i></a></li>
+    <li class="mb-3"><a class="text-white" href="https://www.linkedin.com/in/philippe-j-61a477194/"><i class="ti-linkedin"></i></a></li>
+    <li class="mb-3"><a class="text-white" href="Location:../public/index.php?route=contact"><i class="ti-email"></i></a></li>
   </ul>
   <!-- /social icon -->
 </section>
@@ -64,6 +74,12 @@ $this->title = "Accueil"; ?>
             {
             ?>    
                 <h4 class="alert alert-success" role="alert"><?= $this->session->show('register').' <b>'.$this->session->get('pseudo').'</b>'; ?></h4>
+            <?php    
+            }
+            elseif ($this->session->get('confirm_email'))
+            {
+            ?>    
+                  <h4 class="alert alert-success" role="alert"><?= $this->session->show('confirm_email')?></h4>
             <?php    
             }
             elseif ($this->session->get('login'))

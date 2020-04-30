@@ -68,8 +68,11 @@ if (isset($route)) {
         case $route === 'emailConfirm':
             $action = $this->frontController->emailConfirm($this->request->getGet());
             break;
-        case $route === 'resend_email':
-            $action = $this->frontController->resendMail($this->request->getGet());
+        case $route === 'contact':
+            $action = $this->frontController->contact();
+            break;
+        case $route === 'contactEmail':
+            $action = $this->frontController->contactEmail($this->request->getPost());
             break;
         default:
             $action = $this->errorController->errorNotFound();

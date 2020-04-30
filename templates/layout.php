@@ -48,10 +48,7 @@
           <a class="nav-link" href=<?=INDEX_PATH?>>Accueil</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="about.html">A propos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="contact.html">Contact</a>
+          <a class="nav-link" href=<?=INDEX_PATH.SLUG.'contact'?>>Contact</a>
         </li>
       
 
@@ -133,7 +130,8 @@
                             <a href="https://github.com/JgPhil"><i class="fab fa-github-square fa-3x social"></i></a>
                             <a href="https://twitter.com/bootsnipp"><i class="fa fa-twitter-square fa-3x social"></i></a>
                             <a href="https://openclassrooms.com/fr/membres/philippe-jaming"><i class="fas fa-graduation-cap fa-3x social"></i></a>
-                            <a href="mailto:bootsnipp@gmail.com"><i class="fa fa-envelope-square fa-3x social"></i></a>
+                            <a href="mailto:jamingph@gmail.com"><i class="fa fa-envelope-square fa-3x social"></i></a>
+                            <a href="#"><i class="fa fa-linkedin-square fa-3x social"></i></a>
                 <hr />
             </div>
         </div>

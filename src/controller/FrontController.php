@@ -108,4 +108,31 @@ class FrontController extends BlogController
         }
         return $this->view->render('login');
     }
+
+    public function contactEmail(Method $postMethod)
+    {
+        if ($postMethod->getParameter('submit'))
+        {
+            $errors = $this->validation->validate($postMethod, 'Email');
+            if(!$errors)
+            {
+                $this->userDAO->contactEmail($postMethod);
+                $this->session->set('confirm_email', 'Votre email a bien été envoyé');
+                header('Location: ../public/index.php');
+            }
+            else 
+            {
+                $this->session->set('error_email', 'Votre email n\'a pas été envoyé');
+                return $this->view->render('contact',[
+                    'postMethod' => $postMethod,
+                    'errors' => $errors
+                ]);
+            }
+        }
+    }
+
+    public function contact()
+    {
+        return $this->view->render('contact');
+    }
 }

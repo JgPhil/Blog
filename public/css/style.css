@@ -470,10 +470,11 @@ textarea.form-control {
   }
 }
 
-.hero-area h1 {
+.hero-area h1, h3, h4 {
   position: relative;
   z-index: 2;
 }
+
 
 .layer {
   position: absolute;
