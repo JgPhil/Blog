@@ -1,9 +1,9 @@
 
 
 <?php
-$route = isset($postMethod) && $postMethod->getParameter('id') ? 'editPost&postId='.$postMethod->getParameter('id') : 'addPost';
+$route = isset($postMethod) && $postMethod->getParameter('id') ? 'editPost&postId='.htmlentities($postMethod->getParameter('id'))  : 'addPost';
 $submit = $route === 'addPost' ? 'Envoyer' : 'Mettre à jour';
-$h2 = $route === 'addPost' ? 'Rédaction d\'un article' : 'Mis à jour de l\'article : '.htmlspecialchars($postMethod->getParameter('title'));
+$h2 = $route === 'addPost' ? 'Rédaction d\'un article' : 'Mis à jour de l\'article : '.htmlentities($postMethod->getParameter('title'));
 ?>
 
 <!-- page title -->
@@ -28,7 +28,7 @@ $h2 = $route === 'addPost' ? 'Rédaction d\'un article' : 'Mis à jour de l\'art
 
 <div class="section">
     <div class="container">
-        <h2 class="title"><?=$h2?></h2>
+        <h2 class="title"><?=htmlentities($h2)?></h2>
     </div>
 </div>
 
@@ -38,21 +38,21 @@ $h2 = $route === 'addPost' ? 'Rédaction d\'un article' : 'Mis à jour de l\'art
         <div>
             <p><a href=<?=INDEX_PATH?> ><i class="fas fa-long-arrow-alt-left"></i>  Retour à l'accueil</a></p>
         </div>
-            <form method="post" action=<?=INDEX_PATH.SLUG.$route;?>>
+            <form method="post" action=<?=INDEX_PATH.SLUG.htmlentities($route);?>>
                 <div class="form-group">
                     <label for="title">Auteur</label><br>
-                    <input type="text" class="form-control"id="author" name="author" value="<?= isset($postMethod) ? htmlspecialchars($postMethod->getParameter('author')): ''; ?>"><br>
-                    <?= isset($errors['author']) ? $errors['author'] : ''; ?>
+                    <input type="text" class="form-control"id="author" name="author" value="<?= isset($postMethod) ? htmlentities($postMethod->getParameter('author')): ''; ?>"><br>
+                    <?= isset($errors['author']) ? htmlentities($errors['author']) : ''; ?>
                     <label for="title">Titre</label><br>
-                    <input type="text" class="form-control"id="title" name="title" value="<?= isset($postMethod) ? htmlspecialchars($postMethod->getParameter('title')): ''; ?>"><br>
-                    <?= isset($errors['title']) ? $errors['title'] : ''; ?>
+                    <input type="text" class="form-control"id="title" name="title" value="<?= isset($postMethod) ? htmlentities($postMethod->getParameter('title')): ''; ?>"><br>
+                    <?= isset($errors['title']) ? htmlentities($errors['title']) : ''; ?>
                     <label for="heading">Châpo</label><br>
-                    <input type="text" class="form-control"id="heading" name="heading" value="<?= isset($postMethod) ? htmlspecialchars($postMethod->getParameter('heading')): ''; ?>"><br>
-                    <?= isset($errors['heading']) ? $errors['heading'] : ''; ?>
+                    <input type="text" class="form-control"id="heading" name="heading" value="<?= isset($postMethod) ? htmlentities($postMethod->getParameter('heading')): ''; ?>"><br>
+                    <?= isset($errors['heading']) ? htmlentities($errors['heading']) : ''; ?>
                     <label for="content">Contenu</label><br>
-                    <textarea class="form-control" rows="12" id="content" name="content"><?= isset($postMethod) ? htmlspecialchars($postMethod->getParameter('content')): ''; ?></textarea><br>
-                    <?= isset($errors['content']) ? $errors['content'] : ''; ?>
-                    <input type="submit" class="btn btn-primary"value="<?= $submit; ?>" id="submit" name="submit">
+                    <textarea class="form-control" rows="12" id="content" name="content"><?= isset($postMethod) ? htmlentities($postMethod->getParameter('content')): ''; ?></textarea><br>
+                    <?= isset($errors['content']) ? htmlentities($errors['content']) : ''; ?>
+                    <input type="submit" class="btn btn-primary"value="<?= htmlentities($submit); ?>" id="submit" name="submit">
                 </div>
             </form> 
     </div>

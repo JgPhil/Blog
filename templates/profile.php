@@ -1,10 +1,5 @@
 <?php $this->title = 'Mon profil'; ?>
 
-
-
-<?php $this->title = "Inscription"; ?>
-
-
 <!-- page title -->
 <section class="page-title bg-primary position-relative">
   <div class="container">
@@ -38,13 +33,13 @@
               <div class="col-lg-12 ">
                 <p><a href="../public/index.php"><i class="fas fa-long-arrow-alt-left"></i> Retour à l'accueil</a></p>
                 <div class="col-lg-12 text-center bg-light border mt-2">
-                  <h2><?= $this->session->get('pseudo'); ?></h2>
+                  <h2><?= htmlentities($this->session->get('pseudo')); ?></h2>
                 </div>
                 <div class="col-lg-12 text-center">
-                  <h4>Rôle: <?= $this->session->get('role'); ?></h4>
+                  <h4>Rôle: <?= htmlentities($this->session->get('role')); ?></h4>
                 </div>
                 <div class="col-lg-12 text-center">
-                  <h4> Membre depuis le : <?= htmlspecialchars($user->getCreatedAt()); ?></h4>
+                  <h4> Membre depuis le : <?= htmlentities($user->getCreatedAt()); ?></h4>
                 </div>
               </div>
             </div>
@@ -56,7 +51,7 @@
             <?php
             if ($this->session->get('update_password')) {
             ?>
-              <h4 class="alert alert-success text-center" role="alert"><?= $this->session->show('update_password') . ' <b>' . $this->session->get('pseudo') . '</b>'; ?></h4>
+              <h4 class="alert alert-success text-center" role="alert"><?= htmlentities($this->session->show('update_password')) . ' <b>' . htmlentities($this->session->get('pseudo')) . '</b>'; ?></h4>
             <?php
             }
             ?>
@@ -65,7 +60,7 @@
         <div class="row text-center ">
           <div class="col-lg-12 text-center ">
             <a class="btn btn-primary btn-xs" href="../public/index.php?route=updatePassword">Changer mot de passe</a>
-            <a class="btn btn-danger btn-xs" href="../public/index.php?route=desactivateAccount&pseudo=<?= $this->session->get('pseudo') ?>" onclick="return confirm('êtes-vous sûr de vouloir supprimer votre compte ?')">Supprimer mon compte</a>
+            <a class="btn btn-danger btn-xs" href="../public/index.php?route=desactivateAccount&pseudo=<?= htmlentities($this->session->get('pseudo')) ?>" onclick="return confirm('êtes-vous sûr de vouloir supprimer votre compte ?')">Supprimer mon compte</a>
           </div>
         </div>
         <div class="text-center mt-5">
@@ -77,8 +72,8 @@
             ?>
                 <div class="card">
                   <div class="card-body">
-                    <h5>Posté le <?= htmlspecialchars($comment->getCreatedAt()) ?> dans l'article <?= htmlspecialchars($comment->getPost()->getTitle()) ?></h5>
-                    <p><?= htmlspecialchars($comment->getContent()); ?></p>
+                    <h5>Posté le <?= htmlentities($comment->getCreatedAt()) ?> dans l'article <?= htmlentities($comment->getPost()->getTitle()) ?></h5>
+                    <p><?= htmlentities($comment->getContent()); ?></p>
                   </div>
                 </div>
               <?php

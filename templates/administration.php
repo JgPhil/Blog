@@ -16,31 +16,31 @@ $this->title = 'Administration'; ?>
                             <?php
                             if ($this->session->get('add_post')) {
                             ?>
-                                <h4 class="alert alert-success" role="alert"><?= $this->session->show('add_post') ?></h4>
+                                <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('add_post')) ?></h4>
                             <?php
                             } elseif ($this->session->get('edit_post')) {
                             ?>
-                                <h4 class="alert alert-success" role="alert"><?= $this->session->show('edit_post') ?></h4>
+                                <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('edit_post')) ?></h4>
                             <?php
                             } elseif ($this->session->get('delete_post')) {
                             ?>
-                                <h4 class="alert alert-success" role="alert"><?= $this->session->show('delete_post') ?></h4>
+                                <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('delete_post')) ?></h4>
                             <?php
                             } elseif ($this->session->get('delete_comment')) {
                             ?>
-                                <h4 class="alert alert-success" role="alert"><?= $this->session->show('delete_comment') ?></h4>
+                                <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('delete_comment')) ?></h4>
                             <?php
                             } elseif ($this->session->get('validate_comment')) {
                             ?>
-                                <h4 class="alert alert-success" role="alert"><?= $this->session->show('validate_comment') ?></h4>
+                                <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('validate_comment')) ?></h4>
                             <?php
                             } elseif ($this->session->get('invalidate_comment')) {
                             ?>
-                                <h4 class="alert alert-success" role="alert"><?= $this->session->show('invalidate_comment') ?></h4>
+                                <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('invalidate_comment')) ?></h4>
                             <?php
                             } elseif ($this->session->get('activate_account')) {
                             ?>
-                                <h4 class="alert alert-success" role="alert"><?= $this->session->show('activate_account') ?></h4>
+                                <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('activate_account')) ?></h4>
                             <?php
                             }
                             ?>
@@ -48,17 +48,6 @@ $this->title = 'Administration'; ?>
                     </div>
                 </div>
 
-
-                <?php /*
-                
-                 print_r(htmlspecialchars($this->session->show('add_post'))); ?>
-                <?php print_r(htmlspecialchars($this->session->show('edit_post'))) ; ?>
-                <?php print_r(htmlspecialchars($this->session->show('delete_post')))  ; ?>
-                <?php print_r(htmlspecialchars($this->session->show('delete_user')))  ; ?>
-                <?php print_r(htmlspecialchars($this->session->show('delete_comment')))  ;?>
-                <?php print_r(htmlspecialchars($this->session->show('validate_comment')))  ; ?>
-                <?php print_r(htmlspecialchars($this->session->show('invalidate_comment')))  ; ?>
-                <?php print_r(htmlspecialchars($this->session->show('activate_account')))  ; */ ?>
                 <h1 class="text-white font-tertiary">Espace <br>Administration</h1>
             </div>
         </div>
@@ -78,7 +67,7 @@ $this->title = 'Administration'; ?>
     <nav class="navbar navbar-expand-lg">
         <div class="row">
             <ul class="navbar-nav navbar-dark mx-auto">
-                <li class="nav-item"><a class="nav-link" href=<?= INDEX_PATH ?>><i class="fas fa-long-arrow-alt-left"></i> Retour à l'accueil</a></li>
+                <li class="nav-item"><a class="nav-link" href=<?=htmlentities(INDEX_PATH)?>><i class="fas fa-long-arrow-alt-left"></i> Retour à l'accueil</a></li>
                 <li class="nav-item"><a class="nav-link" href="#posts">Articles</a></li>
                 <li class="nav-item"><a class="nav-link" href="#users">Utilisateurs</a></li>
                 <li class="nav-item"><a class="nav-link" href="#comments">commentaires</a></li>
@@ -90,7 +79,7 @@ $this->title = 'Administration'; ?>
 <div class="col-lg-10 mx-auto">
     <div class="bg-white rounded text-center p-5 shadow-down">
         <h3 id="posts" class="mb-80">Articles</h3>
-        <a href=<?= INDEX_PATH . SLUG . "addPost" ?>>Nouvel article</a>
+        <a href=<?= htmlentities(INDEX_PATH) . htmlentities(SLUG) . "addPost" ?>>Nouvel article</a>
         <table class="table">
             <tr>
                 <td>Id</td>
@@ -109,16 +98,16 @@ $this->title = 'Administration'; ?>
                 if ($post->getVisible() === "1") {
             ?>
                     <tr>
-                        <td><?php print_r(htmlspecialchars($post->getId())); ?></td>
-                        <td><a href="../public/index.php?route=post&postId=<?php print_r(htmlspecialchars($post->getId())); ?>"><?php print_r(htmlspecialchars($post->getTitle())); ?></a></td>
-                        <td> <?php print_r(htmlspecialchars($post->getHeading())); ?></td>
-                        <td><?php print_r(substr(htmlspecialchars($post->getContent()), 0, 80)); ?></td>
-                        <td><?php print_r(htmlspecialchars($post->getUser()->getPseudo())); ?> (<?php print_r(htmlspecialchars($post->getUser()->getRole())) ?>)</td>
-                        <td>Créé le : <?php print_r(htmlspecialchars($post->getCreatedAt())); ?></td>
-                        <td><a href="../public/index.php?route=postComments&postId=<?php print_r(htmlspecialchars($post->getId())); ?>">Voir les commentaires</a></td>
+                        <td><?=htmlentities($post->getId()); ?></td>
+                        <td><a href="../public/index.php?route=post&postId=<?=htmlentities($post->getId()); ?>"><?=htmlentities($post->getTitle()); ?></a></td>
+                        <td> <?=htmlentities($post->getHeading()); ?></td>
+                        <td><?=substr(htmlentities($post->getContent()), 0, 80); ?></td>
+                        <td><?=htmlentities($post->getUser()->getPseudo()); ?> (<?=htmlentities($post->getUser()->getRole())?>)</td>
+                        <td>Créé le : <?=htmlentities($post->getCreatedAt()); ?></td>
+                        <td><a href="../public/index.php?route=postComments&postId=<?=htmlentities($post->getId()); ?>">Voir les commentaires</a></td>
                         <td>
-                            <a href="../public/index.php?route=editPost&postId=<?php print_r(htmlspecialchars($post->getId())); ?>">Modifier</a>
-                            <a href="../public/index.php?route=hidePost&postId=<?php print_r(htmlspecialchars($post->getId())); ?>" onclick="return confirm('êtes-vous sûr de vouloir mettre l\'article à la corbeille?')">Supprimer</a>
+                            <a href="../public/index.php?route=editPost&postId=<?=htmlentities($post->getId()); ?>">Modifier</a>
+                            <a href="../public/index.php?route=hidePost&postId=<?=htmlentities($post->getId()); ?>" onclick="return confirm('êtes-vous sûr de vouloir mettre l\'article à la corbeille?')">Supprimer</a>
                         </td>
                     </tr>
             <?php

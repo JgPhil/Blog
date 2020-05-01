@@ -73,23 +73,23 @@ $this->title = "Accueil"; ?>
             <?php
             if ($this->session->get('register')) {
             ?>
-              <h4 class="alert alert-success" role="alert"><?= $this->session->show('register') . ' <b>' . $this->session->get('pseudo') . '</b>'; ?></h4>
+              <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('register')) . ' <b>' . htmlentities($this->session->get('pseudo')) . '</b>'; ?></h4>
             <?php
             } elseif ($this->session->get('confirm_email')) {
             ?>
-              <h4 class="alert alert-success" role="alert"><?= $this->session->show('confirm_email') ?></h4>
+              <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('confirm_email')) ?></h4>
             <?php
             } elseif ($this->session->get('login')) {
             ?>
-              <h4 class="alert alert-success" role="alert"><?= $this->session->show('login') . ' <b>' . $this->session->get('pseudo') . '</b>'; ?></h4>
+              <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('login')) . ' <b>' . htmlentities($this->session->get('pseudo')) . '</b>'; ?></h4>
             <?php
             } elseif ($this->session->get('logout')) {
             ?>
-              <h4 class="alert alert-success" role="alert"><?= $this->session->show('logout') . ' <b>' . $this->session->get('pseudo') . '</b>'; ?></h4>
+              <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('logout')) . ' <b>' . htmlentities($this->session->get('pseudo')) . '</b>'; ?></h4>
             <?php
             } elseif ($this->session->get('delete_account')) {
             ?>
-              <h4 class="alert alert-success" role="alert"><?= $this->session->show('delete_account') . ' <b>' . $this->session->get('pseudo') . '</b>'; ?></h4>
+              <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('delete_account')) . ' <b>' . htmlentities($this->session->get('pseudo')) . '</b>'; ?></h4>
             <?php
             }
             ?>
@@ -102,11 +102,11 @@ $this->title = "Accueil"; ?>
         <article class="card shadow">
           <img class="rounded card-img-top" src="images/blog/post-3.jpg" alt="post-thumb">
           <div class="card-body">
-            <h4 class="card-title"><a href=<?= INDEX_PATH . SLUG . "post&postId=" . htmlspecialchars($posts[23]->getId()); ?>><?= htmlspecialchars($posts[23]->getTitle()); ?></a></h4>
-            <h5><?= htmlspecialchars($posts[23]->getHeading()); ?></h5>
-            <p>Ajouté le : <?= htmlspecialchars($posts[23]->getCreatedAt()); ?></p>
-            <p class="cars-text"><?= htmlspecialchars(Text::excerpt($posts[23]->getContent())); ?></p>
-            <a href=<?= INDEX_PATH . SLUG . "post&postId=" . htmlspecialchars($posts[23]->getId()); ?> class="btn btn-xs btn-primary">Voir Plus</a>
+            <h4 class="card-title"><a href=<?= INDEX_PATH . SLUG . "post&postId=" . htmlentities($posts[23]->getId()); ?>><?= htmlentities($posts[23]->getTitle()); ?></a></h4>
+            <h5><?= htmlentities($posts[23]->getHeading()); ?></h5>
+            <p>Ajouté le : <?= htmlentities($posts[23]->getCreatedAt()); ?></p>
+            <p class="cars-text"><?= htmlentities(Text::excerpt($posts[23]->getContent())); ?></p>
+            <a href=<?= INDEX_PATH . SLUG . "post&postId=" . htmlentities($posts[23]->getId()); ?> class="btn btn-xs btn-primary">Voir Plus</a>
           </div>
         </article>
       </div>
@@ -114,11 +114,11 @@ $this->title = "Accueil"; ?>
         <article class="card shadow">
           <img class="rounded card-img-top" src="images/blog/post-3.jpg" alt="post-thumb">
           <div class="card-body">
-            <h4 class="card-title"><a href=<?= INDEX_PATH . SLUG . "post&postId=" . htmlspecialchars($posts[22]->getId()); ?>><?= htmlspecialchars($posts[22]->getTitle()); ?></a></h4>
-            <h5><?= htmlspecialchars($posts[22]->getHeading()); ?></h5>
-            <p>Ajouté le : <?= htmlspecialchars($posts[22]->getCreatedAt()); ?></p>
-            <p class="cars-text"><?= htmlspecialchars(Text::excerpt($posts[22]->getContent())); ?></p>
-            <a href=<?= INDEX_PATH . SLUG . "post&postId=" . htmlspecialchars($posts[22]->getId()); ?> class="btn btn-xs btn-primary">Voir Plus</a>
+            <h4 class="card-title"><a href=<?= INDEX_PATH . SLUG . "post&postId=" . htmlentities($posts[22]->getId()); ?>><?= htmlentities($posts[22]->getTitle()); ?></a></h4>
+            <h5><?= htmlentities($posts[22]->getHeading()); ?></h5>
+            <p>Ajouté le : <?= htmlentities($posts[22]->getCreatedAt()); ?></p>
+            <p class="cars-text"><?= htmlentities(Text::excerpt($posts[22]->getContent())); ?></p>
+            <a href=<?= INDEX_PATH . SLUG . "post&postId=" . htmlentities($posts[22]->getId()); ?> class="btn btn-xs btn-primary">Voir Plus</a>
           </div>
         </article>
       </div>
@@ -126,11 +126,11 @@ $this->title = "Accueil"; ?>
         <article class="card shadow">
           <img class="rounded card-img-top" src="images/blog/post-3.jpg" alt="post-thumb">
           <div class="card-body">
-            <h4 class="card-title"><a href=<?= INDEX_PATH . SLUG . "post&postId=" . htmlspecialchars($posts[21]->getId()); ?>><?= htmlspecialchars($posts[21]->getTitle()); ?></a></h4>
-            <h5><?= htmlspecialchars($posts[21]->getHeading()); ?></h5>
-            <p>Ajouté le : <?= htmlspecialchars($posts[21]->getCreatedAt()); ?></p>
-            <p class="cars-text"><?= htmlspecialchars(Text::excerpt($posts[21]->getContent())); ?></p>
-            <a href=<?= INDEX_PATH . SLUG . "post&postId=" . htmlspecialchars($posts[21]->getId()); ?> class="btn btn-xs btn-primary">Voir Plus</a>
+            <h4 class="card-title"><a href=<?= INDEX_PATH . SLUG . "post&postId=" . htmlentities($posts[21]->getId()); ?>><?= htmlentities($posts[21]->getTitle()); ?></a></h4>
+            <h5><?= htmlentities($posts[21]->getHeading()); ?></h5>
+            <p>Ajouté le : <?= htmlentities($posts[21]->getCreatedAt()); ?></p>
+            <p class="cars-text"><?= htmlentities(Text::excerpt($posts[21]->getContent())); ?></p>
+            <a href=<?= INDEX_PATH . SLUG . "post&postId=" . htmlentities($posts[21]->getId()); ?> class="btn btn-xs btn-primary">Voir Plus</a>
           </div>
         </article>
       </div>

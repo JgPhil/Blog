@@ -29,7 +29,7 @@ abstract class DAO
         }
         catch(Exception $errorConnection)
         {
-            die ('Erreur de connection :'.$errorConnection->getMessage());
+            return ('Erreur de connection :'.$errorConnection->getMessage());
         }
     }
 

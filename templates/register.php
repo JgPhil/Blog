@@ -38,7 +38,7 @@
                 if (isset($errors['pseudo']))
                 {
                 ?>    
-                    <div class="alert alert-danger" role="alert"><?= $errors['pseudo']; ?></div>
+                    <div class="alert alert-danger" role="alert"><?= htmlentities($errors['pseudo']); ?></div>
                 <?php    
                 }
                 ?> 
@@ -49,7 +49,7 @@
                 if (isset($errors['password']))
                 {
                 ?>    
-                    <div class="alert alert-danger" role="alert"><?= $errors['password']; ?></div>
+                    <div class="alert alert-danger" role="alert"><?= htmlentities($errors['password']); ?></div>
                 <?php    
                 }
                 ?>    
@@ -60,7 +60,7 @@
                 if (isset($errors['email']))
                 {
                 ?>    
-                    <div class="alert alert-danger" role="alert"><?= $errors['email']; ?></div>
+                    <div class="alert alert-danger" role="alert"><?= htmlentities($errors['email']); ?></div>
                 <?php    
                 }
                 ?>    

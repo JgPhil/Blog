@@ -41,7 +41,7 @@ $this->title="Contact"; ?>
                 if (isset($errors['name']))
                 {
                 ?>    
-                    <div class="alert alert-danger" role="alert"><?= $errors['name']; ?></div>
+                    <div class="alert alert-danger" role="alert"><?= htmlentities($errors['name']); ?></div>
                 <?php    
                 }
                 ?> 
@@ -52,7 +52,7 @@ $this->title="Contact"; ?>
                 if (isset($errors['email']))
                 {
                 ?>    
-                    <div class="alert alert-danger" role="alert"><?= $errors['email']; ?></div>
+                    <div class="alert alert-danger" role="alert"><?= htmlentities($errors['email']); ?></div>
                 <?php    
                 }
                 ?> 
@@ -64,7 +64,7 @@ $this->title="Contact"; ?>
                 if (isset($errors['phone']))
                 {
                 ?>    
-                    <div class="alert alert-danger" role="alert"><?= $errors['phone']; ?></div>
+                    <div class="alert alert-danger" role="alert"><?= htmlentities($errors['phone']); ?></div>
                 <?php    
                 }
                 ?> 
@@ -76,7 +76,7 @@ $this->title="Contact"; ?>
                 if (isset($errors['message']))
                 {
                 ?>    
-                    <div class="alert alert-danger" role="alert"><?= $errors['message']; ?></div>
+                    <div class="alert alert-danger" role="alert"><?= htmlentities($errors['message']); ?></div>
                 <?php    
                 }
                 ?> 

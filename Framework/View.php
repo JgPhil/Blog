@@ -26,7 +26,7 @@ class View
             'content' => $content,
             'session' => $this->session
         ]);
-        print_r($view) ;
+        echo($view) ;
     }
 
     private function renderFile($file, $data)

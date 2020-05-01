@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title><?=$title?></title>
+  <title><?=htmlentities($title)?></title>
 
   <!-- mobile responsive meta -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,7 +36,7 @@
 
 <header class="navigation fixed-top">
   <nav class="navbar navbar-expand-lg navbar-dark">
-    <a class="navbar-brand font-tertiary h3" href=<?=INDEX_PATH?>><img src="images/logo.png" alt="Myself"></a>
+    <a class="navbar-brand font-tertiary h3" href=<?=htmlentities(INDEX_PATH)?>><img src="images/logo.png" alt="Myself"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
       aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>

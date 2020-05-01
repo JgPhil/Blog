@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12 text-center">
-                <h2 class="text-white font-tertiary"><?= "Commentaires de l'article : " . htmlspecialchars($comments[array_key_first($comments)]->getPostObj()->getTitle()); ?></h2>
+                <h2 class="text-white font-tertiary"><?= "Commentaires de l'article : " . htmlentities($comments[array_key_first($comments)]->getPostObj()->getTitle()); ?></h2>
             </div>
         </div>
     </div>
@@ -35,13 +35,13 @@ if (!empty($comments)) {
 ?>
         <div class="container text-center mb-20">
             <div class="col-lg-12">
-                <h5 class="title">Posté le <?= htmlspecialchars($comment->getCreatedAt()); ?> par <?= htmlspecialchars($comment->getPseudo()); ?></h5>
-                <p><?= htmlspecialchars($comment->getContent()); ?></p>
-                <p><a href="../public/index.php?route=hideComment&commentId=<?= $comment->getId(); ?>" onclick="return confirm('Vous allez supprimer définitivement ce message. êtes-vous certain de vouloir faire ça ?  ( Irréverssible !!)')">Supprimer le commentaire</a></p>
+                <h5 class="title">Posté le <?= htmlentities($comment->getCreatedAt()); ?> par <?= htmlentities($comment->getPseudo()); ?></h5>
+                <p><?= htmlentities($comment->getContent()); ?></p>
+                <p><a href="../public/index.php?route=hideComment&commentId=<?= htmlentities($comment->getId()); ?>" onclick="return confirm('Vous allez supprimer définitivement ce message. êtes-vous certain de vouloir faire ça ?  ( Irréverssible !!)')">Supprimer le commentaire</a></p>
                 <?php
                 if ($comment->getValidate() === "0") {
                 ?>
-                    <p><a href="../public/index.php?route=validateComment&commentId=<?= $comment->getId(); ?>">Valider</a></p>
+                    <p><a href="../public/index.php?route=validateComment&commentId=<?= htmlentities($comment->getId()); ?>">Valider</a></p>
             </div>
         </div>
     <?php

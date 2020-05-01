@@ -65,6 +65,8 @@ class FrontController extends BlogController
         return $this->view->render('register');
     }
 
+    
+
     public function desactivateAccount($pseudo)
     {
         $this->userDAO->desactivateAccount($this->session->get('pseudo'));

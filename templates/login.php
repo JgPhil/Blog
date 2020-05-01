@@ -33,7 +33,7 @@
         <?php
         if (null !== $this->session->get('error_login')) {
         ?>
-          <div class="alert alert-danger" role="alert"><?= $this->session->show('error_login'); ?></div>
+          <div class="alert alert-danger" role="alert"><?= htmlentities($this->session->show('error_login')); ?></div>
         <?php
         }
         ?>
