@@ -10,8 +10,9 @@ class User
     private $createdAt;
     private $role;
     private $activated;
-    private $token;
-    private $tokenTimeOut;
+    private $email;
+    private $visible;
+    
 
     public function getId()
     {
@@ -73,23 +74,25 @@ class User
         $this->activated = $activated;
     }
 
-    public function getToken()
+    public function getEmail()
     {
-        return $this->token;
+        return $this->email;
+    }
+    
+    public function setEmail($email)
+    {
+        $this->email = $email;
     }
 
-    public function setToken($token)
+    public function getVisible()
     {
-        $this->token = $token;
+        return $this->visible;
     }
 
-    public function getTokenTimeOut()
+    public function setVisible($visible)
     {
-        return $this->tokenTimeOut;
+        $this->visible = $visible;
     }
 
-    public function setTokenTimeOut($tokenTimeOut)
-    {
-        $this->tokenTimeOut = $tokenTimeOut;
-    }
+
 }

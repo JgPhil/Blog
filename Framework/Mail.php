@@ -81,7 +81,9 @@ class Mail extends Request
             <div>
             ' . $name . ' vous a envoyé un message.<br>
             <p>Téléphone :' . $phone . '</p>
+            <p>Email : '.$email.'</p>
             <p>Message : ' . $message . '  </p>
+            
         </div>
         </body>
         </html> ';

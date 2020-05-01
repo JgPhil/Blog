@@ -37,29 +37,30 @@
             <div class="row text-center">
               <div class="col-lg-12 ">
                 <p><a href="../public/index.php"><i class="fas fa-long-arrow-alt-left"></i> Retour à l'accueil</a></p>
-                <div class="col-lg-12 text-center bg-light border mt-2"">
+                <div class="col-lg-12 text-center bg-light border mt-2">
                   <h2><?= $this->session->get('pseudo'); ?></h2>
                 </div>
                 <div class="col-lg-12 text-center">
                   <h4>Rôle: <?= $this->session->get('role'); ?></h4>
                 </div>
                 <div class="col-lg-12 text-center">
-                  <h4> Membre depuis le : <?= htmlspecialchars($posts[array_key_first($posts)]->getUserObj()->getCreatedAt());?></h4>
+                  <h4> Membre depuis le : <?= htmlspecialchars($user->getCreatedAt()); ?></h4>
                 </div>
               </div>
             </div>
+
+
+
+
+
+            <?php
+            if ($this->session->get('update_password')) {
+            ?>
+              <h4 class="alert alert-success text-center" role="alert"><?= $this->session->show('update_password') . ' <b>' . $this->session->get('pseudo') . '</b>'; ?></h4>
+            <?php
+            }
+            ?>
           </div>
-
-
-
-
-          <?php
-          if ($this->session->get('update_password')) {
-          ?>
-            <h4 class="alert alert-success" role="alert"><?= $this->session->show('update_password') . ' <b>' . $this->session->get('pseudo') . '</b>'; ?></h4>
-          <?php
-          }
-          ?>
         </div>
         <div class="row text-center ">
           <div class="col-lg-12 text-center ">

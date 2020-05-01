@@ -10,7 +10,7 @@ class CommentDAO extends DAO
 {
     public function getComments()
     {
-        $sql = 'SELECT id, pseudo, content, DATE_FORMAT(createdAt, "%d/%m/%Y à %H:%i") AS createdAt, validate, post_id FROM comment ORDER BY createdAt DESC';
+        $sql = 'SELECT id, pseudo, content, visible, DATE_FORMAT(createdAt, "%d/%m/%Y à %H:%i") AS createdAt, validate, post_id FROM comment ORDER BY createdAt DESC';
         $result = $this->createQuery($sql);
         $comments = [];
         foreach ($result as $row)
@@ -40,6 +40,17 @@ class CommentDAO extends DAO
     }
 
 
+    public function hideComment($commentId)
+    {
+        $sql = 'UPDATE comment SET visible = 0 WHERE id = ?';
+        $this->createQuery($sql, [$commentId]);        
+    }
+
+    public function showComment($commentId)
+    {
+        $sql = 'UPDATE comment SET visible = 1 WHERE id = ?';
+        $this->createQuery($sql, [$commentId]);  
+    }
 
     public function getValidCommentsFromPost($postId)
     {

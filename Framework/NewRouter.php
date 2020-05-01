@@ -13,18 +13,8 @@ class NewRouter
     private $errorController;
     private $backController;
     private $request;
-
-    private $controller;
-    private $action;
-    private $method;
     protected $routes = [];
     protected $param;
-
-    const NO_ROUTE = 1;
-
-
-
-
 
     public function __construct()
     {
@@ -35,12 +25,13 @@ class NewRouter
     }
 
 
-    public function find()
+    public function run()
     {
         $xml = new \DOMDocument;
         $xml->load('../config/routes.xml');
         $routes = $xml->getElementsByTagName('route');
         $route = $this->request->getGet()->getParameter('route');
+        $action = null;
 
         try {
             if (isset($_SERVER['REQUEST_URI'])) {
@@ -53,16 +44,16 @@ class NewRouter
                         $param = $xmlRoute->getAttribute('param');
                         $controller = substr($xmlRoute->getAttribute('application'), 0, -3) . 'Controller';
                         $method = $xmlRoute->getAttribute('method') . '(' . $param . ')';
-                        $actionM = '$this->' . $controller . '->' . $method;
-                        if ($xmlRoute->getAttribute('url') === $route) {
-                            $action = $actionM;
+                        $actionM = '$this->' . $controller . '->' . $method.';';
+                        if ($xmlRoute->getAttribute('url') === $route) {                          
+                            $action = eval($actionM);
                         }
                     }
                 }
-                if (empty($action)) {
+                if (is_null($action)) {
                     return $this->errorController->errorNotFound();
                 } else {
-                    return $action; //return a string with the the action method;
+                    return $action; 
                 }
             }
         } catch (Exception $e) {

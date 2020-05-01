@@ -5,26 +5,33 @@
     <route url="post"  application= "frontend" method= "post" param="$this->request->getGet()->getParameter('postId')"></route>
     <route url="addComment"  application= "frontend" method="addComment" param="$this->request->getPost(), $this->request->getGet()->getParameter('postId')"></route>
     <route url="register" application= "frontend" method="register" param="$this->request->getPost()"></route>
-    <route url="login"  application="frontend" method="login" param="$this->request->getPost()"></route>
-    <route url="logout"  application= "frontend" method= "logout"></route>
+    <route url="login"  application="frontend" method="login" param="$this->request->getPost()"></route>    
     <route url="emailConfirm"  application="frontend" method="emailConfirm" param="$this->request->getGet()"></route>
-    <route url="profile"  application= "frontend" method= "profile"></route>
-    <route url="updatePassword"  application= "frontend" method= "updatePassword" param="$this->request->getPost()"></route>
-    
+    <route url="contact"  application="frontend" method="contact"></route>
+    <route url="contactEmail"  application="frontend" method="contactEmail" param="$this->request->getPost()"></route>
+    <route url="updatePassword"  application= "backend" method= "updatePassword" param="$this->request->getPost()"></route>
+    <route url="desactivateAccount"  application= "frontend" method= "desactivateAccount" param="$this->request->getGet()->getParameter('pseudo')"></route>
 
-    <!--BACKEND ROUTES--> 
+    <!--BACKEND ROUTES-->
+    <route url="logout"  application= "backend" method= "logout"></route>
     <route url="addPost"  application= "backend" method= "addPost" param="$this->request->getPost()"></route>
     <route url="editPost"  application= "backend" method= "editPost" param="$this->request->getPost(), $this->request->getGet()->getParameter('postId')"></route>
     <route url="deletePost"  application= "backend" method= "deletePost" param="$this->request->getGet()->getParameter('postId')"></route>
     <route url="deleteComment"  application= "backend" method= "deleteComment" param="$this->request->getGet()->getParameter('commentId')"></route>
     <route url="deleteComment"  application= "backend" method= "deleteComment" param="$this->request->getGet()->getParameter('commentId')"></route>
-    <route url="desactivateAccountAdmin"  application= "backend" method= "desactivateAccountAdmin" param="$this->request->getGet()->getParameter('pseudo')"></route>
-    <route url="desactivateAccount"  application= "backend" method= "desactivateAccount" param="$this->request->getGet()->getParameter('pseudo')"></route>
+    <route url="desactivateAccountAdmin"  application= "backend" method= "desactivateAccountAdmin" param="$this->request->getGet()->getParameter('pseudo')"></route>    
     <route url="administration"  application= "backend" method= "administration"></route>
     <route url="postComments"  application= "backend" method= "postComments" param="$this->request->getGet()->getParameter('postId')"></route>
     <route url="deleteUser"  application= "backend" method= "deleteUser" param="$this->request->getGet()->getParameter('userId')"></route>
     <route url="validateComment"  application= "backend" method= "validateComment" param="$this->request->getGet()->getParameter('commentId')"></route>
-    <route url="inValidateComment"  application= "backend" method= "inValidateComment" param="$this->request->getGet()->getParameter('commentId')"></route>
+    <route url="invalidateComment"  application= "backend" method= "inValidateComment" param="$this->request->getGet()->getParameter('commentId')"></route>
     <route url="activateAccount"  application= "backend" method= "activateAccount" param="$this->request->getGet()->getParameter('pseudo')"></route>
-    
+    <route url="profile"  application= "backend" method= "profile"></route>
+    <route url="hideUser"  application= "backend" method= "hideUser" param="$this->request->getGet()->getParameter('userId')"></route>
+    <route url="showUser"  application= "backend" method= "showUser" param="$this->request->getGet()->getParameter('userId')"></route>
+    <route url="hidePost"  application= "backend" method= "hidePost" param="$this->request->getGet()->getParameter('postId')"></route>
+    <route url="showPost"  application= "backend" method= "showPost" param="$this->request->getGet()->getParameter('postId')"></route>
+    <route url="hideComment"  application= "backend" method= "hideComment" param="$this->request->getGet()->getParameter('commentId')"></route>
+    <route url="showComment"  application= "backend" method= "showComment" param="$this->request->getGet()->getParameter('commentId')"></route>
+
 </routes>

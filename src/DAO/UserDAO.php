@@ -12,7 +12,7 @@ class UserDAO extends DAO
     public function getUsers()
     {
         $sql = 'SELECT user.id AS id, user.pseudo AS pseudo,DATE_FORMAT(user.createdAt, "%d/%m/%Y à %H:%i") 
-        AS createdAt, role.name AS role, user.activated AS activated FROM user
+        AS createdAt, role.name AS role, user.activated AS activated, user.visible as visible FROM user
         INNER JOIN role ON user.role_id = role.id ORDER BY user.id DESC';
         $result = $this->createQuery($sql);
         $users = [];
@@ -22,6 +22,15 @@ class UserDAO extends DAO
         }
         $result->closeCursor();
         return $users;
+    }
+
+    public function getUser($pseudo)
+    {
+        $sql = 'SELECT user.email as email, user.createdAt as createdAt FROM user WHERE pseudo = ?';
+        $data = $this->createQuery($sql, [$pseudo]);
+        $result = $data->fetch();
+        $user = $this->buildObject($result);
+        return $user;
     }
 
     public function register(Method $postMethod)
@@ -66,7 +75,7 @@ class UserDAO extends DAO
 
     public function login(Method $postMethod)
     {
-        $sql = 'SELECT user.id, user.role_id, user.password, role.name FROM user 
+        $sql = 'SELECT user.id , user.role_id, user.password, role.name FROM user 
         INNER JOIN role ON role.id = user.role_id WHERE pseudo = ? AND activated = 1';
         $data = $this->createQuery($sql, [$postMethod->getParameter('pseudo')]);
         $result = $data->fetch(); 
@@ -83,10 +92,10 @@ class UserDAO extends DAO
 
     public function emailConfirm(Method $getMethod)
     {
-            $sql = 'SELECT * FROM token INNER JOIN user ON token.user_id = user.id WHERE user.pseudo = ?';
+            $sql = 'SELECT token, createdAt FROM token WHERE user_id = (SELECT id FROM user WHERE pseudo = ?)';
             $data = $this->createQuery($sql, [$getMethod->getParameter('pseudo')]);
             $result = $data->fetch();
-            if (isset($result['token']))
+            if (!empty($result['token']))
             {
                 if($getMethod->getParameter('token') === $result['token'] && time() < (strtotime($result['createdAt']) + (48*60*60)))
                 {
@@ -123,13 +132,22 @@ class UserDAO extends DAO
         $this->createQuery($sql, [$pseudo]);     
     }
 
-    public function HideUser($userId)
+    public function hideUser($userId)
     {
         $sql = 'UPDATE comment SET visible = 0 WHERE pseudo IN
         (SELECT pseudo FROM user WHERE id = ?)';
         $this->createQuery($sql, [$userId]); 
         $sql = 'UPDATE user SET visible = 0 WHERE id = ?';
         $this->createQuery($sql, [$userId]);
+    }
+
+    public function showUser($userId)
+    {
+        $sql = 'UPDATE user SET visible = 1 WHERE id = ?';
+        $this->createQuery($sql, [$userId]);
+        $sql = 'UPDATE comment SET visible = 1 WHERE pseudo IN
+        (SELECT pseudo FROM user WHERE id = ?)';
+        $this->createQuery($sql, [$userId]); 
     }
 
     public function deleteUser($pseudo)

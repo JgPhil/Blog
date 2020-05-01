@@ -14,6 +14,7 @@ class Comment
     private $validate;
     private $postObj; // Post Object refers to post_id.
     private $post = null;
+    private $visible;
 
     public function getId()
     {
@@ -87,6 +88,16 @@ class Comment
                $this->post = $this->getPostObj($this->id);
             }
         return $this->post;
+    }
+
+    public function getVisible()
+    {
+        return $this->visible;
+    }
+
+    public function setVisible($visible)
+    {
+        $this->visible = $visible;
     }
 
    

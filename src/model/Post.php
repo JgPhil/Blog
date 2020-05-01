@@ -12,8 +12,10 @@ class Post
     private $heading;
     private $author;
     private $createdAt;
+    private $visible;
     private $userObj;
     private $user;
+
 
     public function getId()
     {
@@ -75,6 +77,17 @@ class Post
     {
         $this->createdAt = $createdAt;
     }
+
+    public function getVisible()
+    {
+        return $this->visible;
+    }
+
+    public function setVisible($visible)
+    {
+        $this->visible = $visible;
+    }
+
 
     public function getUserObj()
     {

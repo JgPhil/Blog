@@ -94,31 +94,15 @@ class BackController extends BlogController
         }       
     }
 
-    public function deletePost($postId) 
-    {
-        if ($this->checkAdmin()){
-            $this->postDAO->deletePost($postId);
-            $this->session->set('delete_post','L\'article a bien été supprimé');           
-            header('Location: ../public/index.php?route=administration');
-        }       
-    }
-
-    public function deleteComment($commentId)
-    {
-        if ($this->checkAdmin()){
-            $this->commentDAO->deleteComment($commentId);
-            $this->session->set('delete_comment', 'Le commentaire a bien été supprimé');
-            header('Location: ../public/index.php?route=administration');
-        }      
-    }
-
     public function profile()
     {
         if ($this->checkLoggedIn()){
             $pseudo = $this->session->get('pseudo');
             $comments = $this->commentDAO->getCommentsByPseudo($pseudo);
             $posts = $this->postDAO->getPostsFromPseudo($pseudo);
+            $user = $this->userDAO->getUser($pseudo);
             return $this->view->render('profile', [
+                'user' => $user,
                 'pseudo' => $pseudo,
                 'posts' =>$posts,
                 'comments' => $comments
@@ -138,9 +122,17 @@ class BackController extends BlogController
     {
         if ($this->checkLoggedIn()){
             if($postMethod->getParameter('submit')) {
-            $this->userDAO->updatePassword($postMethod, $this->session->get('pseudo'));
-            $this->session->set('update_password', 'Le mot de passe a été mis à jour');
-            header('Location: ../public/index.php?route=profile');
+            $errors = $this->validation->validate($postMethod, 'User');
+            if (!$errors) {
+                $this->userDAO->updatePassword($postMethod, $this->session->get('pseudo'));
+                $this->session->set('update_password', 'Le mot de passe a été mis à jour');
+                header('Location: ../public/index.php');
+            }
+            return $this->view->render('update_password',[
+                'postMethod' => $postMethod,
+                'errors' => $errors
+            ]);
+            
         }
         return $this->view->render('update_password');
         }       
@@ -154,13 +146,6 @@ class BackController extends BlogController
             $this->session->set('logout', 'À bientôt');
             header('Location: ../public/index.php');
         }
-    }
-
-    public function desactivateAccount($pseudo)
-    {
-        $this->userDAO->desactivateAccount($this->session->get('pseudo'));
-        $this->session->set('desactivate_account', 'Le compte a bien été désactivé');
-        header('Location: ../public/index.php');
     }
 
     public function desactivateAccountAdmin($pseudo)
@@ -179,11 +164,56 @@ class BackController extends BlogController
     }
 
 
-    public function HideUser($userId)
+    public function hideUser($userId)
     {
         if($this->checkAdmin()) {
-            $this->userDAO->HideUser($userId);
+            $this->userDAO->hideUser($userId);
             $this->session->set('delete_account', 'Le compte a bien été mis à la corbeille');
+            header('Location: ../public/index.php?route=administration');
+        }
+    }
+
+    public function hidePost($postId)
+    {
+        if($this->checkAdmin()) {
+            $this->postDAO->hidePost($postId);
+            $this->session->set('delete_post', 'L\'article a bien été mis à la corbeille');
+            header('Location: ../public/index.php?route=administration');
+        }
+    }
+
+    public function hideComment($commentId)
+    {
+        if($this->checkAdmin()) {
+            $this->commentDAO->hideComment($commentId);
+            $this->session->set('delete_comment', 'Le commentaire a bien été mis à la corbeille');
+            header('Location: ../public/index.php?route=administration');
+        }
+    }
+
+    public function showUser($userId)
+    {
+        if($this->checkAdmin()) {
+            $this->userDAO->showUser($userId);
+            $this->session->set('show_account', 'Le compte est à nouveau visible');
+            header('Location: ../public/index.php?route=administration');
+        }
+    }
+
+    public function showPost($postId)
+    {
+        if($this->checkAdmin()) {
+            $this->postDAO->showPost($postId);
+            $this->session->set('show_post', 'L\'article est à nouveau visible');
+            header('Location: ../public/index.php?route=administration');
+        }
+    }
+
+    public function showComment($commentId)
+    {
+        if($this->checkAdmin()) {
+            $this->commentDAO->showComment($commentId);
+            $this->session->set('show_comment', 'Le commentaire est à nouveau visible');
             header('Location: ../public/index.php?route=administration');
         }
     }

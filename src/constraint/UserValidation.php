@@ -21,7 +21,7 @@ class UserValidation extends BlogValidationComponent
     private function checkPseudo($name, $value)
     {
         if($this->constraint->blank($name, $value)) {
-            return $this->constraint->notBlank('pseudo', $value);
+            return $this->constraint->blank('pseudo', $value);
         }
         if($this->constraint->tooShort($name, $value, 2)) {
             return $this->constraint->tooShort('pseudo', $value, 2);

@@ -11,7 +11,7 @@ class PostDAO extends DAO
     public function getPosts()
     {
         $sql = 'SELECT post.id, post.title, post.content, post.heading, user.pseudo as author, 
-        DATE_FORMAT(post.createdAt, "%d/%m/%Y à %H:%i") AS createdAt FROM post 
+        DATE_FORMAT(post.createdAt, "%d/%m/%Y à %H:%i") AS createdAt, post.visible AS visible FROM post 
         INNER JOIN user ON post.user_id=user.id ORDER BY post.id DESC';
         $result = $this->createQuery($sql);
         $posts = []; // array
@@ -58,14 +58,6 @@ class PostDAO extends DAO
         ]);
     }
 
-    public function deletePost($postId)
-    {
-        $sql = 'UPDATE comment SET visible = 0 WHERE post_id = ?';
-        $this->createQuery($sql,[$postId]);
-        $sql = 'UPDATE post SET visible = 0 WHERE id = ?';
-        $this->createQuery($sql,[$postId]);
-    }
-
     public function getUserFromPost($postId)
     {
         $sql = 
@@ -80,7 +72,19 @@ class PostDAO extends DAO
         $result->closeCursor();
         $user = new UserDAO;
         return  $user->buildObject($row); 
-    }  
+    }
+    
+    public function hidePost($postId)
+    {
+        $sql = 'UPDATE post SET visible = 0 WHERE id = ?';
+        $this->createQuery($sql, [$postId]);        
+    }
+
+    public function showPost($postId)
+    {
+        $sql = 'UPDATE post SET visible = 1 WHERE id = ?';
+        $this->createQuery($sql, [$postId]);  
+    }
 
     public function getPostsFromPseudo($pseudo)
     {

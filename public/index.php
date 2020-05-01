@@ -1,9 +1,9 @@
 <?php
 
-use App\Framework\Router;
+use App\Framework\NewRouter;
 
 require '../vendor/autoload.php';
 
 session_start();
-$router = new Router;
+$router = new NewRouter;
 $router->run();

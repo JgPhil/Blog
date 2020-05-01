@@ -30,7 +30,7 @@ class FrontController extends BlogController
             $errors = $this->validation->validate($postMethod, 'Comment');
             if(!$errors){
                 $this->commentDAO->addComment($postMethod, $postId);
-                $this->session->set('add_comment', 'Votre commentaire a bien été ajouté');
+                $this->session->set('add_comment', 'Votre commentaire est enregistré. Il sera visible après validation par l\'administrateur, ');
             }
             $post = $this->postDAO->getPost($postId);
             $comments = $this->commentDAO->getValidCommentsFromPost($postId);
@@ -65,15 +65,24 @@ class FrontController extends BlogController
         return $this->view->render('register');
     }
 
+    public function desactivateAccount($pseudo)
+    {
+        $this->userDAO->desactivateAccount($this->session->get('pseudo'));
+        $this->session->set('desactivate_account', 'Votre compte a bien été désactivé');
+        header('Location: ../public/index.php');
+    }
+
     public function emailConfirm(Method $getMethod)
     {
-        $this->userDAO->tokenErase($getMethod->getParameter('pseudo'));  
+          
         if (!empty($this->userDAO->emailConfirm($getMethod)))
-        { 
+        {   
+            $this->userDAO->tokenErase($getMethod->getParameter('pseudo'));
             $this->userDAO->activateAccount($getMethod->getParameter('pseudo'));
             $this->session->set('email_confirmation', 'Votre compte est à présent activé. Bienvenue ! <br> Vous pouvez maintenant vous connecter avec vos identifiants et mot de passe.');
             return $this->view->render('register3');
         }
+        $this->userDAO->tokenErase($getMethod->getParameter('pseudo'));
         $this->userDAO->deleteUser($getMethod->getParameter('pseudo'));
         $this->session->set('error_account', 'Il y a eu un problème, merci de vous réinscrire ');
         return $this->view->render('error_account');                   
