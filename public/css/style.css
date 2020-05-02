@@ -23,6 +23,8 @@ body {
   -webkit-font-smoothing: antialiased;
   font-size: 15px;
   color: #4c4c4c;
+  background-color: #fff;
+  overflow-x: hidden;
 }
 
 p,
@@ -95,6 +97,7 @@ h6,
 }
 
 /* Button style */
+
 .btn {
   font-size: 22px;
   font-family: "Playfair Display", serif;
@@ -106,6 +109,10 @@ h6,
   position: relative;
   z-index: 1;
   transition: 0.2s ease;
+}
+
+.content * {
+  margin-bottom: 20px;
 }
 
 .btn:focus {
@@ -157,10 +164,6 @@ h6,
   color: #41228e;
 }
 
-body {
-  background-color: #fff;
-  overflow-x: hidden;
-}
 
 ::-moz-selection {
   background: #542cb7;
@@ -173,6 +176,7 @@ body {
 }
 
 /* preloader */
+
 .preloader {
   position: fixed;
   top: 0;
@@ -189,7 +193,7 @@ body {
 ol,
 ul {
   list-style-type: none;
-  margin: 0px;
+  margin: 0;
 }
 
 img {
@@ -245,6 +249,7 @@ a:hover {
 }
 
 /* overlay */
+
 .overlay {
   position: relative;
 }
@@ -349,15 +354,15 @@ a:hover {
 }
 
 .font-tertiary {
-  font-family: "BwNistaInt-xBd" !important;
+  font-family: "BwNistaInt-xBd", serif !important;
 }
 
 .shadow {
-  box-shadow: 0px 18px 39.1px 6.9px rgba(224, 241, 255, 0.34) !important;
+  box-shadow: 0 18px 39.1px 6.9px rgba(224, 241, 255, 0.34) !important;
 }
 
 .bg-dark {
-  background-color: #222222 !important;
+  background-color: #222 !important;
 }
 
 /* icon */
@@ -377,7 +382,9 @@ a:hover {
 }
 
 /* /icon */
+
 /* slick slider */
+
 .slick-dots {
   text-align: center;
   padding-left: 0;
@@ -388,10 +395,7 @@ a:hover {
   margin: 2px;
 }
 
-.slick-dots li.slick-active button {
-  background: #fff;
-  width: 25px;
-}
+
 
 .slick-dots li button {
   height: 6px;
@@ -404,7 +408,12 @@ a:hover {
   border: 0;
 }
 
-/* /slick slider form*/
+.slick-dots li.slick-active button {
+  background: #fff;
+  width: 25px;
+}
+
+/* /slick slider form */
 
 .form-control {
   border: 0;
@@ -424,6 +433,7 @@ textarea.form-control {
 }
 
 /* /form */
+
 /* card */
 .card {
   border: 0;
@@ -462,7 +472,7 @@ textarea.form-control {
 }
 
 .navbar .nav-item .nav-link {
-  font-family: "BwNistaInt-xBd";
+  font-family: "BwNistaInt-xBd", serif;
   text-transform: uppercase;
   padding: 15px;
 }
@@ -594,6 +604,7 @@ h4 {
     -webkit-transform: translateX(-50%) rotate(180deg);
     transform: translateX(-50%) rotate(180deg);
   }
+
   100% {
     -webkit-transform: translateX(-50%) rotate(360deg);
     transform: translateX(-50%) rotate(360deg);
@@ -605,6 +616,7 @@ h4 {
     -webkit-transform: translateX(-50%) rotate(180deg);
     transform: translateX(-50%) rotate(180deg);
   }
+
   100% {
     -webkit-transform: translateX(-50%) rotate(360deg);
     transform: translateX(-50%) rotate(360deg);
@@ -612,6 +624,7 @@ h4 {
 }
 
 /* /skills */
+
 /* education */
 .edu-bg-image {
   position: absolute;
@@ -621,7 +634,18 @@ h4 {
 }
 
 /* /education */
+
 /* service */
+
+.active-bg-primary {
+  transition: 0.3s ease;
+  background: #41228e;
+}
+
+.active-bg-primary * {
+  color: #fff;
+}
+
 .hover-bg-primary {
   transition: 0.3s ease;
 }
@@ -634,24 +658,16 @@ h4 {
   color: #fff;
 }
 
-.active-bg-primary {
-  transition: 0.3s ease;
-  background: #41228e;
-}
-
-.active-bg-primary * {
-  color: #fff;
-}
-
 .hover-shadow {
   transition: 0.2s ease;
 }
 
 .hover-shadow:hover {
-  box-shadow: 0px 18px 40px 8px rgba(224, 241, 255, 0.54) !important;
+  box-shadow: 0 18px 40px 8px rgba(224, 241, 255, 0.54) !important;
 }
 
 /* /service */
+
 /* portfolio */
 .hover-wrapper {
   overflow: hidden;
@@ -668,11 +684,6 @@ h4 {
   transform: scale(1);
 }
 
-.hover-wrapper:hover .hover-overlay {
-  opacity: 1;
-  visibility: visible;
-}
-
 .hover-overlay {
   position: absolute;
   height: 100%;
@@ -686,6 +697,11 @@ h4 {
   transition: 0.3s ease;
 }
 
+.hover-wrapper:hover .hover-overlay {
+  opacity: 1;
+  visibility: visible;
+}
+
 .hover-content {
   position: absolute;
   top: 50%;
@@ -697,6 +713,7 @@ h4 {
 }
 
 /* /portfolio */
+
 /* testimonial */
 .testimonial-content strong {
   color: #2bfdff;
@@ -747,6 +764,7 @@ h4 {
 }
 
 /* /testimonial */
+
 /* footer */
 .footer-section {
   padding-top: 200px;
@@ -763,7 +781,7 @@ h4 {
 .shadow-down::before {
   position: absolute;
   content: "";
-  box-shadow: 0px 0px 80.75px 14.25px rgba(224, 241, 255, 0.34);
+  box-shadow: 0 0px 80.75px 14.25px rgba(224, 241, 255, 0.34);
   height: 100%;
   width: 100%;
   left: 0;
@@ -790,10 +808,6 @@ blockquote {
   border-left: 2px solid #41228e;
   font-style: italic;
   font-size: 22px;
-}
-
-.content * {
-  margin-bottom: 20px;
 }
 
 .content strong {
