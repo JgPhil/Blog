@@ -24,18 +24,7 @@ class Session
         }
     }
 
-    public function similar($name)
-    {
-        
-            foreach (ADMIN_MESSAGES as $key => $message)
-            {
-                if (isset($_SESSION[$name]) === $message )
-                {
-                    $message = $_SESSION[$name];
-                }
-            }
-           
-    }
+
 
     public function show($name)
     {

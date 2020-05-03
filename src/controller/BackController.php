@@ -34,13 +34,11 @@ class BackController extends BlogController
             $posts = $this->postDAO->getPosts();
             $users = $this->userDAO->getUsers();
             $comments = $this->commentDAO->getComments();
-            $messages = ADMIN_MESSAGES;
 
             return $this->view->render('administration', [
                 'posts' => $posts,
                 'users' => $users,
-                'comments' => $comments,
-                'messages' => $messages
+                'comments' => $comments
         ]); 
         }
         
@@ -249,5 +247,19 @@ class BackController extends BlogController
             $this->session->set('activate_acccount', 'Le compte vient d\'être activé !');
             header('Location: ../public/index.php?route=administration');
         }
+    }
+
+
+    public function emptyTrash()
+    {   
+        if ($this->checkAdmin()) {
+            $this->userDAO->eraseUser();
+            $this->postDAO->erasePost();
+            $this->commentDAO->eraseComment();
+            $this->session->set('empty_trash', 'La corbeille a été vidée');
+            header('Location: ../public/index.php?route=administration');
+        }
+        
+
     }
 }

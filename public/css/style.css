@@ -471,6 +471,10 @@ textarea.form-control {
   }
 }
 
+#admin_nav {
+  font-size: 1em;
+}
+
 .navbar .nav-item .nav-link {
   font-family: "BwNistaInt-xBd", serif;
   text-transform: uppercase;

@@ -10,7 +10,7 @@ class CommentDAO extends DAO
 {
     public function getComments()
     {
-        $sql = 'SELECT id, pseudo, content, visible, DATE_FORMAT(createdAt, "%d/%m/%Y à %H:%i") AS createdAt, validate, post_id FROM comment ORDER BY createdAt DESC';
+        $sql = 'SELECT id, pseudo, content, visible, DATE_FORMAT(createdAt, "%d/%m/%Y à %H:%i") AS createdAt, validate, post_id, erasedAt FROM comment ORDER BY createdAt DESC';
         $result = $this->createQuery($sql);
         $comments = [];
         foreach ($result as $row)
@@ -77,6 +77,7 @@ class CommentDAO extends DAO
 
     public function deleteComment($commentId)
     {
+        $this->invalidateComment($commentId);
         $sql = 'UPDATE comment SET visible = 0 WHERE id = ?';
         $this->createQuery($sql, [$commentId]);
     }
@@ -118,4 +119,10 @@ class CommentDAO extends DAO
         $post = new PostDAO;
         return  $post->buildObject($row); 
     }  
+
+    public function eraseComment()
+    {
+        $sql = 'UPDATE comment SET erasedAt = NOW() WHERE visible = 0';
+        $this->createQuery($sql);
+    }
 }

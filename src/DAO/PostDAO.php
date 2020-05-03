@@ -11,7 +11,7 @@ class PostDAO extends DAO
     public function getPosts()
     {
         $sql = 'SELECT post.id, post.title, post.content, post.heading, user.pseudo as author, 
-        DATE_FORMAT(post.createdAt, "%d/%m/%Y à %H:%i") AS createdAt, post.visible AS visible FROM post 
+        DATE_FORMAT(post.createdAt, "%d/%m/%Y à %H:%i") AS createdAt, post.visible AS visible, post.erasedAt AS erasedAt FROM post 
         INNER JOIN user ON post.user_id=user.id ORDER BY post.id DESC';
         $result = $this->createQuery($sql);
         $posts = []; // array
@@ -97,6 +97,11 @@ class PostDAO extends DAO
         }
         $result->closeCursor();
         return $posts; //object
+    }
 
+    public function erasePost()
+    {
+        $sql = 'UPDATE post SET erasedAt = NOW() WHERE visible = 0';
+        $this->createQuery($sql);
     }
 }

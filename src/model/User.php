@@ -12,6 +12,7 @@ class User
     private $activated;
     private $email;
     private $visible;
+    private $erasedAt;
     
 
     public function getId()
@@ -94,5 +95,14 @@ class User
         $this->visible = $visible;
     }
 
+    
+    public function getErasedAt()
+    {
+        return $this->erasedAt;
+    }
 
+    public function setErasedAt($erasedAt)
+    {
+        $this->erasedAt = $erasedAt;
+    }
 }

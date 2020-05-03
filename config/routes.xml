@@ -33,5 +33,7 @@
     <route url="showPost"  application= "backend" method= "showPost" param="$this->request->getGet()->getParameter('postId')"></route>
     <route url="hideComment"  application= "backend" method= "hideComment" param="$this->request->getGet()->getParameter('commentId')"></route>
     <route url="showComment"  application= "backend" method= "showComment" param="$this->request->getGet()->getParameter('commentId')"></route>
+    <route url="trash"  application= "backend" method= "administration"></route>
+    <route url="emptyTrash" application= "backend" method= "emptyTrash"></route>
 
 </routes>

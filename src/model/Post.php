@@ -15,6 +15,7 @@ class Post
     private $visible;
     private $userObj;
     private $user;
+    private $erasedAt;
 
 
     public function getId()
@@ -102,5 +103,16 @@ class Post
                $this->user = $this->getUserObj($this->id);
             }
         return $this->user;
+    }
+
+    
+    public function getErasedAt()
+    {
+        return $this->erasedAt;
+    }
+
+    public function setErasedAt($erasedAt)
+    {
+        $this->erasedAt = $erasedAt;
     }
 }

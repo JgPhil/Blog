@@ -15,6 +15,7 @@ class Comment
     private $postObj; // Post Object refers to post_id.
     private $post = null;
     private $visible;
+    private $erasedAt;
 
     public function getId()
     {
@@ -100,5 +101,13 @@ class Comment
         $this->visible = $visible;
     }
 
-   
+    public function getErasedAt()
+    {
+        return $this->erasedAt;
+    }
+
+    public function setErasedAt($erasedAt)
+    {
+        $this->erasedAt = $erasedAt;
+    }
 }
