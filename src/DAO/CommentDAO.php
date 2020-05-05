@@ -10,7 +10,7 @@ class CommentDAO extends DAO
 {
     public function getComments()
     {
-        $sql = 'SELECT id, pseudo, content, visible, DATE_FORMAT(createdAt, "%d/%m/%Y à %H:%i") AS createdAt, validate, post_id, erasedAt FROM comment ORDER BY createdAt DESC';
+        $sql = 'SELECT id, user_id, content, visible, DATE_FORMAT(createdAt, "%d/%m/%Y à %H:%i") AS createdAt, validate, post_id, erasedAt FROM comment ORDER BY createdAt DESC';
         $result = $this->createQuery($sql);
         $comments = [];
         foreach ($result as $row)
@@ -24,7 +24,7 @@ class CommentDAO extends DAO
 
     public function getCommentsFromPost($postId)
     {
-        $sql = 'SELECT comment.id AS id, comment.pseudo AS pseudo, comment.content AS content, 
+        $sql = 'SELECT comment.id AS id, comment.user_id AS user_id, comment.content AS content, 
         DATE_FORMAT(comment.createdAt, "%d/%m/%Y à %H:%i") AS createdAt,
           comment.validate AS validate, comment.post_id AS post_id FROM comment JOIN post 
         ON comment.post_id = post.id WHERE post_id = ? ORDER BY comment.createdAt DESC';
@@ -54,7 +54,7 @@ class CommentDAO extends DAO
 
     public function getValidCommentsFromPost($postId)
     {
-        $sql = 'SELECT comment.id AS id, comment.pseudo AS pseudo, comment.content AS content, 
+        $sql = 'SELECT comment.id AS id, comment.user_id AS user_id, comment.content AS content, 
         DATE_FORMAT(comment.createdAt, "%d/%m/%Y à %H:%i") AS createdAt,
         comment.validate AS validate, comment.post_id AS post_id  FROM comment JOIN post 
         ON comment.post_id = post.id WHERE post_id = ? AND validate = 1  ORDER BY comment.createdAt DESC';
@@ -71,8 +71,12 @@ class CommentDAO extends DAO
 
     public function addComment(Method $postMethod, $postId)
     {
-        $sql = 'INSERT INTO comment(pseudo, content, createdAt, post_id) VALUES(?,?,NOW(),?)';
-        $this->createQuery($sql, [$postMethod->getParameter('pseudo'), $postMethod->getParameter('content'), $postId]);
+        $sql = 'INSERT INTO comment(user_id, content, createdAt, post_id) VALUES(?,?,NOW(),?)';
+        $this->createQuery($sql, [
+            filter_var($postMethod->getParameter('id'), FILTER_SANITIZE_NUMBER_INT), 
+            filter_var($postMethod->getParameter('content'), FILTER_SANITIZE_STRING),
+            $postId
+            ]);
     }
 
     public function deleteComment($commentId)
@@ -82,10 +86,10 @@ class CommentDAO extends DAO
         $this->createQuery($sql, [$commentId]);
     }
 
-    public function getCommentsByPseudo($pseudo)
+    public function getUserComments($user_id)
     {
-        $sql = 'SELECT id, pseudo, content, DATE_FORMAT(createdAt, "%d/%m/%Y à %H:%i") AS createdAt, post_id, validate FROM comment WHERE pseudo = ?';
-        $result = $this->createQuery($sql, [$pseudo]);
+        $sql = 'SELECT id, user_id, content, DATE_FORMAT(createdAt, "%d/%m/%Y à %H:%i") AS createdAt, post_id, validate FROM comment WHERE user_id = ?';
+        $result = $this->createQuery($sql, [$user_id]);
         $comments = [];
         foreach ($result as $row) 
         {
@@ -111,7 +115,7 @@ class CommentDAO extends DAO
     public function getPostFromComment($commentId)
     {
         $sql = 'SELECT post.id, post.title, post.content, post.heading, post.user_id as author, comment.id, 
-        DATE_FORMAT(post.createdAt, "%d/%m/%Y à %H:%i") AS createdAt FROM comment 
+        DATE_FORMAT(post.lastUpdate, "%d/%m/%Y à %H:%i") AS lastUpdate FROM comment 
         INNER JOIN post on post.id=comment.post_id  WHERE comment.id = ?';
         $result = $this->createQuery($sql, [$commentId]);
         $row = $result->fetch(); //array
@@ -119,6 +123,18 @@ class CommentDAO extends DAO
         $post = new PostDAO;
         return  $post->buildObject($row); 
     }  
+
+    public function getUserFromComment($commentId)
+    {
+        $sql = 'SELECT user.pseudo as pseudo, comment.id,  DATE_FORMAT(user.createdAt, "%d/%m/%Y à %H:%i") AS createdAt 
+        FROM comment INNER JOIN user ON user.id = comment.user_id   WHERE comment.id = ?';
+        $result = $this->createQuery($sql, [$commentId]);
+        $row = $result->fetch(); //array
+        $result->closeCursor();
+        $user = new UserDAO;
+        return  $user->buildObject($row); 
+    }  
+
 
     public function eraseComment()
     {

@@ -51,7 +51,7 @@
         </div>
         <h3 class="font-tertiary mb-4"><?= htmlentities($post->getTitle()); ?></h3>
         <h4 class="font-tertiary mb-2"><?= htmlentities($post->getHeading()); ?></h4>
-        <p class="font-secondary">Publié le <?= htmlentities($post->getCreatedAt()); ?> par <span class="text-primary"><?= htmlentities($post->getAuthor()); ?></span></p>
+        <p class="font-secondary">Dernière modif. le <?= htmlentities($post->getLastUpdate()); ?> par <span class="text-primary"><?= htmlentities($post->getAuthor()); ?></span></p>
         <div class="content">
           <img src="images/blog/post-1.jpg" alt="post-thumb" class="img-fluid rounded float-left mr-5 mb-4">
           <strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
@@ -80,7 +80,7 @@
             <div class="media border-bottom py-2">
               <img src="images/user-1.jpg" class="img-fluid align-self-start rounded-circle mr-3" alt="">
               <div class="media-body">
-                <h5 class="mt-0"><?= htmlentities($comment->getPseudo()); ?></h5>
+                <h5 class="mt-0"><?= htmlentities($comment->getUser()->getPseudo()); ?></h5>
                 <p><?= htmlentities($comment->getCreatedAt()); ?></p>
                 <p><?= htmlentities($comment->getContent()); ?></p>
               </div>
@@ -96,7 +96,7 @@
           <h4>Laissez un commentaire</h4>
           <form method="post" action=<?= INDEX_PATH . SLUG . "addComment&postId=" . htmlentities($post->getId()); ?> class="row">
             <div class="col-md-6">
-              <input type="text" class="form-control mb-3" placeholder="First Name" name="pseudo" id="pseudo" value="<?= $this->session->get('pseudo'); ?> " readonly>
+              <input type="text" class="form-control mb-3"  name="id" id= "id" value="<?= $this->session->get('id'); ?> " readonly>
             </div>
             <div class="col-md-6">
               <?php

@@ -39,7 +39,11 @@ class UserDAO extends DAO
         $mail = new Mail;
         $token = $mail->createToken();
         $sql = 'INSERT INTO user (pseudo, password, email, activated, role_id, createdAt) VALUES (?, ?, ?, 0, 2, NOW())';
-        $this->createQuery($sql, [$postMethod->getParameter('pseudo'), password_hash($postMethod->getParameter('password'), PASSWORD_BCRYPT), $postMethod->getParameter('email')]);
+        $this->createQuery($sql, [
+            filter_var($postMethod->getParameter('pseudo'),FILTER_SANITIZE_STRING),
+            password_hash(filter_var($postMethod->getParameter('password'),FILTER_SANITIZE_STRING), PASSWORD_BCRYPT),
+            filter_var($postMethod->getParameter('email'), FILTER_SANITIZE_EMAIL)
+            ]);
         $sql = ' INSERT INTO token (user_id, token, createdAt) VALUES (LAST_INSERT_ID(), ?, NOW())';
         $this->createQuery($sql, [$token]);
         $mail->registerMail($postMethod, $token);
@@ -49,27 +53,22 @@ class UserDAO extends DAO
     {
         $mail = new Mail;
         $sql = 'INSERT INTO contact (name, email, message, phone, createdAt) VALUES (?, ?, ?, ?, NOW())';
-        $this->createQuery($sql, [$postMethod->getParameter('name'), $postMethod->getParameter('email'), $postMethod->getParameter('message'), $postMethod->getParameter('phone')]);
+        $this->createQuery($sql, [
+            filter_var($postMethod->getParameter('name'), FILTER_SANITIZE_STRING), 
+            filter_var($postMethod->getParameter('email'), FILTER_SANITIZE_EMAIL), 
+            filter_var($postMethod->getParameter('message'), FILTER_SANITIZE_STRING), 
+            filter_var($postMethod->getParameter('phone'), FILTER_SANITIZE_NUMBER_INT)
+            ]);
         $mail->contactMail($postMethod);
     }
 
-    /*
-    public function resendMail(Method $getMethod)
-    {
-        $mail = new SendMail;
-        $token = $mail->createToken();
-        $sql = 'INSERT INTO token (user_id, token, createdAt) VALUES ((SELECT id FROM user WHERE pseudo = ?), ?, NOW())' ;
-        $this->createQuery($sql, [$getMethod->getParameter('pseudo'), $token]);
-        $mail->sendMail($getMethod, $token);  
-    }
-*/
     public function checkUser(Method $postMethod)
     {
         $sql = 'SELECT COUNT(pseudo) FROM user WHERE pseudo = ?';
-        $result = $this->createQuery($sql, [$postMethod->getParameter('pseudo')]);
+        $result = $this->createQuery($sql, [filter_var($postMethod->getParameter('pseudo'), FILTER_SANITIZE_STRING)]);
         $pseudoExists = $result->fetchColumn();
         if ($pseudoExists) {
-            return '<p>Le pseudo existe déjà</p>';
+            return 'Le pseudo existe déjà';
         }
     }
 
@@ -80,10 +79,10 @@ class UserDAO extends DAO
         $data = $this->createQuery($sql, [$postMethod->getParameter('pseudo')]);
         $result = $data->fetch();
         if ($result) {
-            $isPasswordValid = password_verify($postMethod->getParameter('password'), $result['password']);
+            $isPasswordValid = password_verify(filter_var($postMethod->getParameter('password'), FILTER_SANITIZE_STRING), $result['password']);
             return [
-                'result' => $result,
-                'isPasswordValid' => $isPasswordValid
+                'result' => $result, //array
+                'isPasswordValid' => $isPasswordValid //bool
             ];
         }
     }
@@ -94,7 +93,7 @@ class UserDAO extends DAO
         $data = $this->createQuery($sql, [$getMethod->getParameter('pseudo')]);
         $result = $data->fetch();
         if (!empty($result['token'])) {
-            if ($getMethod->getParameter('token') === $result['token'] && time() < (strtotime($result['createdAt']) + (48 * 60 * 60))) {
+            if (filter_var($getMethod->getParameter('token'), FILTER_SANITIZE_STRING) === $result['token'] && time() < (strtotime($result['createdAt']) + (48 * 60 * 60))) {
                 return $result;
             }
         }
@@ -109,7 +108,7 @@ class UserDAO extends DAO
     public function updatePassword(Method $postMethod, $pseudo)
     {
         $sql = 'UPDATE user SET password = ? WHERE pseudo = ?';
-        $this->createQuery($sql, [password_hash($postMethod->getParameter('password'), PASSWORD_BCRYPT), $pseudo]);
+        $this->createQuery($sql, [password_hash(filter_var($postMethod->getParameter('password'), FILTER_SANITIZE_STRING), PASSWORD_BCRYPT), $pseudo]);
     }
 
     public function desactivateAccount($pseudo)
@@ -154,6 +153,12 @@ class UserDAO extends DAO
     public function eraseUser()
     {
         $sql = 'UPDATE user SET erasedAt = NOW() WHERE visible = 0 ';
+        $this->createQuery($sql);
+    }
+
+    public function deleteUser($pseudo)
+    {
+        $sql= 'DELETE FROM user WHERE $pseudo = ?';
         $this->createQuery($sql);
     }
 

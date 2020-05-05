@@ -11,7 +11,7 @@ class PostDAO extends DAO
     public function getPosts()
     {
         $sql = 'SELECT post.id, post.title, post.content, post.heading, user.pseudo as author, 
-        DATE_FORMAT(post.createdAt, "%d/%m/%Y à %H:%i") AS createdAt, post.visible AS visible, post.erasedAt AS erasedAt FROM post 
+        DATE_FORMAT(post.lastUpdate, "%d/%m/%Y à %H:%i") AS lastUpdate, post.visible AS visible, post.erasedAt AS erasedAt FROM post 
         INNER JOIN user ON post.user_id=user.id ORDER BY post.id DESC';
         $result = $this->createQuery($sql);
         $posts = []; // array
@@ -26,7 +26,7 @@ class PostDAO extends DAO
     public function getPost($postId)
     {
         $sql = 'SELECT post.id, post.title, post.content, post.heading, user.pseudo as author,
-        DATE_FORMAT(post.createdAt, "%d/%m/%Y à %H:%i") AS createdAt FROM post
+        DATE_FORMAT(post.lastUpdate, "%d/%m/%Y à %H:%i") AS lastUpdate FROM post
         INNER JOIN user ON post.user_id=user.id WHERE post.id = ?';
         $result = $this->createQuery($sql, [$postId]);
         $post = $result->fetch(); //array
@@ -36,11 +36,11 @@ class PostDAO extends DAO
 
     public function addPost(Method $postMethod, $userId)
     { 
-        $sql = 'INSERT INTO post (title, content, heading, user_id, createdAt) VALUES (?, ?, ?, ?, NOW())';
+        $sql = 'INSERT INTO post (title, content, heading, user_id, lastUpdate) VALUES (?, ?, ?, ?, NOW())';
         $this->createQuery($sql,[ 
-        $postMethod->getParameter('title'), 
-        $postMethod->getParameter('content'),
-        $postMethod->getParameter('heading'), 
+        filter_var($postMethod->getParameter('title'), FILTER_SANITIZE_STRING), 
+        filter_var($postMethod->getParameter('content'), FILTER_SANITIZE_STRING),
+        filter_var($postMethod->getParameter('heading'), FILTER_SANITIZE_STRING),
         $userId
         ]);
 
@@ -48,11 +48,11 @@ class PostDAO extends DAO
 
     public function editPost(Method $postMethod, $postId, $userId)
     {
-        $sql = 'UPDATE post SET title=:title, heading=:heading, content=:content, user_id=:user_id WHERE id=:postId';
+        $sql = 'UPDATE post SET title=:title, heading=:heading, content=:content, user_id=:user_id, lastUpdate=NOW() WHERE id=:postId';
         $this->createQuery($sql, [
-            'title' => $postMethod->getParameter('title'),
-            'heading' => $postMethod->getParameter('heading'),
-            'content' => $postMethod->getParameter('content'),
+            'title' => filter_var($postMethod->getParameter('title'), FILTER_SANITIZE_STRING),
+            'heading' => filter_var($postMethod->getParameter('heading'), FILTER_SANITIZE_STRING),
+            'content' => filter_var($postMethod->getParameter('content'), FILTER_SANITIZE_STRING),
             'user_id' => $userId,
             'postId' => $postId
         ]);
@@ -88,7 +88,7 @@ class PostDAO extends DAO
 
     public function getPostsFromPseudo($pseudo)
     {
-        $sql = 'SELECT  post.createdAt as createdAt, post.content as content, post.id as id, post.title as title   FROM post INNER JOIN user ON post.user_id = user.id WHERE user.pseudo = ?';
+        $sql = 'SELECT  post.lastUpdate as lastUpdate, post.content as content, post.id as id, post.title as title   FROM post INNER JOIN user ON post.user_id = user.id WHERE user.pseudo = ?';
         $result = $this->createQuery($sql, [$pseudo]);
         $posts = []; // array
         foreach ($result as $row){

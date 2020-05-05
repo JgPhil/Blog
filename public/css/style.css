@@ -226,8 +226,13 @@ a.text-dark:hover {
 
 a:hover {
   color: #41228e;
+  border-bottom: 1px solid #41228e;
 }
 
+#cv {
+    position: absolute;
+    z-index: 4;
+}
 .slick-slide {
   outline: 0;
 }

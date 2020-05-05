@@ -7,13 +7,15 @@ use App\src\DAO\CommentDAO;
 class Comment
 {
     private $id;
-    private $pseudo;
+    private $user_id;
     private $content;
     private $createdAt;
     private $post_id;
     private $validate;
     private $postObj; // Post Object refers to post_id.
     private $post = null;
+    private $userObj;
+    private $user = null;
     private $visible;
     private $erasedAt;
 
@@ -27,14 +29,14 @@ class Comment
         $this->id = $id;
     }
 
-    public function getPseudo()
+    public function getUser_id()
     {
-        return $this->pseudo;
+        return $this->user_id;
     }
 
-    public function setPseudo($pseudo)
+    public function setUser_id($user_id)
     {
-        $this->pseudo = $pseudo;
+        $this->user_id = $user_id;
     }
 
     public function getContent()
@@ -89,6 +91,21 @@ class Comment
                $this->post = $this->getPostObj($this->id);
             }
         return $this->post;
+    }
+
+    public function getUserObj()
+    {
+        $this->userObj = new CommentDAO;
+        return $this->userObj->getUserFromComment($this->id);
+    }
+
+    public function getUser()
+    {
+        if (empty($user))
+            {
+               $this->user = $this->getUserObj($this->id);
+            }
+        return $this->user;
     }
 
     public function getVisible()

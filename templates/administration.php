@@ -51,6 +51,11 @@ $this->title = $title; ?>
                                 <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('empty_trash')) ?></h4>
                             <?php
                             }
+                            elseif ($this->session->get('desactivate_account')) {
+                                ?>
+                                    <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('desactivate_account')) ?></h4>
+                                <?php
+                                }
                             ?>
                         </div>
                     </div>
@@ -109,7 +114,7 @@ $this->title = $title; ?>
         <?php
         if ($adminRoute) {
         ?>
-            <button type="button" class="d-flex justify-content-start btn btn-primary mx-auto mb-20" href=<?= htmlentities(INDEX_PATH) . htmlentities(SLUG) . "addPost" ?>>Nouvel article</button>
+            <a type="button" class="col-lg-2 d-flex justify-content-center btn btn-primary mx-auto mb-20" href=<?=INDEX_PATH.SLUG."addPost" ?>>Nouvel article</a>
         <?php
         }
         ?>
@@ -143,13 +148,13 @@ $this->title = $title; ?>
                             <td> <?= htmlentities($post->getHeading()); ?></td>
                             <td><?= substr(htmlentities($post->getContent()), 0, 80); ?></td>
                             <td><?= htmlentities($post->getUser()->getPseudo()); ?> (<?= htmlentities($post->getUser()->getRole()) ?>)</td>
-                            <td>Créé le : <?= htmlentities($post->getCreatedAt()); ?></td>
+                            <td>Dernière modif. le : <?= htmlentities($post->getLastUpdate()); ?></td>
 
                             <?php if ($adminRoute) {
                             ?>
-                                <td><a href="../public/index.php?route=postComments&postId=<?= htmlentities($post->getId()); ?>">Voir les commentaires</a></td>
+                                <td><a  href="../public/index.php?route=postComments&postId=<?= htmlentities($post->getId()); ?>">Commentaires</a></td>
                                 <td>
-                                    <a href="../public/index.php?route=editPost&postId=<?= htmlentities($post->getId()); ?>">Modifier</a>
+                                    <a  href="../public/index.php?route=editPost&postId=<?= htmlentities($post->getId()); ?>">Modifier</a>
                                     <a href="../public/index.php?route=hidePost&postId=<?= htmlentities($post->getId()); ?>" onclick="return confirm('êtes-vous sûr de vouloir mettre l\'article à la corbeille?')">Supprimer</a>
                                 </td>
                             <?php
@@ -284,7 +289,7 @@ $this->title = $title; ?>
                 ?>
                             <tr>
                                 <td><?php echo (htmlspecialchars($comment->getId())); ?></td>
-                                <td><?php echo (htmlspecialchars($comment->getPseudo())); ?></td>
+                                <td><?php echo (htmlspecialchars($comment->getUser()->getPseudo())); ?></td>
                                 <td><?php echo (htmlspecialchars($comment->getPost()->getTitle())); ?></td>
                                 <!--Appel à la méthode "getPostObj" du modèle "Comment" qui retourne un objet Post -->
                                 <td><?php echo (substr(htmlspecialchars($comment->getContent()), 0, 150)); ?></td>

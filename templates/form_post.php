@@ -1,9 +1,9 @@
 
 
 <?php
-$route = isset($postMethod) && $postMethod->getParameter('id') ? 'editPost&postId='.htmlentities($postMethod->getParameter('id'))  : 'addPost';
+$route = isset($postMethod) && $postMethod->getParameter('id') ? 'editPost&postId='.htmlspecialchars($postMethod->getParameter('id'))  : 'addPost';
 $submit = $route === 'addPost' ? 'Envoyer' : 'Mettre à jour';
-$h2 = $route === 'addPost' ? 'Rédaction d\'un article' : 'Mis à jour de l\'article : '.htmlentities($postMethod->getParameter('title'));
+$h2 = $route === 'addPost' ? 'Rédaction d\'un article' : 'Mis à jour de l\'article : '.htmlspecialchars($postMethod->getParameter('title'));
 ?>
 
 <!-- page title -->

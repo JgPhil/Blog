@@ -69,7 +69,7 @@ class FrontController extends BlogController
 
     public function desactivateAccount($pseudo)
     {
-        $this->userDAO->desactivateAccount($this->session->get('pseudo'));
+        $this->userDAO->desactivateAccount(filter_var($this->session->get('pseudo'), FILTER_SANITIZE_STRING));
         $this->session->set('desactivate_account', 'Votre compte a bien été désactivé');
         header('Location: ../public/index.php');
     }
@@ -79,22 +79,18 @@ class FrontController extends BlogController
           
         if (!empty($this->userDAO->emailConfirm($getMethod)))
         {   
-            $this->userDAO->tokenErase($getMethod->getParameter('pseudo'));
-            $this->userDAO->activateAccount($getMethod->getParameter('pseudo'));
+            $this->userDAO->tokenErase(filter_var($getMethod->getParameter('pseudo'), FILTER_SANITIZE_STRING));
+            $this->userDAO->activateAccount(filter_var($getMethod->getParameter('pseudo'), FILTER_SANITIZE_STRING));
             $this->session->set('email_confirmation', 'Votre compte est à présent activé. Bienvenue ! <br> Vous pouvez maintenant vous connecter avec vos identifiants et mot de passe.');
             return $this->view->render('register3');
         }
-        $this->userDAO->tokenErase($getMethod->getParameter('pseudo'));
-        $this->userDAO->deleteUser($getMethod->getParameter('pseudo'));
+        $this->userDAO->tokenErase(filter_var($getMethod->getParameter('pseudo'), FILTER_SANITIZE_STRING));
+        $this->userDAO->deleteUser(filter_var($getMethod->getParameter('pseudo'), FILTER_SANITIZE_STRING));
         $this->session->set('error_account', 'Il y a eu un problème, merci de vous réinscrire ');
         return $this->view->render('error_account');                   
     }
 
-/*    public function resendMail(Method $getMethod)
-    {
-        $this->userDAO->resendMail($getMethod);
-    }
-*/
+    
     public function login(Method $postMethod)
     {
         if ($postMethod->getParameter('submit'))

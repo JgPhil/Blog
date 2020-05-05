@@ -17,12 +17,30 @@ $this->title = "Accueil"; ?>
   </div>
 
   <div class="container">
-    <div class="row text-center">
+    <div class="row text-center mb-40">
       <div class="col-lg-10 mx-auto">
         <h4 class="text-white font-tertiary"><br><strong> Expression numérique et personnelle de mon parcours professionnel dans le développement informatique</strong></h4>
       </div>
     </div>
   </div>
+  <div class="container ">
+    <div class="row text-center mt-20">
+      <div class="col-lg-8 mx-auto">
+        <h4 style="color :white"><em> Bienvenue sur mon blog - Je vais vous parler de mon cursus de formation et de ma passion pour le code </em></h4>
+      </div>
+      <div class="row">
+        <div  class="col-2">
+          <a id="cv" href="<?=INDEX_PATH.CV_PATH?>" download="CV">
+            <button  class="btn btn-secondary" type="button">CV</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
 
 
   <div class="layer-bg w-100">
@@ -98,42 +116,28 @@ $this->title = "Accueil"; ?>
         <h2 class="section-title">Blog</h2>
 
       </div>
-      <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
-        <article class="card shadow">
-          <img class="rounded card-img-top" src="images/blog/post-3.jpg" alt="post-thumb">
-          <div class="card-body">
-            <h4 class="card-title"><a href=<?= INDEX_PATH . SLUG . "post&postId=" . htmlentities($posts[23]->getId()); ?>><?= htmlentities($posts[23]->getTitle()); ?></a></h4>
-            <h5><?= htmlentities($posts[23]->getHeading()); ?></h5>
-            <p>Ajouté le : <?= htmlentities($posts[23]->getCreatedAt()); ?></p>
-            <p class="cars-text"><?= htmlentities(Text::excerpt($posts[23]->getContent())); ?></p>
-            <a href=<?= INDEX_PATH . SLUG . "post&postId=" . htmlentities($posts[23]->getId()); ?> class="btn btn-xs btn-primary">Voir Plus</a>
-          </div>
-        </article>
-      </div>
-      <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
-        <article class="card shadow">
-          <img class="rounded card-img-top" src="images/blog/post-3.jpg" alt="post-thumb">
-          <div class="card-body">
-            <h4 class="card-title"><a href=<?= INDEX_PATH . SLUG . "post&postId=" . htmlentities($posts[22]->getId()); ?>><?= htmlentities($posts[22]->getTitle()); ?></a></h4>
-            <h5><?= htmlentities($posts[22]->getHeading()); ?></h5>
-            <p>Ajouté le : <?= htmlentities($posts[22]->getCreatedAt()); ?></p>
-            <p class="cars-text"><?= htmlentities(Text::excerpt($posts[22]->getContent())); ?></p>
-            <a href=<?= INDEX_PATH . SLUG . "post&postId=" . htmlentities($posts[22]->getId()); ?> class="btn btn-xs btn-primary">Voir Plus</a>
-          </div>
-        </article>
-      </div>
-      <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
-        <article class="card shadow">
-          <img class="rounded card-img-top" src="images/blog/post-3.jpg" alt="post-thumb">
-          <div class="card-body">
-            <h4 class="card-title"><a href=<?= INDEX_PATH . SLUG . "post&postId=" . htmlentities($posts[21]->getId()); ?>><?= htmlentities($posts[21]->getTitle()); ?></a></h4>
-            <h5><?= htmlentities($posts[21]->getHeading()); ?></h5>
-            <p>Ajouté le : <?= htmlentities($posts[21]->getCreatedAt()); ?></p>
-            <p class="cars-text"><?= htmlentities(Text::excerpt($posts[21]->getContent())); ?></p>
-            <a href=<?= INDEX_PATH . SLUG . "post&postId=" . htmlentities($posts[21]->getId()); ?> class="btn btn-xs btn-primary">Voir Plus</a>
-          </div>
-        </article>
-      </div>
+
+      <?php
+
+      foreach ($posts as $post) {
+      ?>
+        <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
+          <article class="card shadow">
+            <img class="rounded card-img-top" src="images/blog/post-3.jpg" alt="post-thumb">
+            <div class="card-body">
+              <h4 class="card-title"><a href=<?= INDEX_PATH . SLUG . "post&postId=" . htmlentities($post->getId()); ?>><?= htmlentities($post->getTitle()); ?></a></h4>
+              <h5><?= htmlentities($post->getHeading()); ?></h5>
+              <p>dernière modif. le : <?= htmlentities($post->getLastUpdate()); ?></p>
+              <p class="cars-text"><?= htmlentities(Text::excerpt($post->getContent())); ?></p>
+              <a href=<?= INDEX_PATH . SLUG . "post&postId=" . htmlentities($post->getId()); ?> class="btn btn-xs btn-primary">Voir Plus</a>
+            </div>
+          </article>
+        </div>
+
+
+      <?php
+      }
+      ?>
     </div>
   </div>
 </section>

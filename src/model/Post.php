@@ -11,7 +11,7 @@ class Post
     private $content;
     private $heading;
     private $author;
-    private $createdAt;
+    private $lastUpdate;
     private $visible;
     private $userObj;
     private $user;
@@ -69,14 +69,14 @@ class Post
         $this->author = $author;
     }
 
-    public function getCreatedAt()
+    public function getLastUpdate()
     {
-        return $this->createdAt;
+        return $this->lastUpdate;
     }
 
-    public function setCreatedAt($createdAt)
+    public function setLastUpdate($lastUpdate)
     {
-        $this->createdAt = $createdAt;
+        $this->lastUpdate = $lastUpdate;
     }
 
     public function getVisible()
