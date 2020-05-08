@@ -33,6 +33,14 @@
               <div class="col-lg-12 ">
                 <p><a href="../public/index.php"><i class="fas fa-long-arrow-alt-left"></i> Retour à l'accueil</a></p>
                 <div class="col-lg-12 text-center bg-light border mt-2">
+                  <div class="profile-userpic">
+                    <img src=<?= isset($picturePath['path']) ? USER_PICTURE.$picturePath['path'] : USER_AVATAR?> class="img-responsive" alt="">
+                  </div>
+                  <div class="row text-center mt-2">
+                    <div class="col-lg-12 text-center ">
+                      <a class="btn btn-primary btn-xs" href="<?=INDEX_PATH.SLUG."update_user_picture&userId=".htmlentities($user->getId())?>">Changer mon image</a>
+                    </div>
+                  </div>
                   <h2><?= htmlentities($this->session->get('pseudo')); ?></h2>
                 </div>
                 <div class="col-lg-12 text-center">

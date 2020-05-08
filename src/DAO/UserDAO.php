@@ -30,23 +30,32 @@ class UserDAO extends DAO
         $data = $this->createQuery($sql, [$pseudo]);
         $result = $data->fetch();
         $user = $this->buildObject($result);
-        return $user;
+        $sql = 'SELECT path FROM picture WHERE user_id = ?';
+        $res = $this->createQuery($sql, [$result['id']]);
+        $picturePath = $res->fetch();
+        return [$user, $picturePath];
     }
 
-    public function register(Method $postMethod)
+    public function register(Method $postMethod, $path)
     {
         $this->checkUser($postMethod);
         $mail = new Mail;
         $token = $mail->createToken();
         $sql = 'INSERT INTO user (pseudo, password, email, activated, role_id, createdAt) VALUES (?, ?, ?, 0, 2, NOW())';
         $this->createQuery($sql, [
-            filter_var($postMethod->getParameter('pseudo'),FILTER_SANITIZE_STRING),
-            password_hash(filter_var($postMethod->getParameter('password'),FILTER_SANITIZE_STRING), PASSWORD_BCRYPT),
+            filter_var($postMethod->getParameter('pseudo'), FILTER_SANITIZE_STRING),
+            password_hash(filter_var($postMethod->getParameter('password'), FILTER_SANITIZE_STRING), PASSWORD_BCRYPT),
             filter_var($postMethod->getParameter('email'), FILTER_SANITIZE_EMAIL)
-            ]);
+        ]);
+        $sql = 'SELECT LAST_INSERT_ID()';
+        $result = $this->createQuery($sql);
+        $data = $result->fetch();
+        $userId = $data[0];
         $sql = ' INSERT INTO token (user_id, token, createdAt) VALUES (LAST_INSERT_ID(), ?, NOW())';
         $this->createQuery($sql, [$token]);
         $mail->registerMail($postMethod, $token);
+        $sql = 'INSERT INTO picture (path, user_id) VALUES (?, ?)';
+        $this->createQuery($sql, [$path, $userId]);
     }
 
     public function contactEmail(Method $postMethod)
@@ -54,11 +63,11 @@ class UserDAO extends DAO
         $mail = new Mail;
         $sql = 'INSERT INTO contact (name, email, message, phone, createdAt) VALUES (?, ?, ?, ?, NOW())';
         $this->createQuery($sql, [
-            filter_var($postMethod->getParameter('name'), FILTER_SANITIZE_STRING), 
-            filter_var($postMethod->getParameter('email'), FILTER_SANITIZE_EMAIL), 
-            filter_var($postMethod->getParameter('message'), FILTER_SANITIZE_STRING), 
+            filter_var($postMethod->getParameter('name'), FILTER_SANITIZE_STRING),
+            filter_var($postMethod->getParameter('email'), FILTER_SANITIZE_EMAIL),
+            filter_var($postMethod->getParameter('message'), FILTER_SANITIZE_STRING),
             filter_var($postMethod->getParameter('phone'), FILTER_SANITIZE_NUMBER_INT)
-            ]);
+        ]);
         $mail->contactMail($postMethod);
     }
 
@@ -80,9 +89,13 @@ class UserDAO extends DAO
         $result = $data->fetch();
         if ($result) {
             $isPasswordValid = password_verify(filter_var($postMethod->getParameter('password'), FILTER_SANITIZE_STRING), $result['password']);
+            $sql = 'SELECT path FROM picture WHERE user_id = ?';
+            $res = $this->createQuery($sql, [$result['id']]);
+            $picturePath = $res->fetch();
             return [
                 'result' => $result, //array
-                'isPasswordValid' => $isPasswordValid //bool
+                'isPasswordValid' => $isPasswordValid, //bool
+                'picturePath' => $picturePath
             ];
         }
     }
@@ -158,9 +171,19 @@ class UserDAO extends DAO
 
     public function deleteUser($pseudo)
     {
-        $sql= 'DELETE FROM user WHERE $pseudo = ?';
+        $sql = 'DELETE FROM user WHERE $pseudo = ?';
         $this->createQuery($sql);
     }
 
+    public function updateUserPicture($path, $userId)
+    {
+        $sql = 'UPDATE picture SET path = ? WHERE user_id = ?';
+        $this->createQuery($sql, [$path, $userId]);
+    }
 
+    public function addUserPicture($path, $userId)
+    {
+        $sql = 'INSERT INTO picture (path, user_id) VALUES (?, ?)';
+        $this->createQuery($sql, [$path, $userId]);
+    }
 }

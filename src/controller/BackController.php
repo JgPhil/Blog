@@ -100,11 +100,12 @@ class BackController extends BlogController
             $pseudo = $this->session->get('pseudo');
             $comments = $this->commentDAO->getCommentsByPseudo($pseudo);
             $posts = $this->postDAO->getPostsFromPseudo($pseudo);
-            $user = $this->userDAO->getUser($pseudo);
+            [$user, $picturePath] = $this->userDAO->getUser($pseudo);
             return $this->view->render('profile', [
                 'user' => $user,
                 'pseudo' => $pseudo,
                 'posts' => $posts,
+                'picturePath' => $picturePath,
                 'comments' => $comments
             ]);
         }
@@ -219,12 +220,19 @@ class BackController extends BlogController
 
     public function postComments($postId)
     {
-        $comments = $this->commentDAO->getCommentsFromPost($postId);
-        $alert = "<script>alert('Pas de commentaire sur cet article');</script>";
-        return $this->view->render('postComments', [
-            'comments' => $comments,
-            'alert' => $alert
-        ]);
+        if ($this->checkAdmin()) {
+            $comments = $this->commentDAO->getCommentsFromPost($postId);
+            
+            if ($comments) {
+                return $this->view->render('postComments', [
+                    'comments' => $comments
+                ]);
+            }
+            
+            echo '<script>
+            alert("Pas de commentaire sur cet article");
+            window.location.href="../public/index.php?route=administration"</script>';
+        }
     }
 
     public function validateComment($commentId)

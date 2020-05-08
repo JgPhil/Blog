@@ -2,6 +2,7 @@
 
 namespace App\src\controller;
 
+use App\src\helpers\Upload;
 use App\Framework\Method;
 
 class FrontController extends BlogController
@@ -45,6 +46,26 @@ class FrontController extends BlogController
         }
     }
     
+    public function updateUserPicture(Method $postMethod)
+    {
+        if($postMethod->getParameter('submit')){
+            $path = Upload::uploadPictureUser();
+            $userId = $this->session->get('id');
+            if(!empty($this->session->get('picturePath')))
+            {
+                $this->userDAO->updateUserPicture( $path, $userId);
+            }
+            else 
+            {
+                $this->userDAO->addUserPicture($path, $userId);
+            }   
+            $this->session->set('update_user_picture', 'Votre image a été changée');
+            header('Location: ../public/index.php?route=profile');
+        }
+        return $this->view->render('update_user_picture', [
+            'postMethod' => $postMethod
+        ]);
+    }
 
     public function register(Method $postMethod)
     {
@@ -54,7 +75,8 @@ class FrontController extends BlogController
                 $errors['pseudo'] = $this->userDAO->checkUser($postMethod);
             }
             if (!$errors){
-                $this->userDAO->register($postMethod);
+                $path = Upload::uploadPictureUser();
+                $this->userDAO->register($postMethod, $path);
                 $this->session->set('register', 'votre inscription a bien été éffectuée, Merci de cliquer sur le lien présent dans le mail de confirmation qui vient de vous être envoyé.' );
                 return $this->view->render('register2');
             }
@@ -97,13 +119,14 @@ class FrontController extends BlogController
     {
         if ($postMethod->getParameter('submit'))
         {
-            $result = $this->userDAO->login($postMethod);
+            $result= $this->userDAO->login($postMethod);
             if ($result && $result['isPasswordValid']) 
             {
                 $this->session->set('login','Content de vous revoir');
                 $this->session->set('id',$result['result']['id']);
                 $this->session->set('role',$result['result']['name']);
                 $this->session->set('pseudo',$postMethod->getParameter('pseudo'));
+                $this->session->set('picturePath', $result['picturePath']);
                 header('Location: ../public/index.php');
                 
             }
