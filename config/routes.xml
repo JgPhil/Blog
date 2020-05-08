@@ -11,7 +11,7 @@
     <route url="contactEmail"  application="frontend" method="contactEmail" param="$this->request->getPost()"></route>
     <route url="updatePassword"  application= "backend" method= "updatePassword" param="$this->request->getPost()"></route>
     <route url="desactivateAccount"  application= "frontend" method= "desactivateAccount" param="$this->request->getGet()->getParameter('pseudo')"></route>
-
+ 
     <!--BACKEND ROUTES-->
     <route url="logout"  application= "backend" method= "logout"></route>
     <route url="addPost"  application= "backend" method= "addPost" param="$this->request->getPost()"></route>

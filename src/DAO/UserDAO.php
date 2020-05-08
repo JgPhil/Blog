@@ -26,7 +26,7 @@ class UserDAO extends DAO
 
     public function getUser($pseudo)
     {
-        $sql = 'SELECT user.email as email, user.createdAt as createdAt FROM user WHERE pseudo = ?';
+        $sql = 'SELECT user.id AS id, user.email as email, user.createdAt as createdAt FROM user WHERE pseudo = ?';
         $data = $this->createQuery($sql, [$pseudo]);
         $result = $data->fetch();
         $user = $this->buildObject($result);

@@ -86,10 +86,12 @@ class CommentDAO extends DAO
         $this->createQuery($sql, [$commentId]);
     }
 
-    public function getUserComments($user_id)
+    public function getCommentsByPseudo($pseudo)
     {
-        $sql = 'SELECT id, user_id, content, DATE_FORMAT(createdAt, "%d/%m/%Y à %H:%i") AS createdAt, post_id, validate FROM comment WHERE user_id = ?';
-        $result = $this->createQuery($sql, [$user_id]);
+        $sql = 'SELECT comment.id AS id, comment.user_id AS user_id, comment.content AS content,
+         DATE_FORMAT(comment.createdAt, "%d/%m/%Y à %H:%i") AS createdAt, comment.post_id AS post_id, comment.validate AS validate 
+         FROM comment INNER JOIN user ON comment.user_id = user.id WHERE user.pseudo = ?';
+        $result = $this->createQuery($sql, [$pseudo]);
         $comments = [];
         foreach ($result as $row) 
         {

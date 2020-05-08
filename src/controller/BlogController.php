@@ -7,6 +7,7 @@ use App\src\DAO\UserDAO;
 use App\src\DAO\CommentDAO;
 use App\Framework\Controller;
 use App\Framework\Validation;
+use App\src\helpers\Upload;
 
 abstract class BlogController extends Controller
 {

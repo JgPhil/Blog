@@ -1,9 +1,7 @@
-
-
 <?php
-$route = isset($postMethod) && $postMethod->getParameter('id') ? 'editPost&postId='.htmlspecialchars($postMethod->getParameter('id'))  : 'addPost';
+$route = isset($postMethod) && $postMethod->getParameter('id') ? 'editPost&postId=' . htmlspecialchars($postMethod->getParameter('id'))  : 'addPost';
 $submit = $route === 'addPost' ? 'Envoyer' : 'Mettre à jour';
-$h2 = $route === 'addPost' ? 'Rédaction d\'un article' : 'Mis à jour de l\'article : '.htmlspecialchars($postMethod->getParameter('title'));
+$h2 = $route === 'addPost' ? 'Rédaction d\'un article' : 'Mis à jour de l\'article : ' . htmlspecialchars($postMethod->getParameter('title'));
 ?>
 
 <!-- page title -->
@@ -27,35 +25,47 @@ $h2 = $route === 'addPost' ? 'Rédaction d\'un article' : 'Mis à jour de l\'art
 <!-- /page title -->
 
 <div class="section">
-    <div class="container">
-        <h2 class="title"><?=htmlentities($h2)?></h2>
-    </div>
+  <div class="container">
+    <h2 class="title"><?= htmlentities($h2) ?></h2>
+
+  </div>
 </div>
 
 
 <section class="section">
-    <div class="container">
-        <div>
-            <p><a href=<?=INDEX_PATH?> ><i class="fas fa-long-arrow-alt-left"></i>  Retour à l'accueil</a></p>
-        </div>
-            <form method="post" action=<?=INDEX_PATH.SLUG.htmlentities($route);?>>
-                <div class="form-group">
-                    <label for="title">Auteur</label><br>
-                    <input type="text" class="form-control"id="author" name="author" value="<?= isset($postMethod) ? htmlentities($postMethod->getParameter('author')): ''; ?>"><br>
-                    <?= isset($errors['author']) ? htmlentities($errors['author']) : ''; ?>
-                    <label for="title">Titre</label><br>
-                    <input type="text" class="form-control"id="title" name="title" value="<?= isset($postMethod) ? htmlentities($postMethod->getParameter('title')): ''; ?>"><br>
-                    <?= isset($errors['title']) ? htmlentities($errors['title']) : ''; ?>
-                    <label for="heading">Châpo</label><br>
-                    <input type="text" class="form-control"id="heading" name="heading" value="<?= isset($postMethod) ? htmlentities($postMethod->getParameter('heading')): ''; ?>"><br>
-                    <?= isset($errors['heading']) ? htmlentities($errors['heading']) : ''; ?>
-                    <label for="content">Contenu</label><br>
-                    <textarea class="form-control" rows="12" id="content" name="content"><?= isset($postMethod) ? htmlentities($postMethod->getParameter('content')): ''; ?></textarea><br>
-                    <?= isset($errors['content']) ? htmlentities($errors['content']) : ''; ?>
-                    <input type="submit" class="btn btn-primary"value="<?= htmlentities($submit); ?>" id="submit" name="submit">
-                </div>
-            </form> 
+  <div class="container">
+    <div>
+      <p><a href=<?= INDEX_PATH ?>><i class="fas fa-long-arrow-alt-left"></i> Retour à l'accueil</a></p>
     </div>
+    <form method="post" enctype="multipart/form-data" action=<?= INDEX_PATH . SLUG . htmlentities($route); ?>>
+
+      <div class="form-group">
+
+        <label for="title"><b>Auteur</b></label><br>
+        <input type="text" class="form-control" id="author" name="author" value="<?= isset($postMethod) ? htmlentities($postMethod->getParameter('author')) : ''; ?>"><br>
+        <?= isset($errors['author']) ? htmlentities($errors['author']) : ''; ?>
+
+        <label for="title"><b>Titre</b></label><br>
+        <input type="text" class="form-control" id="title" name="title" value="<?= isset($postMethod) ? htmlentities($postMethod->getParameter('title')) : ''; ?>"><br>
+        <?= isset($errors['title']) ? htmlentities($errors['title']) : ''; ?>
+
+        <label for="heading"><b>Châpo</b></label><br>
+        <input type="text" class="form-control" id="heading" name="heading" value="<?= isset($postMethod) ? htmlentities($postMethod->getParameter('heading')) : ''; ?>"><br>
+        <?= isset($errors['heading']) ? htmlentities($errors['heading']) : ''; ?>
+
+        <label for="content"><b>Contenu</b></label><br>
+        <textarea class="form-control" rows="12" id="content" name="content"><?= isset($postMethod) ? htmlentities($postMethod->getParameter('content')) : ''; ?></textarea><br>
+        <?= isset($errors['content']) ? htmlentities($errors['content']) : ''; ?>
+
+        <p><b>Image actuelle: </b><em><?= isset($postMethod) ? htmlentities($postMethod->getParameter('picturePath')) : ''; ?></em></p>
+        <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
+        <input name="userfile" class="form-control" type="file" />
+
+
+
+      </div>
+      <input type="submit" class="btn btn-primary" value="<?= htmlentities($submit); ?>" id="submit" name="submit">
+  </div>
+  </form>
+  </div>
 </section>
-
-

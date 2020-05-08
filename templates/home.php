@@ -120,10 +120,11 @@ $this->title = "Accueil"; ?>
       <?php
 
       foreach ($posts as $post) {
+       
       ?>
         <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
           <article class="card shadow">
-            <img class="rounded card-img-top" src="images/blog/post-3.jpg" alt="post-thumb">
+            <img class="rounded card-img-top" src=<?=BLOG_PICTURES.htmlentities($picturePaths[$post->getId()]['path'])?> alt="post-thumb">
             <div class="card-body">
               <h4 class="card-title"><a href=<?= INDEX_PATH . SLUG . "post&postId=" . htmlentities($post->getId()); ?>><?= htmlentities($post->getTitle()); ?></a></h4>
               <h5><?= htmlentities($post->getHeading()); ?></h5>

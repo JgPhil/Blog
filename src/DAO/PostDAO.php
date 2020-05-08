@@ -14,13 +14,17 @@ class PostDAO extends DAO
         DATE_FORMAT(post.lastUpdate, "%d/%m/%Y à %H:%i") AS lastUpdate, post.visible AS visible, post.erasedAt AS erasedAt FROM post 
         INNER JOIN user ON post.user_id=user.id ORDER BY post.id DESC';
         $result = $this->createQuery($sql);
-        $posts = []; // array
+        $posts = [];
+        $picturePaths = [];
         foreach ($result as $row){
             $postId = $row['id'];
-            $posts[$postId] = $this->buildObject($row); //conversion par la method buildObject
+            $sql = 'SELECT path FROM picture WHERE post_id = ?'; //Recherche dans la table Picture le chemin correspondant à post_id sur chaque $row
+            $result = $this->createQuery($sql, [$postId]);            
+            $picturePaths[$postId] = $result->fetch(); // assignation du chemin de l'image à l'article par $postId
+            $posts[$postId] = $this->buildObject($row); //conversion du tableau par la method buildObject
         }
         $result->closeCursor();
-        return $posts; //object
+        return [$posts, $picturePaths]; //Tableau d'objets Post et tableau de chemins d'images
     }
 
     public function getPost($postId)
@@ -29,12 +33,15 @@ class PostDAO extends DAO
         DATE_FORMAT(post.lastUpdate, "%d/%m/%Y à %H:%i") AS lastUpdate FROM post
         INNER JOIN user ON post.user_id=user.id WHERE post.id = ?';
         $result = $this->createQuery($sql, [$postId]);
-        $post = $result->fetch(); //array
+        $post = $this->buildObject($result->fetch()); 
+        $sql = 'SELECT path FROM picture WHERE post_id = ?';
+        $result = $this->createQuery($sql, [$postId]);
+        $picturePath = $result->fetch();
         $result->closeCursor();
-        return $this->buildObject($post); //object
-    }
+        return [$post, $picturePath];
+ }
 
-    public function addPost(Method $postMethod, $userId)
+    public function addPost(Method $postMethod, $userId, $path)
     { 
         $sql = 'INSERT INTO post (title, content, heading, user_id, lastUpdate) VALUES (?, ?, ?, ?, NOW())';
         $this->createQuery($sql,[ 
@@ -43,10 +50,11 @@ class PostDAO extends DAO
         filter_var($postMethod->getParameter('heading'), FILTER_SANITIZE_STRING),
         $userId
         ]);
-
+        $sql = 'INSERT INTO picture (path, post_id) VALUES (?, LAST_INSERT_ID())';
+        $this->createQuery($sql, [$path]);
     }
 
-    public function editPost(Method $postMethod, $postId, $userId)
+    public function editPost(Method $postMethod, $postId, $userId, $path)
     {
         $sql = 'UPDATE post SET title=:title, heading=:heading, content=:content, user_id=:user_id, lastUpdate=NOW() WHERE id=:postId';
         $this->createQuery($sql, [
@@ -56,6 +64,8 @@ class PostDAO extends DAO
             'user_id' => $userId,
             'postId' => $postId
         ]);
+        $sql = 'UPDATE picture SET path = ? WHERE post_id = ?';
+        $this->createQuery($sql, [$path, $postId]);
     }
 
     public function getUserFromPost($postId)

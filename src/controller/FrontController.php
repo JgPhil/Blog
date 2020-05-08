@@ -8,18 +8,20 @@ class FrontController extends BlogController
 {
     public function home()
     {
-        $posts = $this->postDAO->getPosts();
+        [$posts, $picturePaths] = $this->postDAO->getPosts();
         return $this->view->render('home', [
-            'posts' => $posts
+            'posts' => $posts,
+            'picturePaths' => $picturePaths
         ]);
     }
 
     public function post($postId)
     {
-        $post = $this->postDAO->getPost($postId);
+        [$post, $picturePath] = $this->postDAO->getPost($postId);
         $comments = $this->commentDAO->getValidCommentsFromPost($postId);
         return $this->view->render('pagePost', [
             'post' => $post,
+            'picturePath' => $picturePath,
             'comments' => $comments
         ]);
     }

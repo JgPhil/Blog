@@ -99,7 +99,7 @@
             ?>
                 <div class="card">
                   <div class="card-body">
-                    <h5> Date: <?php print_r(htmlspecialchars($post->getCreatedAt())) ?></h5>
+                    <h5> Date: <?php print_r(htmlspecialchars($post->getLastUpdate())) ?></h5>
                     <h4><a href="../public/index.php?route=post&postId=<?php print_r(htmlspecialchars($post->getId())); ?>"><?php print_r(htmlspecialchars($post->getTitle())); ?></a></h4>
                   </div>
                 </div>

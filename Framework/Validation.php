@@ -31,4 +31,11 @@ class Validation
             ];
         }
     }
+
+    protected function checkField($name, $value)
+    {
+        $checkMethod = 'check'.ucfirst($name);
+        $error = $this->$checkMethod($name, $value);
+        $this->addError($name, $error);
+    }
 }

@@ -53,7 +53,7 @@
         <h4 class="font-tertiary mb-2"><?= htmlentities($post->getHeading()); ?></h4>
         <p class="font-secondary">Dernière modif. le <?= htmlentities($post->getLastUpdate()); ?> par <span class="text-primary"><?= htmlentities($post->getAuthor()); ?></span></p>
         <div class="content">
-          <img src="images/blog/post-1.jpg" alt="post-thumb" class="img-fluid rounded float-left mr-5 mb-4">
+          <img src=<?=BLOG_PICTURES.htmlentities($picturePath['path'])?> alt="post-thumb" class="img-fluid rounded float-left mr-5 mb-4">
           <strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
             et dolore magna aliqua. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
             mollit anim id est laborum.</strong>

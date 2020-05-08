@@ -16,6 +16,7 @@ class Post
     private $userObj;
     private $user;
     private $erasedAt;
+    
 
 
     public function getId()
@@ -92,20 +93,19 @@ class Post
 
     public function getUserObj()
     {
-        $this->userObj = new PostDAO ; // Instanciation de la classe UserDAO, puis appel de la ...
+        $this->userObj = new PostDAO; // Instanciation de la classe UserDAO, puis appel de la ...
         return $this->userObj->getUserFromPost($this->id); // ...méthode getUserFromPost() qui retourne un objet "User"
     }
 
-    public function getUser() 
+    public function getUser()
     {
-        if (empty($user))
-            {
-               $this->user = $this->getUserObj($this->id);
-            }
+        if (empty($user)) {
+            $this->user = $this->getUserObj($this->id);
+        }
         return $this->user;
     }
 
-    
+
     public function getErasedAt()
     {
         return $this->erasedAt;
