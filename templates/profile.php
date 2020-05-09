@@ -41,13 +41,15 @@
                       <a class="btn btn-primary btn-xs" href="<?=INDEX_PATH.SLUG."update_user_picture&userId=".htmlentities($user->getId())?>">Changer mon image</a>
                     </div>
                   </div>
-                  <h2><?= htmlentities($this->session->get('pseudo')); ?></h2>
+                  <h3><b><?= htmlentities($this->session->get('pseudo')); ?></b></h3>
                 </div>
+                <div class="col-lg-12 text-center bg-light border mt-2">
                 <div class="col-lg-12 text-center">
-                  <h4>Rôle: <?= htmlentities($this->session->get('role')); ?></h4>
+                  <h4>Rôle: <b><?= htmlentities($this->session->get('role')); ?></b></h4>
                 </div>
                 <div class="col-lg-12 text-center">
                   <h4> Membre depuis le : <?= htmlentities($user->getCreatedAt()); ?></h4>
+                </div>
                 </div>
               </div>
             </div>

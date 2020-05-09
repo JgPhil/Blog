@@ -42,23 +42,22 @@ $h2 = $route === 'addPost' ? 'Rédaction d\'un article' : 'Mis à jour de l\'art
       <div class="form-group">
 
         <label for="title"><b>Auteur</b></label><br>
-        <input type="text" class="form-control" id="author" name="author" value="<?= isset($postMethod) ? htmlentities($postMethod->getParameter('author')) : ''; ?>"><br>
-        <?= isset($errors['author']) ? htmlentities($errors['author']) : ''; ?>
-
+        <input type="text" class="form-control" id="author" name="author" value="<?= $this->session->get('pseudo'); ?> " readonly><br>
+        
         <label for="title"><b>Titre</b></label><br>
-        <input type="text" class="form-control" id="title" name="title" value="<?= isset($postMethod) ? htmlentities($postMethod->getParameter('title')) : ''; ?>"><br>
+        <input type="text" class="form-control" id="title" name="title" value="<?= isset($postMethod) ? $postMethod->getParameter('title') : ''; ?>"><br>
         <?= isset($errors['title']) ? htmlentities($errors['title']) : ''; ?>
 
         <label for="heading"><b>Châpo</b></label><br>
-        <input type="text" class="form-control" id="heading" name="heading" value="<?= isset($postMethod) ? htmlentities($postMethod->getParameter('heading')) : ''; ?>"><br>
+        <input type="text" class="form-control" id="heading" name="heading" value="<?= isset($postMethod) ? $postMethod->getParameter('heading') : ''; ?>"><br>
         <?= isset($errors['heading']) ? htmlentities($errors['heading']) : ''; ?>
 
         <label for="content"><b>Contenu</b></label><br>
-        <textarea class="form-control" rows="12" id="content" name="content"><?= isset($postMethod) ? htmlentities($postMethod->getParameter('content')) : ''; ?></textarea><br>
+        <textarea class="form-control" rows="12" id="content" name="content"><?= isset($postMethod) ? $postMethod->getParameter('content') : ''; ?></textarea><br>
         <?= isset($errors['content']) ? htmlentities($errors['content']) : ''; ?>
 
         <p><b>Image actuelle: </b><em><?= isset($postMethod) ? htmlentities($postMethod->getParameter('picturePath')) : ''; ?></em></p>
-        <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
+        <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
         <input name="userfile" class="form-control" type="file" />
 
 

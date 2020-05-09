@@ -46,11 +46,12 @@ class BackController extends BlogController
 
     public function addPost(Method $postMethod)
     {
+        $target = "blog";
         if ($this->checkAdmin()) {
             if ($postMethod->getParameter('submit')) {
                 $errors = $this->validation->validate($postMethod, 'Post');
                 if (!$errors) {
-                    $target = "blog";
+
                     $path = Upload::uploadFile($target);
                     $this->postDAO->addPost($postMethod, $this->session->get('id'), $path);
                     $this->session->set('add_post', 'Le nouvel article a bien été ajouté');
@@ -68,13 +69,17 @@ class BackController extends BlogController
 
     public function editPost(Method $postMethod, $postId)
     {
+        $target = "blog";
         if ($this->checkAdmin()) {
             [$post, $picturePath] = $this->postDAO->getPost($postId);
             if ($postMethod->getParameter('submit')) {
                 $errors = $this->validation->validate($postMethod, 'Post');
                 if (!$errors) {
-                    $target = "blog";
-                    $path = Upload::uploadFile($target); // basename($_FILES["name"]
+                    if (!empty($_FILES['userfile']['name'])) {
+                        $path = Upload::uploadFile($target); 
+                    } else {
+                        $path = $picturePath['path'];
+                    }
                     $this->postDAO->editPost($postMethod, $postId, $this->session->get('id'), $path);
                     $this->session->set('edit_post', 'L\' article a bien été modifié');
                     header('Location: ../public/index.php?route=administration');
@@ -224,13 +229,13 @@ class BackController extends BlogController
     {
         if ($this->checkAdmin()) {
             $comments = $this->commentDAO->getCommentsFromPost($postId);
-            
+
             if ($comments) {
                 return $this->view->render('postComments', [
                     'comments' => $comments
                 ]);
             }
-            
+
             echo '<script>
             alert("Pas de commentaire sur cet article");
             window.location.href="../public/index.php?route=administration"</script>';

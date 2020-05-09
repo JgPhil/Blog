@@ -33,7 +33,7 @@ class Upload
         }
 
         // Check file size
-        if ($picture["size"] > 500000) {
+        if ($picture["size"] > 1000000) {
             echo "Le fichier est trop gros";
             $uploadOk = 0;
         }

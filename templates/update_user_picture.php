@@ -36,7 +36,7 @@
                 <div class="form-group">
                     
                     <p><b>Image actuelle: </b><em><?= isset($postMethod) ? htmlentities($postMethod->getParameter('picturePath')) : ''; ?></em></p>
-                    <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
+                    <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
                     <input name="userfile" class="form-control" type="file" />
 
                     <input type="submit" class="btn btn-primary" value="Metttre à jour" id="submit" name="submit">
