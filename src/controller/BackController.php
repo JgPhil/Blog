@@ -50,7 +50,8 @@ class BackController extends BlogController
             if ($postMethod->getParameter('submit')) {
                 $errors = $this->validation->validate($postMethod, 'Post');
                 if (!$errors) {
-                    $path = Upload::uploadPicture();
+                    $target = "blog";
+                    $path = Upload::uploadFile($target);
                     $this->postDAO->addPost($postMethod, $this->session->get('id'), $path);
                     $this->session->set('add_post', 'Le nouvel article a bien été ajouté');
                     header('Location: ../public/index.php?route=administration');
@@ -72,7 +73,8 @@ class BackController extends BlogController
             if ($postMethod->getParameter('submit')) {
                 $errors = $this->validation->validate($postMethod, 'Post');
                 if (!$errors) {
-                    $path = Upload::uploadPicture(); // basename($_FILES["name"]
+                    $target = "blog";
+                    $path = Upload::uploadFile($target); // basename($_FILES["name"]
                     $this->postDAO->editPost($postMethod, $postId, $this->session->get('id'), $path);
                     $this->session->set('edit_post', 'L\' article a bien été modifié');
                     header('Location: ../public/index.php?route=administration');

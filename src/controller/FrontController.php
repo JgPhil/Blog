@@ -29,9 +29,9 @@ class FrontController extends BlogController
 
     public function addComment(Method $postMethod, $postId)
     {
-        if($postMethod->getParameter('submit')){
+        if ($postMethod->getParameter('submit')) {
             $errors = $this->validation->validate($postMethod, 'Comment');
-            if(!$errors){
+            if (!$errors) {
                 $this->commentDAO->addComment($postMethod, $postId);
                 $this->session->set('add_comment', 'Votre commentaire est enregistré. Il sera visible après validation par l\'administrateur, ');
             }
@@ -45,20 +45,19 @@ class FrontController extends BlogController
             ]);
         }
     }
-    
+
     public function updateUserPicture(Method $postMethod)
     {
-        if($postMethod->getParameter('submit')){
-            $path = Upload::uploadPictureUser();
+        if ($postMethod->getParameter('submit')) {
+            $target = "user";
+            $path = Upload::uploadFile($target);
             $userId = $this->session->get('id');
-            if(!empty($this->session->get('picturePath')))
-            {
-                $this->userDAO->updateUserPicture( $path, $userId);
-            }
-            else 
-            {
+            $checkUserPicture = $this->userDAO->checkUserPicture($userId);
+            if ($checkUserPicture) {
+                $this->userDAO->updateUserPicture($path, $userId);
+            } else {
                 $this->userDAO->addUserPicture($path, $userId);
-            }   
+            }
             $this->session->set('update_user_picture', 'Votre image a été changée');
             header('Location: ../public/index.php?route=profile');
         }
@@ -69,27 +68,28 @@ class FrontController extends BlogController
 
     public function register(Method $postMethod)
     {
-        if($postMethod->getParameter('submit')){
+        if ($postMethod->getParameter('submit')) {
             $errors = $this->validation->validate($postMethod, 'User');
-            if($this->userDAO->checkUser($postMethod)){
+            if ($this->userDAO->checkUser($postMethod)) {
                 $errors['pseudo'] = $this->userDAO->checkUser($postMethod);
             }
-            if (!$errors){
-                $path = Upload::uploadPictureUser();
+            if (!$errors) {
+                $target = "user";
+                $path = Upload::uploadFile($target);
                 $this->userDAO->register($postMethod, $path);
-                $this->session->set('register', 'votre inscription a bien été éffectuée, Merci de cliquer sur le lien présent dans le mail de confirmation qui vient de vous être envoyé.' );
+                $this->session->set('register', 'votre inscription a bien été éffectuée, Merci de cliquer sur le lien présent dans le mail de confirmation qui vient de vous être envoyé.');
                 return $this->view->render('register2');
             }
-          
-        return $this->view->render('register',[
-            'postMethod' => $postMethod,
-            'errors' => $errors
-        ]);    
+
+            return $this->view->render('register', [
+                'postMethod' => $postMethod,
+                'errors' => $errors
+            ]);
         }
         return $this->view->render('register');
     }
 
-    
+
 
     public function desactivateAccount($pseudo)
     {
@@ -100,9 +100,8 @@ class FrontController extends BlogController
 
     public function emailConfirm(Method $getMethod)
     {
-          
-        if (!empty($this->userDAO->emailConfirm($getMethod)))
-        {   
+
+        if (!empty($this->userDAO->emailConfirm($getMethod))) {
             $this->userDAO->tokenErase(filter_var($getMethod->getParameter('pseudo'), FILTER_SANITIZE_STRING));
             $this->userDAO->activateAccount(filter_var($getMethod->getParameter('pseudo'), FILTER_SANITIZE_STRING));
             $this->session->set('email_confirmation', 'Votre compte est à présent activé. Bienvenue ! <br> Vous pouvez maintenant vous connecter avec vos identifiants et mot de passe.');
@@ -111,29 +110,24 @@ class FrontController extends BlogController
         $this->userDAO->tokenErase(filter_var($getMethod->getParameter('pseudo'), FILTER_SANITIZE_STRING));
         $this->userDAO->deleteUser(filter_var($getMethod->getParameter('pseudo'), FILTER_SANITIZE_STRING));
         $this->session->set('error_account', 'Il y a eu un problème, merci de vous réinscrire ');
-        return $this->view->render('error_account');                   
+        return $this->view->render('error_account');
     }
 
-    
+
     public function login(Method $postMethod)
     {
-        if ($postMethod->getParameter('submit'))
-        {
-            $result= $this->userDAO->login($postMethod);
-            if ($result && $result['isPasswordValid']) 
-            {
-                $this->session->set('login','Content de vous revoir');
-                $this->session->set('id',$result['result']['id']);
-                $this->session->set('role',$result['result']['name']);
-                $this->session->set('pseudo',$postMethod->getParameter('pseudo'));
+        if ($postMethod->getParameter('submit')) {
+            $result = $this->userDAO->login($postMethod);
+            if ($result && $result['isPasswordValid']) {
+                $this->session->set('login', 'Content de vous revoir');
+                $this->session->set('id', $result['result']['id']);
+                $this->session->set('role', $result['result']['name']);
+                $this->session->set('pseudo', $postMethod->getParameter('pseudo'));
                 $this->session->set('picturePath', $result['picturePath']);
                 header('Location: ../public/index.php');
-                
-            }
-            else 
-            {
+            } else {
                 $this->session->set('error_login', 'Vos identifiants sont incorrects');
-                return $this->view->render('login',[
+                return $this->view->render('login', [
                     'postMethod' => $postMethod
                 ]);
             }
@@ -143,19 +137,15 @@ class FrontController extends BlogController
 
     public function contactEmail(Method $postMethod)
     {
-        if ($postMethod->getParameter('submit'))
-        {
+        if ($postMethod->getParameter('submit')) {
             $errors = $this->validation->validate($postMethod, 'Email');
-            if(!$errors)
-            {
+            if (!$errors) {
                 $this->userDAO->contactEmail($postMethod);
                 $this->session->set('confirm_email', 'Votre email a bien été envoyé');
                 header('Location: ../public/index.php');
-            }
-            else 
-            {
+            } else {
                 $this->session->set('error_email', 'Votre email n\'a pas été envoyé');
-                return $this->view->render('contact',[
+                return $this->view->render('contact', [
                     'postMethod' => $postMethod,
                     'errors' => $errors
                 ]);

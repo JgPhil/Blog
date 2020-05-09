@@ -5,10 +5,12 @@ namespace App\src\helpers;
 class Upload
 {
 
-    public static function uploadPicture()
+    public static function uploadFile($target) //uploadPicture
     {
+        $target_dir = $target === "user" ? USER_PICTURE : BLOG_PICTURE;
+
         $picture = $_FILES['userfile'];
-        $target_dir = BLOG_PICTURE;
+        // $target_dir = BLOG_PICTURE;
         $target_file = $target_dir . basename($picture["name"]);
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
@@ -25,10 +27,9 @@ class Upload
             }
         }
 
-        // Check if file already exists
         if (file_exists($target_file)) {
-            echo "Désolé le fichier existe déjà";
-            $uploadOk = 0;
+            chmod($target_file, 0755);
+            unlink($target_file);
         }
 
         // Check file size
@@ -56,7 +57,7 @@ class Upload
             }
         }
     }
-
+    /*
     public static function uploadPictureUser()
     {
         $picture = $_FILES['userfile'];
@@ -77,19 +78,16 @@ class Upload
             }
         }
 
-        // Check if file already exists
-        if (file_exists($target_file)) {
-            echo "Désolé le fichier existe déjà";
-            $uploadOk = 0;
+        if (file_exists($target_file)) { 
+            chmod($target_file, 0755);
+            unlink($target_file);
         }
 
-        // Check file size
         if ($picture["size"] > 500000) {
             echo "Le fichier est trop gros";
             $uploadOk = 0;
         }
 
-        // Allow certain file formats
         if (!in_array($imageFileType, $allowedExt)) {
             echo "Seules les images JPG, JPEG, PNG ou GIF sont acceptées.";
             $uploadOk = 0;
@@ -108,5 +106,5 @@ class Upload
             }
         }
     }
-    
+    */
 }

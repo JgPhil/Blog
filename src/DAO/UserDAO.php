@@ -81,6 +81,14 @@ class UserDAO extends DAO
         }
     }
 
+    public function checkUserPicture($userId)
+    {
+        $sql = 'SELECT COUNT(user_id) FROM picture WHERE user_id = ?';
+        $result = $this->createQuery($sql, [$userId]);
+        $pictureExists = $result->fetchColumn();
+        return $pictureExists;
+    }
+
     public function login(Method $postMethod)
     {
         $sql = 'SELECT user.id , user.role_id, user.password, role.name FROM user 

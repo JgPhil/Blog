@@ -54,9 +54,7 @@
         <p class="font-secondary">Dernière modif. le <?= htmlentities($post->getLastUpdate()); ?> par <span class="text-primary"><?= htmlentities($post->getAuthor()); ?></span></p>
         <div class="content">
           <img src=<?=BLOG_PICTURE.htmlentities($picturePath['path'])?> alt="post-thumb" class="img-fluid rounded float-left mr-5 mb-4">
-          <strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-            et dolore magna aliqua. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-            mollit anim id est laborum.</strong>
+
           <p><?= htmlentities($post->getContent()); ?></p>
         </div>
       </div>
@@ -96,7 +94,7 @@
           <h4>Laissez un commentaire</h4>
           <form method="post" action=<?= INDEX_PATH . SLUG . "addComment&postId=" . htmlentities($post->getId()); ?> class="row">
             <div class="col-md-6">
-              <input type="text" class="form-control mb-3"  name="id" id= "id" value="<?= $this->session->get('id'); ?> " readonly>
+              <input type="text" class="form-control mb-3"  name="id" id= "id" value="<?= $this->session->get('pseudo'); ?> " readonly>
             </div>
             <div class="col-md-6">
               <?php
