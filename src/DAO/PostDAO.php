@@ -96,7 +96,7 @@ class PostDAO extends DAO
         $this->createQuery($sql, [$postId]);  
     }
 
-    public function getPostsFromPseudo($pseudo)
+    public function getPostsFromPseudo($pseudo) //profile
     {
         $sql = 'SELECT  post.lastUpdate as lastUpdate, post.content as content, post.id as id, post.title as title   FROM post INNER JOIN user ON post.user_id = user.id WHERE user.pseudo = ?';
         $result = $this->createQuery($sql, [$pseudo]);
@@ -109,9 +109,19 @@ class PostDAO extends DAO
         return $posts; //object
     }
 
-    public function erasePost()
+    public function erasePost() //delete in the trash
     {
         $sql = 'UPDATE post SET erasedAt = NOW() WHERE visible = 0';
         $this->createQuery($sql);
+    }
+
+    public function getPostPicture($postId)
+    {
+        $sql = 'SELECT path FROM picture WHERE post_id = ?';
+        $result = $this->createQuery($sql, [$postId]);
+        $row = $result->fetch(); //array
+        $result->closeCursor();
+        $picture = new PictureDAO;
+        return  $picture->buildObject($row);
     }
 }

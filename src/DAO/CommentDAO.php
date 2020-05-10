@@ -52,23 +52,6 @@ class CommentDAO extends DAO
         $this->createQuery($sql, [$commentId]);  
     }
 
-    public function getValidCommentsFromPost($postId)
-    {
-        $sql = 'SELECT comment.id AS id, comment.user_id AS user_id, comment.content AS content, 
-        DATE_FORMAT(comment.createdAt, "%d/%m/%Y à %H:%i") AS createdAt,
-        comment.validate AS validate, comment.post_id AS post_id  FROM comment JOIN post 
-        ON comment.post_id = post.id WHERE post_id = ? AND validate = 1  ORDER BY comment.createdAt DESC';
-        $result = $this->createQuery($sql, [$postId]);
-        $comments = [];
-        foreach ($result as $row) 
-        {
-            $commentId = $row['id'];
-            $comments[$commentId] = $this->buildObject($row);
-        }
-        $result->closeCursor();
-        return $comments ;
-    }
-
     public function addComment(Method $postMethod, $postId)
     {
         $sql = 'INSERT INTO comment(user_id, content, createdAt, post_id) VALUES(?,?,NOW(),?)';
@@ -86,7 +69,7 @@ class CommentDAO extends DAO
         $this->createQuery($sql, [$commentId]);
     }
 
-    public function getCommentsByPseudo($pseudo)
+    public function getCommentsByPseudo($pseudo) // Profile 
     {
         $sql = 'SELECT comment.id AS id, comment.user_id AS user_id, comment.content AS content,
          DATE_FORMAT(comment.createdAt, "%d/%m/%Y à %H:%i") AS createdAt, comment.post_id AS post_id, comment.validate AS validate 
@@ -128,7 +111,7 @@ class CommentDAO extends DAO
 
     public function getUserFromComment($commentId)
     {
-        $sql = 'SELECT user.pseudo as pseudo, comment.id,  DATE_FORMAT(user.createdAt, "%d/%m/%Y à %H:%i") AS createdAt 
+        $sql = 'SELECT user.pseudo AS pseudo, user.id AS id,  DATE_FORMAT(user.createdAt, "%d/%m/%Y à %H:%i") AS createdAt 
         FROM comment INNER JOIN user ON user.id = comment.user_id   WHERE comment.id = ?';
         $result = $this->createQuery($sql, [$commentId]);
         $row = $result->fetch(); //array

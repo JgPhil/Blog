@@ -34,7 +34,7 @@
                 <p><a href="../public/index.php"><i class="fas fa-long-arrow-alt-left"></i> Retour à l'accueil</a></p>
                 <div class="col-lg-12 text-center bg-light border mt-2">
                   <div class="profile-userpic">
-                    <img src=<?= isset($picturePath['path']) ? USER_PICTURE.$picturePath['path'] : USER_AVATAR?> class="img-responsive" alt="">
+                    <img src=<?= isset($picturePath['path']) ? USER_PICTURE.$user->getPicture()->getPath() : USER_AVATAR?> class="img-responsive" alt="">
                   </div>
                   <div class="row text-center mt-2">
                     <div class="col-lg-12 text-center ">
@@ -82,8 +82,8 @@
             ?>
                 <div class="card">
                   <div class="card-body">
-                    <h5>Posté le <?= htmlentities($comment->getCreatedAt()) ?> dans l'article <?= htmlentities($comment->getPost()->getTitle()) ?></h5>
-                    <p><?= htmlentities($comment->getContent()); ?></p>
+                    <h5>Posté le <?= htmlentities($comment->getCreatedAt()) ?> dans l'article <?= $comment->getPost()->getTitle() ?></h5>
+                    <p><?= $comment->getContent(); ?></p>
                   </div>
                 </div>
               <?php
@@ -109,8 +109,8 @@
             ?>
                 <div class="card">
                   <div class="card-body">
-                    <h5> Date: <?php print_r(htmlspecialchars($post->getLastUpdate())) ?></h5>
-                    <h4><a href="../public/index.php?route=post&postId=<?php print_r(htmlspecialchars($post->getId())); ?>"><?php print_r(htmlspecialchars($post->getTitle())); ?></a></h4>
+                    <h5> Date: <?= htmlspecialchars($post->getLastUpdate()) ?></h5>²
+                    <h4><a href="../public/index.php?route=post&postId=<?php print_r(htmlspecialchars($post->getId())); ?>"><?= htmlspecialchars($post->getTitle()); ?></a></h4>
                   </div>
                 </div>
               <?php

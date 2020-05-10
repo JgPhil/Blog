@@ -13,8 +13,8 @@ abstract class DAO
     private $connection;
 
     private function checkConnection()
-    {       
-        if($this->connection === null) {
+    {
+        if ($this->connection === null) {
             return $this->getConnection();
         }
         return $this->connection;
@@ -22,21 +22,18 @@ abstract class DAO
 
     private function getConnection()
     {
-        try{
+        try {
             $this->connection = new PDO(DB_HOST, DB_USER, DB_PASS);
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $this->connection;
-        }
-        catch(Exception $errorConnection)
-        {
-            return ('Erreur de connection :'.$errorConnection->getMessage());
+        } catch (Exception $errorConnection) {
+            return ('Erreur de connection :' . $errorConnection->getMessage());
         }
     }
 
     protected function createQuery($sql, $parameters = null)
     {
-        if($parameters)
-        {
+        if ($parameters) {
             $result = $this->checkConnection()->prepare($sql);
             $result->execute($parameters);
             return $result;
@@ -45,18 +42,18 @@ abstract class DAO
         return $result;
     }
 
-    protected function buildObject($row) 
-    {   
-        $class = MODEL_PATH.substr((new \ReflectionClass($this))->getShortName(),0,-3);
-        $obj = new $class;
-        foreach ($row as $key => $value)
-        {
-            if (!is_numeric($key))
-            {
-                $method = 'set'.ucfirst($key);
-                $obj->$method($row[$key]);
-            }                 
+    protected function buildObject($row)
+    {
+        if ($row) {
+            $class = MODEL_PATH . substr((new \ReflectionClass($this))->getShortName(), 0, -3);
+            $obj = new $class;
+            foreach ($row as $key => $value) {
+                if (!is_numeric($key)) {
+                    $method = 'set' . ucfirst($key);
+                    $obj->$method($row[$key]);
+                }
+            }
+            return $obj;
         }
-        return $obj;
     }
 }

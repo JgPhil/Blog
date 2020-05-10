@@ -2,6 +2,8 @@
 
 namespace App\src\model;
 
+use App\src\DAO\userDAO;
+
 class User
 {
     private $id;
@@ -13,6 +15,8 @@ class User
     private $email;
     private $visible;
     private $erasedAt;
+    private $pictureObj;
+    private $picture;
     
 
     public function getId()
@@ -104,5 +108,21 @@ class User
     public function setErasedAt($erasedAt)
     {
         $this->erasedAt = $erasedAt;
+    }
+
+    public function getPictureObj()
+    {
+        $this->pictureObj = new UserDAO;
+        return $this->pictureObj->getUserPicture($this->id);
+
+    }
+
+    public function getPicture()
+    {
+        if (empty($picture))
+        {
+            $this->picture = $this->getPictureObj($this->id);
+            return $this->picture;
+        }
     }
 }

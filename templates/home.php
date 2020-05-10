@@ -19,19 +19,19 @@ $this->title = "Accueil"; ?>
   <div class="container">
     <div class="row text-center mb-40">
       <div class="col-lg-10 mx-auto">
-        <h4 class="text-white font-tertiary"><br><strong> Expression numérique et personnelle de mon parcours professionnel dans le développement informatique</strong></h4>
+        <h4 class="text-white font-tertiary"><br><strong> Expression numérique et personnelle de mon parcours informatique</strong></h4>
       </div>
     </div>
   </div>
   <div class="container ">
     <div class="row text-center mt-20">
       <div class="col-lg-8 mx-auto">
-        <h4 style="color :white"><em> Bienvenue sur mon blog - Je vais vous parler de mon cursus de formation et de ma passion pour le code </em></h4>
+        <h4 style="color :white"><em>- Bienvenue sur mon blog -<br> Au travers de ces quelques articles je vais parler de mon cursus de formation et de ma passion pour le code </em></h4>
       </div>
       <div class="row">
-        <div  class="col-2">
-          <a id="cv" href="<?=INDEX_PATH.CV_PATH?>" download="CV">
-            <button  class="btn btn-secondary" type="button">CV</button>
+        <div class="col-2">
+          <a id="cv" href="<?= INDEX_PATH . CV_PATH ?>" download="CV">
+            <button class="btn btn-tertiary" type="button"> Mon CV</button>
           </a>
         </div>
       </div>
@@ -120,23 +120,24 @@ $this->title = "Accueil"; ?>
       <?php
 
       foreach ($posts as $post) {
-       
+
+        if ($post->getVisible() === "1") {
       ?>
-        <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
-          <article class="card shadow">
-            <img class="rounded card-img-top" src=<?=BLOG_PICTURE.htmlentities($picturePaths[$post->getId()]['path'])?> alt="post-thumb">
-            <div class="card-body">
-              <h4 class="card-title"><a href=<?= INDEX_PATH . SLUG . "post&postId=" . htmlentities($post->getId()); ?>><?= htmlentities($post->getTitle()); ?></a></h4>
-              <h5><?= htmlentities($post->getHeading()); ?></h5>
-              <p>dernière modif. le : <?= htmlentities($post->getLastUpdate()); ?></p>
-              <p class="cars-text"><?= htmlentities(Text::excerpt($post->getContent())); ?></p>
-              <a href=<?= INDEX_PATH . SLUG . "post&postId=" . htmlentities($post->getId()); ?> class="btn btn-xs btn-primary">Voir Plus</a>
-            </div>
-          </article>
-        </div>
-
-
+          <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
+            <article class="card shadow">
+              <img class="rounded card-img-top" src=<?= BLOG_PICTURE . $post->getPicture()->getPath() //BLOG_PICTURE.htmlentities($picturePaths[$post->getId()]['path'])
+                                                    ?> alt="post-thumb">
+              <div class="card-body">
+                <h4 class="card-title"><a href=<?= INDEX_PATH . SLUG . "post&postId=" . htmlentities($post->getId()); ?>><?= $post->getTitle(); ?></a></h4>
+                <h5><?= $post->getHeading(); ?></h5>
+                <p>dernière modif. le : <?= htmlentities($post->getLastUpdate()); ?></p>
+                <p class="cars-text"><?= nl2br(Text::excerpt($post->getContent())); ?></p>
+                <a href=<?= INDEX_PATH . SLUG . "post&postId=" . htmlentities($post->getId()); ?> class="btn btn-xs btn-primary">Voir Plus</a>
+              </div>
+            </article>
+          </div>
       <?php
+        }
       }
       ?>
     </div>

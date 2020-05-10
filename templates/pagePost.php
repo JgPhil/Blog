@@ -34,9 +34,9 @@
     <div>
       <p><a href="../public/index.php"><i class="fas fa-long-arrow-alt-left"></i> Retour à l'accueil</a></p>
     </div>
-    <div class="row text-center ">
+    <div class="row">
       <div class="col-lg-12">
-        <div class="container row">
+        <div class="container">
           <div class="row text-center">
             <div class="col-lg-8 mx-auto ">
               <?php
@@ -49,13 +49,16 @@
             </div>
           </div>
         </div>
-        <h3 class="font-tertiary mb-4"><?= htmlentities($post->getTitle()); ?></h3>
-        <h4 class="font-tertiary mb-2"><?= htmlentities($post->getHeading()); ?></h4>
-        <p class="font-secondary">Dernière modif. le <?= htmlentities($post->getLastUpdate()); ?> par <span class="text-primary"><?= htmlentities($post->getAuthor()); ?></span></p>
-        <div class="content">
-          <img src=<?=BLOG_PICTURE.htmlentities($picturePath['path'])?> alt="post-thumb" class="img-fluid rounded float-left mr-5 mb-4">
+        <div class="col-lg-12 text-center mb-5">
+          <h2 class="font-tertiary mt-5 mb-4 text-center"><?= $post->getTitle(); ?></h2>
+          <h3 class="font-tertiary mb-2"><?= $post->getHeading(); ?></h3>
+          <h4 class="font-secondary">Dernière modif. le <?= htmlentities($post->getLastUpdate()); ?> par <span class="text-primary"><?= htmlentities($post->getAuthor()); ?></span></h4>
+        </div>
 
-          <p><?= htmlentities($post->getContent()); ?></p>
+        <div class="content">
+          <img src=<?= BLOG_PICTURE . $post->getPicture()->getPath() //htmlentities($picturePath['path']) ?> alt="post-thumb" class="img-fluid rounded float-left mr-5 mb-4">
+
+          <p><?= nl2br($post->getContent()); ?></p>
         </div>
       </div>
     </div>
@@ -73,28 +76,35 @@
 
         <?php
         foreach ($comments as $comment) {
+          if ($comment->getValidate() === '1') {
         ?>
-          <div class="bg-gray p-4 mb-4">
-            <div class="media border-bottom py-2">
-              <img src="images/user-1.jpg" class="img-fluid align-self-start rounded-circle mr-3" alt="">
-              <div class="media-body">
-                <h5 class="mt-0"><?= htmlentities($comment->getUser()->getPseudo()); ?></h5>
-                <p><?= htmlentities($comment->getCreatedAt()); ?></p>
-                <p><?= htmlentities($comment->getContent()); ?></p>
+            <div class="bg-gray p-4 mb-4">
+              <div class="media border-bottom py-2">
+
+                <?php $picture = $comment->getUser()->getPicture() ?>
+                <img src=<?= !empty($picture) ? USER_PICTURE . $picture->getPath() : USER_AVATAR ?> class="img-fluid align-self-start rounded-circle mr-3" alt="">
+                <div class="media-body">
+                  <h5 class="mt-0"><?= $comment->getUser()->getPseudo(); ?></h5>
+                  <p><?= htmlentities($comment->getCreatedAt()); ?></p>
+                  <p><?= $comment->getContent(); ?></p>
+                </div>
               </div>
             </div>
-          </div>
 
-        <?php
+
+
+          <?php
+          }
         }
 
         if ($this->session->get('pseudo')) //si l'utilisateur est connecté avec un compte validé Alors on affiche le formulaire commentaire
         {
-        ?>
+          ?>
           <h4>Laissez un commentaire</h4>
           <form method="post" action=<?= INDEX_PATH . SLUG . "addComment&postId=" . htmlentities($post->getId()); ?> class="row">
             <div class="col-md-6">
-              <input type="text" class="form-control mb-3"  name="id" id= "id" value="<?= $this->session->get('pseudo'); ?> " readonly>
+              <input type="hidden" name="id" id="id" value="<?= $this->session->get('id'); ?> ">
+              <input type="text" class="form-control mb-3" name="pseudo" id="pseudo" value="<?= $this->session->get('pseudo'); ?> " readonly>
             </div>
             <div class="col-md-6">
               <?php

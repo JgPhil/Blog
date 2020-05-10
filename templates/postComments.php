@@ -35,7 +35,7 @@ if (!empty($comments)) {
 ?>
         <div class="container text-center mb-20">
             <div class="col-lg-12">
-                <h5 class="title">Posté le <?= htmlentities($comment->getCreatedAt()); ?> par <?= htmlentities($this->session->get('pseudo')); ?></h5>
+                <h5 class="title">Posté le <?= htmlentities($comment->getCreatedAt()); ?> par <?= htmlentities($comment->getUser()->getPseudo()); ?></h5>
                 <p><?= htmlentities($comment->getContent()); ?></p>
                 <p><a href="../public/index.php?route=hideComment&commentId=<?= htmlentities($comment->getId()); ?>" onclick="return confirm('Vous allez supprimer définitivement ce message. êtes-vous certain de vouloir faire ça ?  ( Irréverssible !!)')">Supprimer le commentaire</a></p>
                 <?php

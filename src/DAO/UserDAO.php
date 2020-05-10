@@ -194,4 +194,14 @@ class UserDAO extends DAO
         $sql = 'INSERT INTO picture (path, user_id) VALUES (?, ?)';
         $this->createQuery($sql, [$path, $userId]);
     }
+
+    public function getUserPicture($userId)
+    {
+        $sql = 'SELECT path FROM picture WHERE user_id = ?';
+        $result = $this->createQuery($sql, [$userId]);
+        $row = $result->fetch(); //array
+        $result->closeCursor();
+        $picture = new PictureDAO;
+        return  $picture->buildObject($row);
+    }
 }

@@ -16,6 +16,8 @@ class Post
     private $userObj;
     private $user;
     private $erasedAt;
+    private $pictureObj;
+    private $picture;
     
 
 
@@ -114,5 +116,21 @@ class Post
     public function setErasedAt($erasedAt)
     {
         $this->erasedAt = $erasedAt;
+    }
+
+    public function getPictureObj()
+    {
+        $this->pictureObj = new PostDAO;
+        return $this->pictureObj->getPostPicture($this->id);
+
+    }
+
+    public function getPicture()
+    {
+        if (empty($picture))
+        {
+            $this->picture = $this->getPictureObj($this->id);
+            return $this->picture;
+        }
     }
 }

@@ -19,7 +19,7 @@ class FrontController extends BlogController
     public function post($postId)
     {
         [$post, $picturePath] = $this->postDAO->getPost($postId);
-        $comments = $this->commentDAO->getValidCommentsFromPost($postId);
+        $comments = $this->commentDAO->getCommentsFromPost($postId);
         return $this->view->render('pagePost', [
             'post' => $post,
             'picturePath' => $picturePath,
@@ -35,11 +35,12 @@ class FrontController extends BlogController
                 $this->commentDAO->addComment($postMethod, $postId);
                 $this->session->set('add_comment', 'Votre commentaire est enregistré. Il sera visible après validation par l\'administrateur, ');
             }
-            $post = $this->postDAO->getPost($postId);
-            $comments = $this->commentDAO->getValidCommentsFromPost($postId);
+            [$post, $picturePath] = $this->postDAO->getPost($postId);
+            $comments = $this->commentDAO->getCommentsFromPost($postId);
             return $this->view->render('pagePost', [
                 'post' => $post,
                 'comments' => $comments,
+                'picturePath' => $picturePath,
                 'postMethod' => $postMethod,
                 'errors' => $errors
             ]);
