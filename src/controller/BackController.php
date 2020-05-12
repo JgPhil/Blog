@@ -47,12 +47,14 @@ class BackController extends BlogController
     public function addPost(Method $postMethod)
     {
         $target = "blog";
+        $path = null;
         if ($this->checkAdmin()) {
             if ($postMethod->getParameter('submit')) {
                 $errors = $this->validation->validate($postMethod, 'Post');
                 if (!$errors) {
-
-                    $path = Upload::uploadFile($target);
+                    if ($postMethod->getParameter('userfile')) {
+                        $path = Upload::uploadFile($target);
+                    }
                     $this->postDAO->addPost($postMethod, $this->session->get('id'), $path);
                     $this->session->set('add_post', 'Le nouvel article a bien été ajouté');
                     header('Location: ../public/index.php?route=administration');
@@ -76,7 +78,7 @@ class BackController extends BlogController
                 $errors = $this->validation->validate($postMethod, 'Post');
                 if (!$errors) {
                     if (!empty($_FILES['userfile']['name'])) {
-                        $path = Upload::uploadFile($target); 
+                        $path = Upload::uploadFile($target);
                     } else {
                         $path = $picturePath['path'];
                     }

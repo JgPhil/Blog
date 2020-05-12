@@ -46,15 +46,15 @@ $h2 = $route === 'addPost' ? 'Rédaction d\'un article' : 'Mis à jour de l\'art
         
         <label for="title"><b>Titre</b></label><br>
         <input type="text" class="form-control" id="title" name="title" value="<?= isset($postMethod) ? $postMethod->getParameter('title') : ''; ?>"><br>
-        <?= isset($errors['title']) ? htmlentities($errors['title']) : ''; ?>
+        <?= isset($errors['title']) ? $errors['title'] : ''; ?>
 
         <label for="heading"><b>Châpo</b></label><br>
         <input type="text" class="form-control" id="heading" name="heading" value="<?= isset($postMethod) ? $postMethod->getParameter('heading') : ''; ?>"><br>
-        <?= isset($errors['heading']) ? htmlentities($errors['heading']) : ''; ?>
+        <?= isset($errors['heading']) ? $errors['heading'] : ''; ?>
 
         <label for="content"><b>Contenu</b></label><br>
         <textarea class="form-control" rows="12" id="content" name="content"><?= isset($postMethod) ? $postMethod->getParameter('content') : ''; ?></textarea><br>
-        <?= isset($errors['content']) ? htmlentities($errors['content']) : ''; ?>
+        <?= isset($errors['content']) ? $errors['content'] : ''; ?>
 
         <p><b>Image actuelle: </b><em><?= isset($postMethod) ? htmlentities($postMethod->getParameter('picturePath')) : ''; ?></em></p>
         <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />

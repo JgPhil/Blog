@@ -41,7 +41,7 @@ class PostDAO extends DAO
         return [$post, $picturePath];
  }
 
-    public function addPost(Method $postMethod, $userId, $path)
+    public function addPost(Method $postMethod, $userId, $path=null)
     { 
         $sql = 'INSERT INTO post (title, content, heading, user_id, lastUpdate) VALUES (?, ?, ?, ?, NOW())';
         $this->createQuery($sql,[ 
@@ -50,8 +50,11 @@ class PostDAO extends DAO
         filter_var($postMethod->getParameter('heading'), FILTER_SANITIZE_STRING),
         $userId
         ]);
-        $sql = 'INSERT INTO picture (path, post_id) VALUES (?, LAST_INSERT_ID())';
+        if ($path){
+            $sql = 'INSERT INTO picture (path, post_id) VALUES (?, LAST_INSERT_ID())';
         $this->createQuery($sql, [$path]);
+        }
+        
     }
 
     public function editPost(Method $postMethod, $postId, $userId, $path)

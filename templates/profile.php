@@ -34,22 +34,23 @@
                 <p><a href="../public/index.php"><i class="fas fa-long-arrow-alt-left"></i> Retour à l'accueil</a></p>
                 <div class="col-lg-12 text-center bg-light border mt-2">
                   <div class="profile-userpic">
-                    <img src=<?= isset($picturePath['path']) ? USER_PICTURE.$user->getPicture()->getPath() : USER_AVATAR?> class="img-responsive" alt="">
+                    <?php $userPicture = $user->getPicture(); ?>
+                    <img src=<?= isset($userPicture) ? USER_PICTURE . $user->getPicture()->getPath() : USER_AVATAR ?> class="img-responsive" alt="">
                   </div>
                   <div class="row text-center mt-2">
                     <div class="col-lg-12 text-center ">
-                      <a class="btn btn-primary btn-xs" href="<?=INDEX_PATH.SLUG."update_user_picture&userId=".htmlentities($user->getId())?>">Changer mon image</a>
+                      <a class="btn btn-primary btn-xs" href="<?= INDEX_PATH . SLUG . "update_user_picture&userId=" . htmlentities($user->getId()) ?>">Changer mon image</a>
                     </div>
                   </div>
                   <h3><b><?= htmlentities($this->session->get('pseudo')); ?></b></h3>
                 </div>
                 <div class="col-lg-12 text-center bg-light border mt-2">
-                <div class="col-lg-12 text-center">
-                  <h4>Rôle: <b><?= htmlentities($this->session->get('role')); ?></b></h4>
-                </div>
-                <div class="col-lg-12 text-center">
-                  <h4> Membre depuis le : <?= htmlentities($user->getCreatedAt()); ?></h4>
-                </div>
+                  <div class="col-lg-12 text-center">
+                    <h4>Rôle: <b><?= htmlentities($this->session->get('role')); ?></b></h4>
+                  </div>
+                  <div class="col-lg-12 text-center">
+                    <h4> Membre depuis le : <?= htmlentities($user->getCreatedAt()); ?></h4>
+                  </div>
                 </div>
               </div>
             </div>
@@ -74,7 +75,7 @@
           </div>
         </div>
         <div class="text-center mt-5">
-          <h4 class="bg-light border mt-2">Mes commentaires</h4>
+          <h3 class="bg-light border mt-2">Mes commentaires</h3>
           <div class="card">
             <?php
             if ($comments) {
@@ -101,16 +102,16 @@
           </div>
         </div>
         <div class="text-center mt-5">
-          <h4 class="bg-light border mt-2">Mes articles </h4>
+          <h3 class="bg-light border mt-2">Mes articles </h3>
           <div class="card">
             <?php
             if ($posts) {
               foreach ($posts as $post) {
             ?>
                 <div class="card">
-                  <div class="card-body">
-                    <h5> Date: <?= htmlspecialchars($post->getLastUpdate()) ?></h5>²
-                    <h4><a href="../public/index.php?route=post&postId=<?php print_r(htmlspecialchars($post->getId())); ?>"><?= htmlspecialchars($post->getTitle()); ?></a></h4>
+                  <div class="card-body mb-4">
+                    <h4> Date: <?= htmlspecialchars($post->getLastUpdate()) ?></h4>
+                    <h3><a href="../public/index.php?route=post&postId=<?php print_r(htmlspecialchars($post->getId())); ?>"><?= htmlspecialchars($post->getTitle()); ?></a></h3>
                   </div>
                 </div>
               <?php

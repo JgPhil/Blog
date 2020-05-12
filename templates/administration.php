@@ -50,12 +50,11 @@ $this->title = $title; ?>
                             ?>
                                 <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('empty_trash')) ?></h4>
                             <?php
+                            } elseif ($this->session->get('desactivate_account')) {
+                            ?>
+                                <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('desactivate_account')) ?></h4>
+                            <?php
                             }
-                            elseif ($this->session->get('desactivate_account')) {
-                                ?>
-                                    <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('desactivate_account')) ?></h4>
-                                <?php
-                                }
                             ?>
                         </div>
                     </div>
@@ -110,11 +109,14 @@ $this->title = $title; ?>
 
 <div class="col-lg-10 mx-auto">
     <div class="bg-white rounded text-center p-5 shadow-down">
+
+        <!-- ARTICLES -->
         <h3 id="posts" class="mt-20 mb-20 border border-primary">Articles</h3>
+
         <?php
         if ($adminRoute) {
         ?>
-            <a type="button" class="col-lg-2 d-flex justify-content-center btn btn-primary mx-auto mb-20" href=<?=INDEX_PATH.SLUG."addPost" ?>>Nouvel article</a>
+            <a type="button" class="col-lg-2 d-flex justify-content-center btn btn-primary mx-auto mb-20" href=<?= INDEX_PATH . SLUG . "addPost" ?>>Nouvel article</a>
         <?php
         }
         ?>
@@ -124,7 +126,6 @@ $this->title = $title; ?>
                 <td>Id</td>
                 <td>Titre</td>
                 <td>Châpo</td>
-                <td>Contenu</td>
                 <td>Auteur</td>
                 <td>Date</td>
                 <?php
@@ -138,23 +139,22 @@ $this->title = $title; ?>
                 <td>Actions</td>
             </tr>
             <?php
-            foreach ($posts as $post) { 
-                if (is_null($post->getErasedAt())) { 
+            foreach ($posts as $post) {
+                if (is_null($post->getErasedAt())) {
                     if ($post->getVisible() === $visible) {
             ?>
                         <tr>
                             <td><?= htmlentities($post->getId()); ?></td>
                             <td><a href="../public/index.php?route=post&postId=<?= htmlentities($post->getId()); ?>"><?= htmlentities($post->getTitle()); ?></a></td>
                             <td> <?= htmlentities($post->getHeading()); ?></td>
-                            <td><?= substr(htmlentities($post->getContent()), 0, 80); ?></td>
                             <td><?= htmlentities($post->getUser()->getPseudo()); ?> (<?= htmlentities($post->getUser()->getRole()) ?>)</td>
                             <td>Dernière modif. le : <?= htmlentities($post->getLastUpdate()); ?></td>
 
                             <?php if ($adminRoute) {
                             ?>
-                                <td><a  href="../public/index.php?route=postComments&postId=<?= htmlentities($post->getId()); ?>">Commentaires</a></td>
+                                <td><a href="../public/index.php?route=postComments&postId=<?= htmlentities($post->getId()); ?>">Voir</a></td>
                                 <td>
-                                    <a  href="../public/index.php?route=editPost&postId=<?= htmlentities($post->getId()); ?>">Modifier</a>
+                                    <a href="../public/index.php?route=editPost&postId=<?= htmlentities($post->getId()); ?>">Modifier</a>
                                     <a href="../public/index.php?route=hidePost&postId=<?= htmlentities($post->getId()); ?>" onclick="return confirm('êtes-vous sûr de vouloir mettre l\'article à la corbeille?')">Supprimer</a>
                                 </td>
                             <?php

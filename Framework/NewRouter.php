@@ -32,6 +32,7 @@ class NewRouter
         $routes = $xml->getElementsByTagName('route');
         $route = $this->request->getGet()->getParameter('route');
         $action = null;
+        $arrayRoute = [];
 
         try {
             if (isset($_SERVER['REQUEST_URI'])) {
@@ -39,18 +40,18 @@ class NewRouter
                 if (null === $route) {
                     return $action = $this->frontController->home();
                 } else {
-                    foreach ($routes as $xmlRoute) {
-
+                    foreach ($routes as $xmlRoute) {                        
                         $param = $xmlRoute->getAttribute('param');
                         $controller = substr($xmlRoute->getAttribute('application'), 0, -3) . 'Controller';
                         $method = $xmlRoute->getAttribute('method') . '(' . $param . ')';
                         $actionM = '$this->' . $controller . '->' . $method.';';
+                        array_push($arrayRoute, $actionM);
                         if ($xmlRoute->getAttribute('url') === $route) {                          
                             $action = eval($actionM);
                         }
                     }
                 }
-                if (is_null($action)) {
+                if (!in_array($action, $arrayRoute)) {
                     return $this->errorController->errorNotFound();
                 } else {
                     return $action; 
@@ -61,3 +62,15 @@ class NewRouter
         }
     }
 }
+
+
+/*
+                        
+                        $controllers = array('frontController', 'backController', 'errorController');
+                        $key = array_search($routeController, $controllers);
+                        $matchedController = $controllers[$key];
+                        $matchedControllerClass = "App\src\controller\\".ucfirst($matchedController);
+                        $this->matchedController = new $matchedControllerClass;
+                        
+                        
+                        */

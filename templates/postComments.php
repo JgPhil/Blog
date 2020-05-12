@@ -34,10 +34,22 @@ if (!empty($comments)) {
     foreach ($comments as $comment) {
 ?>
         <div class="container text-center mb-20">
-            <div class="col-lg-12">
-                <h5 class="title">Posté le <?= htmlentities($comment->getCreatedAt()); ?> par <?= htmlentities($comment->getUser()->getPseudo()); ?></h5>
-                <p><?= htmlentities($comment->getContent()); ?></p>
-                <p><a href="../public/index.php?route=hideComment&commentId=<?= htmlentities($comment->getId()); ?>" onclick="return confirm('Vous allez supprimer définitivement ce message. êtes-vous certain de vouloir faire ça ?  ( Irréverssible !!)')">Supprimer le commentaire</a></p>
+            <div class="col-lg-10">
+
+
+                <p><a href="../public/index.php?route=hideComment&commentId=<?= htmlentities($comment->getId()); ?>" onclick="return confirm('Voulez-vous mettre ce commentaire à la corbeille?  ( Irréverssible !!)')">Supprimer le commentaire</a></p>
+                <div class="col-lg-12 text-center bg-light border mt-2">
+                    <div class="row text-center mt-2">
+                        <h5 class="title">Posté le <?= htmlentities($comment->getCreatedAt()); ?> par <?= htmlentities($comment->getUser()->getPseudo()); ?></h5>
+                        <div class="col-lg-6">
+                            <p><?= $comment->getContent(); ?></p>
+                        </div>
+                        <div class="profile-userpic">
+                            <?php $userPicture = $comment->getUser()->getPicture(); ?>
+                        </div>
+                        <img src=<?= isset($userPicture) ? USER_PICTURE . $userPicture->getPath() : USER_AVATAR ?> class="img-responsive" alt="">
+                    </div>
+                </div>
                 <?php
                 if ($comment->getValidate() === "0") {
                 ?>
