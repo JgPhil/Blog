@@ -36,7 +36,7 @@ class UserDAO extends DAO
         return [$user, $picturePath];
     }
 
-    public function register(Method $postMethod, $path)
+    public function register(Method $postMethod)
     {
         $this->checkUser($postMethod);
         $mail = new Mail;
@@ -54,8 +54,7 @@ class UserDAO extends DAO
         $sql = ' INSERT INTO token (user_id, token, createdAt) VALUES (LAST_INSERT_ID(), ?, NOW())';
         $this->createQuery($sql, [$token]);
         $mail->registerMail($postMethod, $token);
-        $sql = 'INSERT INTO picture (path, user_id) VALUES (?, ?)';
-        $this->createQuery($sql, [$path, $userId]);
+        return $userId;
     }
 
     public function contactEmail(Method $postMethod)
@@ -81,13 +80,7 @@ class UserDAO extends DAO
         }
     }
 
-    public function checkUserPicture($userId)
-    {
-        $sql = 'SELECT COUNT(user_id) FROM picture WHERE user_id = ?';
-        $result = $this->createQuery($sql, [$userId]);
-        $pictureExists = $result->fetchColumn();
-        return $pictureExists;
-    }
+    
 
     public function login(Method $postMethod)
     {
@@ -114,7 +107,7 @@ class UserDAO extends DAO
         $data = $this->createQuery($sql, [$getMethod->getParameter('pseudo')]);
         $result = $data->fetch();
         if (!empty($result['token'])) {
-            if (filter_var($getMethod->getParameter('token'), FILTER_SANITIZE_STRING) === $result['token'] && time() < (strtotime($result['createdAt']) + (48 * 60 * 60))) {
+            if ($getMethod->getParameter('token') === $result['token'] && time() < (strtotime($result['createdAt']) + (48 * 60 * 60))) {
                 return $result;
             }
         }
@@ -181,18 +174,6 @@ class UserDAO extends DAO
     {
         $sql = 'DELETE FROM user WHERE $pseudo = ?';
         $this->createQuery($sql);
-    }
-
-    public function updateUserPicture($path, $userId)
-    {
-        $sql = 'UPDATE picture SET path = ? WHERE user_id = ?';
-        $this->createQuery($sql, [$path, $userId]);
-    }
-
-    public function addUserPicture($path, $userId)
-    {
-        $sql = 'INSERT INTO picture (path, user_id) VALUES (?, ?)';
-        $this->createQuery($sql, [$path, $userId]);
     }
 
     public function getUserPicture($userId)

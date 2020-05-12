@@ -1,6 +1,6 @@
 <?php
-$route = isset($postMethod) && $postMethod->getParameter('id') ? 'editPost&postId=' . htmlspecialchars($postMethod->getParameter('id'))  : 'addPost';
-$submit = $route === 'addPost' ? 'Envoyer' : 'Mettre à jour';
+$route = isset($postMethod) && $postMethod->getParameter('id') ? 'editPost&postId=' . htmlspecialchars($postMethod->getParameter('id'))  : 'addPost'; // route appelée à la soumission du formulaire
+$submit = $route === 'addPost' ? 'Envoyer' : 'Mettre à jour'; // valeur du bouton 
 $h2 = $route === 'addPost' ? 'Rédaction d\'un article' : 'Mis à jour de l\'article : ' . htmlspecialchars($postMethod->getParameter('title'));
 ?>
 
@@ -26,7 +26,7 @@ $h2 = $route === 'addPost' ? 'Rédaction d\'un article' : 'Mis à jour de l\'art
 
 <div class="section">
   <div class="container">
-    <h2 class="title"><?= htmlentities($h2) ?></h2>
+    <h2 class="title"><?= $h2 ?></h2>
 
   </div>
 </div>

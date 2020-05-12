@@ -31,13 +31,12 @@ class BackController extends BlogController
     public function administration()
     {
         if ($this->checkAdmin()) {
-            [$posts, $picturePaths] = $this->postDAO->getPosts();
+            $posts = $this->postDAO->getPosts();
             $users = $this->userDAO->getUsers();
             $comments = $this->commentDAO->getComments();
 
             return $this->view->render('administration', [
                 'posts' => $posts,
-                'picturePaths' => $picturePaths,
                 'users' => $users,
                 'comments' => $comments
             ]);
@@ -52,10 +51,11 @@ class BackController extends BlogController
             if ($postMethod->getParameter('submit')) {
                 $errors = $this->validation->validate($postMethod, 'Post');
                 if (!$errors) {
-                    if ($postMethod->getParameter('userfile')) {
+                    $postId = $this->postDAO->addPost($postMethod, $this->session->get('id'));
+                    if ($_FILES['userfile']) {
                         $path = Upload::uploadFile($target);
-                    }
-                    $this->postDAO->addPost($postMethod, $this->session->get('id'), $path);
+                        $this->pictureDAO->addPostPicture($path, $postId);
+                    }                    
                     $this->session->set('add_post', 'Le nouvel article a bien été ajouté');
                     header('Location: ../public/index.php?route=administration');
                 }
@@ -72,17 +72,17 @@ class BackController extends BlogController
     public function editPost(Method $postMethod, $postId)
     {
         $target = "blog";
+        $path = null;
         if ($this->checkAdmin()) {
-            [$post, $picturePath] = $this->postDAO->getPost($postId);
+            $post = $this->postDAO->getPost($postId);
             if ($postMethod->getParameter('submit')) {
                 $errors = $this->validation->validate($postMethod, 'Post');
                 if (!$errors) {
-                    if (!empty($_FILES['userfile']['name'])) {
+                    if ($_FILES['userfile']) {
                         $path = Upload::uploadFile($target);
-                    } else {
-                        $path = $picturePath['path'];
+                        $this->pictureDAO->updatePostPicture($postId, $path);
                     }
-                    $this->postDAO->editPost($postMethod, $postId, $this->session->get('id'), $path);
+                    $this->postDAO->editPost($postMethod, $postId, $this->session->get('id'));
                     $this->session->set('edit_post', 'L\' article a bien été modifié');
                     header('Location: ../public/index.php?route=administration');
                 }
@@ -96,7 +96,7 @@ class BackController extends BlogController
             $postMethod->setParameter('heading', $post->getHeading());
             $postMethod->setParameter('content', $post->getContent());
             $postMethod->setParameter('author', $post->getAuthor());
-            $postMethod->setParameter('picturePath', $picturePath['path']);
+            $postMethod->setParameter('picturePath', $post->getPicture());
             return $this->view->render('edit_post', [              // préremplissage du formulaire
                 'postMethod' => $postMethod
             ]);

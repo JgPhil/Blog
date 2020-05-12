@@ -8,8 +8,7 @@ class Upload
     public static function uploadFile($target) //uploadPicture
     {
         $target_dir = $target === "user" ? USER_PICTURE : POST_PICTURE;
-        $default_picture = $target === "user" ? USER_AVATAR : POST_EMPTY_PICTURE
-;        $picture = $_FILES['userfile'];
+;       $picture = $_FILES['userfile'];
         // $target_dir = BLOG_PICTURE;
         $target_file = $target_dir . basename($picture["name"]);
         $uploadOk = 1;

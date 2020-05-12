@@ -56,7 +56,7 @@
         </div>
 
         <div class="content">
-          <?php $postPicture = $post->getPicture(); var_dump($postPicture) ?>
+          <?php $postPicture = $post->getPicture(); ?>
           <img src=<?=!empty($postPicture) ? POST_PICTURE . $postPicture->getPath() : POST_EMPTY_PICTURE//htmlentities($picturePath['path']) ?> alt="post-thumb" class="img-fluid rounded float-left mr-5 mb-4">
 
           <p><?= nl2br($post->getContent()); ?></p>

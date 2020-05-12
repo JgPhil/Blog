@@ -9,20 +9,18 @@ class FrontController extends BlogController
 {
     public function home()
     {
-        [$posts, $picturePaths] = $this->postDAO->getPosts();
+        $posts = $this->postDAO->getPosts();
         return $this->view->render('home', [
-            'posts' => $posts,
-            'picturePaths' => $picturePaths
+            'posts' => $posts
         ]);
     }
 
     public function post($postId)
     {
-        [$post, $picturePath] = $this->postDAO->getPost($postId);
+        $post = $this->postDAO->getPost($postId);
         $comments = $this->commentDAO->getCommentsFromPost($postId);
         return $this->view->render('pagePost', [
             'post' => $post,
-            'picturePath' => $picturePath,
             'comments' => $comments
         ]);
     }
@@ -35,12 +33,11 @@ class FrontController extends BlogController
                 $this->commentDAO->addComment($postMethod, $postId);
                 $this->session->set('add_comment', 'Votre commentaire est enregistré. Il sera visible après validation par l\'administrateur, ');
             }
-            [$post, $picturePath] = $this->postDAO->getPost($postId);
+            $post = $this->postDAO->getPost($postId);
             $comments = $this->commentDAO->getCommentsFromPost($postId);
             return $this->view->render('pagePost', [
                 'post' => $post,
                 'comments' => $comments,
-                'picturePath' => $picturePath,
                 'postMethod' => $postMethod,
                 'errors' => $errors
             ]);
@@ -53,11 +50,11 @@ class FrontController extends BlogController
             $target = "user";
             $path = Upload::uploadFile($target);
             $userId = $this->session->get('id');
-            $checkUserPicture = $this->userDAO->checkUserPicture($userId);
+            $checkUserPicture = $this->pictureDAO->checkUserPicture($userId);
             if ($checkUserPicture) {
-                $this->userDAO->updateUserPicture($path, $userId);
+                $this->pictureDAO->updateUserPicture($path, $userId);
             } else {
-                $this->userDAO->addUserPicture($path, $userId);
+                $this->pictureDAO->addUserPicture($path, $userId);
             }
             $this->session->set('update_user_picture', 'Votre image a été changée');
             header('Location: ../public/index.php?route=profile');
@@ -76,8 +73,11 @@ class FrontController extends BlogController
             }
             if (!$errors) {
                 $target = "user";
-                $path = Upload::uploadFile($target);
-                $this->userDAO->register($postMethod, $path);
+                $userId = $this->userDAO->register($postMethod);
+                if ($postMethod->getParameter('userfile')) {
+                    $path = Upload::uploadFile($target);
+                    $this->pictureDAO->addPostPicture($path, $userId);
+                }
                 $this->session->set('register', 'votre inscription a bien été éffectuée, Merci de cliquer sur le lien présent dans le mail de confirmation qui vient de vous être envoyé.');
                 return $this->view->render('register2');
             }

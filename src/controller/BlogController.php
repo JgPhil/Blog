@@ -4,6 +4,7 @@ namespace App\src\controller;
 
 use App\src\DAO\PostDAO;
 use App\src\DAO\UserDAO;
+use App\src\DAO\pictureDAO;
 use App\src\DAO\CommentDAO;
 use App\Framework\Controller;
 use App\Framework\Validation;
@@ -14,7 +15,9 @@ abstract class BlogController extends Controller
     protected $postDAO;
     protected $commentDAO;
     protected $userDAO;
+    protected $pictureDAO;
     protected $validation;
+    
 
     public function __construct()
     {
@@ -23,6 +26,7 @@ abstract class BlogController extends Controller
         $this->commentDAO = new CommentDAO;
         $this->userDAO = new UserDAO;
         $this->validation = new Validation;
+        $this->pictureDAO = new PictureDAO;
     }
 
 }
