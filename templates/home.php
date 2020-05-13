@@ -30,8 +30,8 @@ $this->title = "Accueil"; ?>
       </div>
       <div class="row">
         <div class="col-2">
-          <a id="cv" href="<?= INDEX_PATH . CV_PATH ?>" download="CV">
-            <button class="btn btn-tertiary" type="button"> Mon CV</button>
+          <a class="btn btn-tertiary" id="cv" href="<?= INDEX_PATH . CV_PATH ?>" download="CV">
+             Mon CV
           </a>
         </div>
       </div>
@@ -128,11 +128,11 @@ $this->title = "Accueil"; ?>
               <?php $postPicture = $post->getPicture() ?>
               <img class="rounded card-img-top" src=<?= isset($postPicture) ? POST_PICTURE . $postPicture->getPath() : POST_EMPTY_PICTURE   ?> alt="post-thumb">
               <div class="card-body">
-                <h4 class="card-title"><a href=<?= INDEX_PATH . SLUG . "post&postId=" . htmlentities($post->getId()); ?>><?= $post->getTitle(); ?></a></h4>
+                <h4 class="card-title"><a href="<?= INDEX_PATH . SLUG . "post&postId=" . htmlentities($post->getId()); ?>"><?= $post->getTitle(); ?></a></h4>
                 <h5><?= $post->getHeading(); ?></h5>
                 <p>dernière modif. le : <?= htmlentities($post->getLastUpdate()); ?></p>
                 <p class="cars-text"><?= nl2br(Text::excerpt($post->getContent())); ?></p>
-                <a href=<?= INDEX_PATH . SLUG . "post&postId=" . htmlentities($post->getId()); ?> class="btn btn-xs btn-primary">Voir Plus</a>
+                <a href="<?= INDEX_PATH . SLUG . "post&postId=" . htmlentities($post->getId()); ?>" class="btn btn-xs btn-primary">Voir Plus</a>
               </div>
             </article>
           </div>

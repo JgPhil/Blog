@@ -1,4 +1,4 @@
-<?php $this->title = "Inscription"; ?>
+<?php $this->title = "Commentaire de l'article"; ?>
 
 
 <!-- page title -->
@@ -34,37 +34,35 @@ if (!empty($comments)) {
     foreach ($comments as $comment) {
 ?>
         <div class="container text-center mb-20">
-            <div class="col-lg-10">
-
-
-                <p><a href="../public/index.php?route=hideComment&commentId=<?= htmlentities($comment->getId()); ?>" onclick="return confirm('Voulez-vous mettre ce commentaire à la corbeille?  ( Irréverssible !!)')">Supprimer le commentaire</a></p>
-                <div class="col-lg-12 text-center bg-light border mt-2">
-                    <div class="row text-center mt-2">
-                        <h5 class="title">Posté le <?= htmlentities($comment->getCreatedAt()); ?> par <?= htmlentities($comment->getUser()->getPseudo()); ?></h5>
-                        <div class="col-lg-6">
-                            <p><?= $comment->getContent(); ?></p>
-                        </div>
-                        <div class="profile-userpic">
-                            <?php $userPicture = $comment->getUser()->getPicture(); ?>
-                        </div>
-                        <img src=<?= isset($userPicture) ? USER_PICTURE . $userPicture->getPath() : USER_AVATAR ?> class="img-responsive" alt="">
+            <div class="col-lg-10 text-center bg-light border mt-2 mb-2">
+                <div class="row text-center mt-2">
+                    <h5 class="col-lg-4 title my-2">Posté le <?= htmlentities($comment->getCreatedAt()); ?> par <?= htmlentities($comment->getUser()->getPseudo()); ?></h5>
+                    <div class="col-lg-4">
+                        <p><?= $comment->getContent(); ?></p>
+                    </div>
+                    <div class="profile-userpic col-lg-4">
+                        <?php $userPicture = $comment->getUser()->getPicture(); ?>
+                        <img height="80" src=<?= isset($userPicture) ? USER_PICTURE . $userPicture->getPath() : USER_AVATAR ?> class="img-responsive" alt="user_picture">
                     </div>
                 </div>
-                <?php
-                if ($comment->getValidate() === "0") {
-                ?>
-                    <p><a href="../public/index.php?route=validateComment&commentId=<?= htmlentities($comment->getId()); ?>">Valider</a></p>
+                <div class="mb-4"><a class="btn btn-danger btn-xs mr-2" href="../public/index.php?route=hideComment&commentId=<?= htmlentities($comment->getId()); ?>" onclick="return confirm('Voulez-vous mettre ce commentaire à la corbeille?  ( Irréverssible !!)')">Supprimer </a>
+                    <?php
+                    if ($comment->getValidate() === "0") {
+                    ?>
+                        <a class="btn btn-primary btn-xs" href="../public/index.php?route=validateComment&commentId=<?= htmlentities($comment->getId()); ?>">Valider</a>
+                </div>
             </div>
+        <?php
+                    }
+        ?>
         </div>
-    <?php
-                }
-    ?>
 
-    </div>
+
+        </div>
 <?php
     }
 }
 ?>
 
-</div>
+
 </div>

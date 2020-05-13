@@ -31,7 +31,9 @@
       <div class="col-lg-8 mx-auto">
         <div class="bg-white rounded text-center p-5 shadow-down">
           <h4 class="mb-80">Merci de renseigner un pseudonyme et un mot de passe valide.<br><b>( Au moins: une minuscule, une majuscule et un chiffre )</b> </h4>
-          <form method="post" enctype="multipart/form-data" action=<?= INDEX_PATH . SLUG . "register" ?> class="row">
+
+          <!--  FORM -->
+          <form method="post" enctype="multipart/form-data" action="<?= INDEX_PATH . SLUG . "register" ?>" class="row">
             <div class="col-md-4">
               <input type="text" id="pseudo" name="pseudo" placeholder="Votre pseudonyme" class="form-control px-0 mb-4">
               <?php

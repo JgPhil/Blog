@@ -37,13 +37,13 @@ $h2 = $route === 'addPost' ? 'Rédaction d\'un article' : 'Mis à jour de l\'art
     <div>
       <p><a href=<?= INDEX_PATH ?>><i class="fas fa-long-arrow-alt-left"></i> Retour à l'accueil</a></p>
     </div>
-    <form method="post" enctype="multipart/form-data" action=<?= INDEX_PATH . SLUG . htmlentities($route); ?>>
+    <form method="post" enctype="multipart/form-data" action="<?= INDEX_PATH . SLUG . htmlentities($route); ?>">
 
       <div class="form-group">
 
         <label for="title"><b>Auteur</b></label><br>
         <input type="text" class="form-control" id="author" name="author" value="<?= $this->session->get('pseudo'); ?> " readonly><br>
-        
+
         <label for="title"><b>Titre</b></label><br>
         <input type="text" class="form-control" id="title" name="title" value="<?= isset($postMethod) ? $postMethod->getParameter('title') : ''; ?>"><br>
         <?= isset($errors['title']) ? $errors['title'] : ''; ?>
@@ -56,15 +56,12 @@ $h2 = $route === 'addPost' ? 'Rédaction d\'un article' : 'Mis à jour de l\'art
         <textarea class="form-control" rows="12" id="content" name="content"><?= isset($postMethod) ? $postMethod->getParameter('content') : ''; ?></textarea><br>
         <?= isset($errors['content']) ? $errors['content'] : ''; ?>
 
-        <p><b>Image actuelle: </b><em><?= isset($postMethod) ? htmlentities($postMethod->getParameter('picturePath')) : ''; ?></em></p>
+        <p><b>Image actuelle: </b><em><?= isset($postMethod) ? $postMethod->getParameter('picturePath')->getPath() : ''; ?></em></p>
         <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
         <input name="userfile" class="form-control" type="file" />
-
-
-
       </div>
       <input type="submit" class="btn btn-primary" value="<?= htmlentities($submit); ?>" id="submit" name="submit">
-  </div>
-  </form>
+
+    </form>
   </div>
 </section>

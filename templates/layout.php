@@ -37,7 +37,7 @@
 
   <header class="navigation fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark">
-      <a class="navbar-brand font-tertiary h3" href=<?= htmlentities(INDEX_PATH) ?>><img src="images/logo.png" alt="Myself"></a>
+      <a class="navbar-brand font-tertiary h3" href="<?= htmlentities(INDEX_PATH) ?>"><img src="images/logo.png" alt="Myself"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -45,10 +45,10 @@
       <div class="collapse navbar-collapse text-center" id="navigation">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link" href=<?= INDEX_PATH ?>>Accueil</a>
+            <a class="nav-link" href="<?= INDEX_PATH ?>">Accueil</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href=<?= INDEX_PATH . SLUG . 'contact' ?>>Contact</a>
+            <a class="nav-link" href="<?= INDEX_PATH . SLUG . 'contact' ?>">Contact</a>
           </li>
 
 
@@ -56,16 +56,16 @@
             if ($this->session->get('role') === 'admin') {
           ?>
               <li class="nav-item">
-                <a class="nav-link" href=<?= INDEX_PATH . SLUG . "administration" ?>><span class="fas fa-toolbox"></span> Administration</a>
+                <a class="nav-link" href="<?= INDEX_PATH . SLUG . "administration" ?>"><span class="fas fa-toolbox"></span> Administration</a>
               </li>
             <?php
             }
             ?>
             <li class="nav-item">
-              <a class="nav-link" href=<?= INDEX_PATH . SLUG . "profile" ?>><span class="fas fa-id-card"></span> Mon profil</a>
+              <a class="nav-link" href="<?= INDEX_PATH . SLUG . "profile" ?>"><span class="fas fa-id-card"></span> Mon profil</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href=<?= INDEX_PATH . SLUG . "logout" ?>><span class="fas fa-sign-out_alt"></span> Se déconnecter</a>
+              <a class="nav-link" href="<?= INDEX_PATH . SLUG . "logout" ?>"><span class="fas fa-sign-out_alt"></span> Se déconnecter</a>
             </li>
 
           <?php
@@ -73,10 +73,10 @@
           ?>
 
             <li class="nav-item">
-              <a class="nav-link" href=<?= INDEX_PATH . SLUG . "register" ?>><span class="fas fa-user"></span> S'inscrire</a>
+              <a class="nav-link" href="<?= INDEX_PATH . SLUG . "register" ?>"><span class="fas fa-user"></span> S'inscrire</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href=<?= INDEX_PATH . SLUG . "login" ?>><span class="fas fa-sign-in-alt"></span> Connexion</a>
+              <a class="nav-link" href="<?= INDEX_PATH . SLUG . "login" ?>"><span class="fas fa-sign-in-alt"></span> Connexion</a>
             </li>
         
         <?php
@@ -91,7 +91,7 @@
 
 
 
-  <div id="content">
+  <div id="pageContent">
     <?= $content ?>
     <!--View Class renderView method-->
   </div>
@@ -128,22 +128,22 @@
               <a href="https://twitter.com/bootsnipp"><i class="fa fa-twitter-square fa-3x social"></i></a>
               <a href="https://openclassrooms.com/fr/membres/philippe-jaming"><i class="fas fa-graduation-cap fa-3x social"></i></a>
               <a href="mailto:jamingph@gmail.com"><i class="fa fa-envelope-square fa-3x social"></i></a>
-              <a href="#"><i class="fa fa-linkedin-square fa-3x social"></i></a>
+              <a href="https://www.linkedin.com/in/philippe-j-61a477194/"><i class="fa fa-linkedin-square fa-3x social"></i></a>
               <hr />
             </div>
           </div>
           <div class="row">
             <div class="col-md-4">
               <h5 class="text-light">Email</h5>
-              <p class="text-white paragraph-lg font-secondary">steve.fruits@email.com</p>
+              <a href="<?= INDEX_PATH . SLUG . 'contact' ?>" class="text-white paragraph-lg font-secondary">blogjamingphilippe@gmail.com</a>
             </div>
             <div class="col-md-4">
               <h5 class="text-light">Phone</h5>
-              <p class="text-white paragraph-lg font-secondary">+880 2544 658 256</p>
+              <p class="text-white paragraph-lg font-secondary">+33674257229</p>
             </div>
             <div class="col-md-4">
-              <h5 class="text-light">Address</h5>
-              <p class="text-white paragraph-lg font-secondary">125/A, CA Commercial Area, California, USA</p>
+              <h5 class="text-light">Location</h5>
+              <p class="text-white paragraph-lg font-secondary">Grand Est, France</p>
             </div>
           </div>
 

@@ -87,13 +87,13 @@ $this->title = $title; ?>
                 if ($adminRoute) {
                 ?>
 
-                    <li class="nav-item"><a class="nav-link" href=<?= INDEX_PATH . SLUG . "trash" ?>><i class="fas fa-trash-alt" style="font-size:17px"></i>Corbeille</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?= INDEX_PATH . SLUG . "trash" ?>"><i class="fas fa-trash-alt" style="font-size:17px"></i>Corbeille</a></li>
 
 
                 <?php
                 } else {
                 ?>
-                    <a class="d-flex justify-content-end btn btn-danger mx-auto" href=<?= INDEX_PATH . SLUG . "emptyTrash" ?> onclick="return confirm('êtes-vous sûr de vouloir vider la corbeille?')">Vider La Corbeille</a>
+                    <a class="d-flex justify-content-end btn btn-danger mx-auto" href="<?= INDEX_PATH . SLUG . "emptyTrash" ?>" onclick="return confirm('êtes-vous sûr de vouloir vider la corbeille?')">Vider La Corbeille</a>
                 <?php
                 }
 
@@ -116,7 +116,7 @@ $this->title = $title; ?>
         <?php
         if ($adminRoute) {
         ?>
-            <a type="button" class="col-lg-2 d-flex justify-content-center btn btn-primary mx-auto mb-20" href=<?= INDEX_PATH . SLUG . "addPost" ?>>Nouvel article</a>
+            <a class="btn btn-primary col-lg-2 d-flex justify-content-center btn btn-primary mx-auto mb-20" href="<?= INDEX_PATH . SLUG . "addPost" ?>">Nouvel article</a>
         <?php
         }
         ?>
@@ -176,153 +176,159 @@ $this->title = $title; ?>
 
 
 
-        <h3 id="users" class="mt-20 mb-20 border border-primary">Utilisateurs</h2><br>
-            <table class="table">
-                <tr>
-                    <td>Id</td>
-                    <td>Pseudo</td>
-                    <td>Date</td>
+        <h3 id="users" class="mt-20 mb-20 border border-primary">Utilisateurs</h3><br>
+        <table class="table">
+            <tr>
+                <td>Id</td>
+                <td>Pseudo</td>
+                <td>Date</td>
 
-                    <?php
-                    if ($adminRoute) {
-                    ?>
-                        <td>Rôle</td>
-                        <td>Activation compte</td>
-                        <td>Suppression</td>
-                    <?php
-                    } else { ?>
-                        <td>Actions</td>
-                    <?php
-                    }
-                    ?>
-
-                </tr>
                 <?php
-                foreach ($users as $user) {
-                    if (is_null($user->getErasedAt())) {
-                        if ($user->getVisible() === $visible) {
-
+                if ($adminRoute) {
                 ?>
-                            <tr>
-                                <td><?php echo (htmlspecialchars($user->getId())); ?></td>
-                                <td><?php echo (htmlspecialchars($user->getPseudo())); ?></td>
-                                <td>Créé le : <?php echo (htmlspecialchars($user->getCreatedAt())); ?></td>
-                                <td>
-                                    <?php
-                                    if ($adminRoute) {
-                                        if ($user->getRole() != 'admin') {
-                                    ?>Utilisateur
-                                    <a href="../public/index.php?route=setAdmin&pseudo=<?php print_r(htmlspecialchars($user->getPseudo())); ?>" onclick="return confirm('êtes-vous sûr de vouloir donner le statut administrateur à l\'utilisateur ?')">Promouvoir</a>
+                    <td>Rôle</td>
+                    <td>Activation compte</td>
+                    <td>Suppression</td>
+                <?php
+                } else { ?>
+                    <td>Actions</td>
+                <?php
+                }
+                ?>
+
+            </tr>
+            <?php
+            foreach ($users as $user) {
+                if (is_null($user->getErasedAt())) {
+                    if ($user->getVisible() === $visible) { ?>
+
+                        <tr>
+                            <td><?php echo (htmlspecialchars($user->getId())); ?></td>
+                            <td><?php echo (htmlspecialchars($user->getPseudo())); ?></td>
+                            <td>Créé le : <?php echo (htmlspecialchars($user->getCreatedAt())); ?></td>
+                            <td>
                                 <?php
-                                        } else {
-                                            echo ('Administrateur');
-                                        }
-
-                                ?>
-                                </td>
-
-                                <td>
-                                    <?php
-                                        if ($user->getRole() != 'admin') {
-                                            if ($user->getActivated() === '1') {
-                                    ?>
-                                            Compte actif
-                                            <a href="../public/index.php?route=desactivateAccountAdmin&pseudo=<?php echo (htmlspecialchars($user->getPseudo())); ?>" onclick="return confirm('êtes-vous sûr de vouloir désactiver l\'utilisateur ?')">Désactiver</a>
-                                        <?php
-                                            } else { ?>
-                                            <a href="../public/index.php?route=activateAccount&pseudo=<?php echo (htmlspecialchars($user->getPseudo())); ?>" onclick="return confirm('êtes-vous sûr de vouloir activer l\'utilisateur ?')">Activer</a>
-                                        <?php
-                                            } ?>
-                                </td>
-                                <td><a href="../public/index.php?route=hideUser&userId=<?php echo (htmlspecialchars($user->getId())); ?>" onclick="return confirm('êtes-vous sûr de vouloir mettre l\'utilisateur à la corbeille?')">Supprimer</a>
-                                </td>
-                            <?php } else {
-                            ?>
-                                Suppression impossible
+                                if ($adminRoute) {
+                                    if ($user->getRole() != 'admin') {
+                                ?>Utilisateur
+                                <a href="../public/index.php?route=setAdmin&pseudo=<?php print_r(htmlspecialchars($user->getPseudo())); ?>" onclick="return confirm('êtes-vous sûr de vouloir donner le statut administrateur à l\'utilisateur ?')">Promouvoir</a>
                             <?php
-                                        }
                                     } else {
+                                        echo ('Administrateur');
+                                    }
                             ?>
-                            <a href="../public/index.php?route=showUser&userId=<?php echo (htmlspecialchars($user->getId())); ?>" onclick="return confirm('êtes-vous sûr de vouloir restaurer l\'utilisateur vers le panneau d\'administration?')">Restaurer</a></td>
+                            </td>
+
+                            <td>
+                                <?php
+                                    if ($user->getRole() != 'admin') {
+                                        if ($user->getActivated() === '1') {
+                                ?>
+                                        Compte actif
+                                        <a href="../public/index.php?route=desactivateAccountAdmin&pseudo=<?php echo (htmlspecialchars($user->getPseudo())); ?>" onclick="return confirm('êtes-vous sûr de vouloir désactiver l\'utilisateur ?')">Désactiver</a>
+                                    <?php
+                                        } else { ?>
+                                        <a href="../public/index.php?route=activateAccount&pseudo=<?php echo (htmlspecialchars($user->getPseudo())); ?>" onclick="return confirm('êtes-vous sûr de vouloir activer l\'utilisateur ?')">Activer</a>
+                                    <?php
+                                        }
+                                    } else { ?>
+                                    Impossible
+                                <?php } ?>
+
+                            </td>
+
+                            <td>
+                                <?php
+                                    if ($user->getRole() != 'admin') { ?>
+                                    <a href="../public/index.php?route=hideUser&userId=<?php echo (htmlspecialchars($user->getId())); ?>" onclick="return confirm('êtes-vous sûr de vouloir mettre l\'utilisateur à la corbeille?')">Supprimer</a>
+                            </td>
+                        <?php
+                                    } else {
+                        ?>
+                            Suppression impossible
                         <?php
                                     }
+                                } else {
                         ?>
-                            </tr>
-                <?php
-                        }
+                        <a href="../public/index.php?route=showUser&userId=<?php echo (htmlspecialchars($user->getId())); ?>" onclick="return confirm('êtes-vous sûr de vouloir restaurer l\'utilisateur vers le panneau d\'administration?')">Restaurer</a></td>
+                    <?php
+                                }
+                    ?>
+                        </tr>
+            <?php
                     }
                 }
+            }
 
 
 
-                ?>
-            </table><br><br>
+            ?>
+        </table><br><br>
 
-            <h3 id="comments" class="mt-20 mb-20 border border-primary">Commentaires</h3><br>
-            <table class="table">
-                <tr>
-                    <td>Id</td>
-                    <td>Pseudo</td>
-                    <td>Article</td>
-                    <td>Message</td>
-                    <td>Date</td>
-                    <?php
-                    if ($adminRoute) {
-                    ?>
-                        <td>Validation</td>
-                        <td>Suppression</td>
-                    <?php
-                    } else {
-                    ?>
-                        <td>Actions</td>
-                    <?php
-                    }
-                    ?>
-
-                </tr>
+        <h3 id="comments" class="mt-20 mb-20 border border-primary">Commentaires</h3><br>
+        <table class="table">
+            <tr>
+                <td>Id</td>
+                <td>Pseudo</td>
+                <td>Article</td>
+                <td>Message</td>
+                <td>Date</td>
                 <?php
-                foreach ($comments as $comment) {
-
-                    if (is_null($comment->getErasedAt())) {
-                        if ($comment->getVisible() === $visible) {
-
+                if ($adminRoute) {
                 ?>
-                            <tr>
-                                <td><?php echo (htmlspecialchars($comment->getId())); ?></td>
-                                <td><?php echo (htmlspecialchars($comment->getUser()->getPseudo())); ?></td>
-                                <td><?php echo (htmlspecialchars($comment->getPost()->getTitle())); ?></td>
-                                <!--Appel à la méthode "getPostObj" du modèle "Comment" qui retourne un objet Post -->
-                                <td><?php echo (substr(htmlspecialchars($comment->getContent()), 0, 150)); ?></td>
-                                <td>Créé le : <?php echo (htmlspecialchars($comment->getCreatedAt())); ?></td>
-                                <td>
-                                    <?php
-                                    if ($adminRoute) {
-                                        if ($comment->getValidate() === '0') {
-                                    ?>
-                                            <a href="../public/index.php?route=validateComment&commentId=<?php echo (htmlspecialchars($comment->getId())); ?>">Valider le commentaire</a></td>
-                            <?php
-                                        } else {
-                                            echo ('Commentaire validé');
-                            ?>
-                                <a href="../public/index.php?route=invalidateComment&commentId=<?php echo (htmlspecialchars($comment->getId())); ?>">Invalider le commentaire</a></td>
-                            <?php
-                                        }
+                    <td>Validation</td>
+                    <td>Suppression</td>
+                <?php
+                } else {
+                ?>
+                    <td>Actions</td>
+                <?php
+                }
+                ?>
 
-                            ?>
-                            <td><a href="../public/index.php?route=hideComment&commentId=<?php echo (htmlspecialchars($comment->getId())); ?>" onclick=" return confirm('êtes-vous sûr de mettre le commentaire à la corbeille')">Supprimer</a></td>
+            </tr>
+            <?php
+            foreach ($comments as $comment) {
 
-                            </tr>
+                if (is_null($comment->getErasedAt())) {
+                    if ($comment->getVisible() === $visible) {
+
+            ?>
+                        <tr>
+                            <td><?php echo (htmlspecialchars($comment->getId())); ?></td>
+                            <td><?php echo (htmlspecialchars($comment->getUser()->getPseudo())); ?></td>
+                            <td><?php echo (htmlspecialchars($comment->getPost()->getTitle())); ?></td>
+                            <!--Appel à la méthode "getPostObj" du modèle "Comment" qui retourne un objet Post -->
+                            <td><?php echo (substr(htmlspecialchars($comment->getContent()), 0, 150)); ?></td>
+                            <td>Créé le : <?php echo (htmlspecialchars($comment->getCreatedAt())); ?></td>
+                            <td>
+                                <?php
+                                if ($adminRoute) {
+                                    if ($comment->getValidate() === '0') {
+                                ?>
+                                        <a href="../public/index.php?route=validateComment&commentId=<?php echo (htmlspecialchars($comment->getId())); ?>">Valider le commentaire</a></td>
                         <?php
                                     } else {
+                                        echo ('Commentaire validé');
                         ?>
-                            <a href="../public/index.php?route=showComment&commentId=<?php echo (htmlspecialchars($comment->getId())); ?>">Restaurer</a></td>
-            <?php
+                            <a href="../public/index.php?route=invalidateComment&commentId=<?php echo (htmlspecialchars($comment->getId())); ?>">Invalider le commentaire</a></td>
+                        <?php
                                     }
+
+                        ?>
+                        <td><a href="../public/index.php?route=hideComment&commentId=<?php echo (htmlspecialchars($comment->getId())); ?>" onclick=" return confirm('êtes-vous sûr de mettre le commentaire à la corbeille')">Supprimer</a></td>
+
+                        </tr>
+                    <?php
+                                } else {
+                    ?>
+                        <a href="../public/index.php?route=showComment&commentId=<?php echo (htmlspecialchars($comment->getId())); ?>">Restaurer</a></td>
+        <?php
                                 }
                             }
                         }
-            ?>
-            </table>
+                    }
+        ?>
+        </table>
     </div>
-</div>
 </div>

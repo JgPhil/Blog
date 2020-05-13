@@ -79,12 +79,12 @@
         foreach ($comments as $comment) {
           if ($comment->getValidate() === '1') {
         ?>
+
             <div class="bg-gray p-4 mb-4">
               <div class="media border-bottom py-2">
-
-                <?php $picture = $comment->getUser()->getPicture() ?>
-                <img src=<?= !empty($picture) ? USER_PICTURE . $picture->getPath() : USER_AVATAR ?> class="img-fluid align-self-start rounded-circle mr-3" alt="">
-                <div class="media-body">
+              <?php $userPicture = $comment->getUser()->getPicture(); ?>
+                        <img height="80" src=<?= isset($userPicture) ? USER_PICTURE . $userPicture->getPath() : USER_AVATAR ?> class="img-responsive" alt="user_picture">
+                <div class="media-body ml-5">
                   <h5 class="mt-0"><?= $comment->getUser()->getPseudo(); ?></h5>
                   <p><?= htmlentities($comment->getCreatedAt()); ?></p>
                   <p><?= $comment->getContent(); ?></p>
@@ -102,7 +102,7 @@
         {
           ?>
           <h4>Laissez un commentaire</h4>
-          <form method="post" action=<?= INDEX_PATH . SLUG . "addComment&postId=" . htmlentities($post->getId()); ?> class="row">
+          <form method="post" action="<?= INDEX_PATH . SLUG . "addComment&postId=" . htmlentities($post->getId()); ?>" class="row">
             <div class="col-md-6">
               <input type="hidden" name="id" id="id" value="<?= $this->session->get('id'); ?> ">
               <input type="text" class="form-control mb-3" name="pseudo" id="pseudo" value="<?= $this->session->get('pseudo'); ?> " readonly>

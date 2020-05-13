@@ -59,7 +59,7 @@ $this->title="Contact"; ?>
             </div>
             <div class="col-12">
               <input name="phone" id="phone" class="form-control px-0 mb-4"
-                placeholder="Entrez votre numéro de tétéphone (optionnel)"></input>
+                placeholder="Entrez votre numéro de tétéphone (optionnel)">
                 <?php
                 if (isset($errors['phone']))
                 {
