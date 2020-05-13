@@ -5,8 +5,14 @@ namespace App\src\controller;
 use App\src\helpers\Upload;
 use App\Framework\Method;
 
+/**
+ * Class FrontController
+ */
 class FrontController extends BlogController
 {
+    /**
+     * @return void
+     */
     public function home()
     {
         $posts = $this->postDAO->getPosts();
@@ -15,6 +21,11 @@ class FrontController extends BlogController
         ]);
     }
 
+    /**
+     * @param mixed $postId
+     * 
+     * @return void
+     */
     public function post($postId)
     {
         $post = $this->postDAO->getPost($postId);
@@ -25,6 +36,12 @@ class FrontController extends BlogController
         ]);
     }
 
+    /**
+     * @param Method $postMethod
+     * @param mixed $postId
+     * 
+     * @return void
+     */
     public function addComment(Method $postMethod, $postId)
     {
         if ($postMethod->getParameter('submit')) {
@@ -44,6 +61,11 @@ class FrontController extends BlogController
         }
     }
 
+    /**
+     * @param Method $postMethod
+     * 
+     * @return void
+     */
     public function updateUserPicture(Method $postMethod)
     {
         if ($postMethod->getParameter('submit')) {
@@ -64,6 +86,11 @@ class FrontController extends BlogController
         ]);
     }
 
+    /**
+     * @param Method $postMethod
+     * 
+     * @return void
+     */
     public function register(Method $postMethod)
     {
         if ($postMethod->getParameter('submit')) {
@@ -92,6 +119,11 @@ class FrontController extends BlogController
 
 
 
+    /**
+     * @param mixed $pseudo
+     * 
+     * @return void
+     */
     public function desactivateAccount($pseudo)
     {
         $this->userDAO->desactivateAccount(filter_var($this->session->get('pseudo'), FILTER_SANITIZE_STRING));
@@ -99,6 +131,11 @@ class FrontController extends BlogController
         header('Location: ../public/index.php');
     }
 
+    /**
+     * @param Method $getMethod
+     * 
+     * @return void
+     */
     public function emailConfirm(Method $getMethod)
     {
 
@@ -115,6 +152,11 @@ class FrontController extends BlogController
     }
 
 
+    /**
+     * @param Method $postMethod
+     * 
+     * @return void
+     */
     public function login(Method $postMethod)
     {
         if ($postMethod->getParameter('submit')) {
@@ -136,6 +178,11 @@ class FrontController extends BlogController
         return $this->view->render('login');
     }
 
+    /**
+     * @param Method $postMethod
+     * 
+     * @return void
+     */
     public function contactEmail(Method $postMethod)
     {
         if ($postMethod->getParameter('submit')) {
@@ -154,6 +201,9 @@ class FrontController extends BlogController
         }
     }
 
+    /**
+     * @return void
+     */
     public function contact()
     {
         return $this->view->render('contact');

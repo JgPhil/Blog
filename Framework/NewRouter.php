@@ -16,6 +16,9 @@ class NewRouter
     protected $routes = [];
     protected $param;
 
+    /**
+     * @return void
+     */
     public function __construct()
     {
         $this->request = new Request;
@@ -25,6 +28,9 @@ class NewRouter
     }
 
 
+    /**
+     * @return void
+     */
     public function run()
     {
         $xml = new \DOMDocument;

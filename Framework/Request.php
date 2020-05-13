@@ -11,6 +11,9 @@ class Request
     protected $_POST;
     protected $_GET;
 
+    /**
+     * @return void
+     */
     public function __construct()
     {
         $this->_POST = (isset($_POST)) ? $_POST : null;
@@ -21,16 +24,25 @@ class Request
         $this->session = new Session($this->_SESSION);
     }
 
+    /**
+     * @return void
+     */
     public function getGet()
     {
         return $this->getMethod;
     }
 
+    /**
+     * @return void
+     */
     public function getPost()
     {
         return $this->postMethod;
     }
 
+    /**
+     * @return void
+     */
     public function getSession()
     {
         return $this->session;

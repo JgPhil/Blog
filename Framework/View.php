@@ -11,12 +11,21 @@ class View
     private $session;
 
 
+    /**
+     * @return void
+     */
     public function __construct()
     {
         $this->request = new Request;
         $this->session = $this->request->getSession();
     }
 
+    /**
+     * @param mixed $template
+     * @param array $data
+     * 
+     * @return void
+     */
     public function render($template, $data = [])
     {
         $this->file =  \TEMPLATES_PATH.$template.'.php';
@@ -29,6 +38,12 @@ class View
         echo($view) ;
     }
 
+    /**
+     * @param mixed $file
+     * @param mixed $data
+     * 
+     * @return void
+     */
     private function renderFile($file, $data)
     {
         

@@ -8,10 +8,16 @@ use Exception;
 require_once '../config/dev.php';
 
 
+/**
+ * Class DAO
+ */
 abstract class DAO
 {
     private $connection;
 
+    /**
+     * @return void
+     */
     private function checkConnection()
     {
         if ($this->connection === null) {
@@ -20,6 +26,9 @@ abstract class DAO
         return $this->connection;
     }
 
+    /**
+     * @return void
+     */
     private function getConnection()
     {
         try {
@@ -31,6 +40,12 @@ abstract class DAO
         }
     }
 
+    /**
+     * @param mixed $sql
+     * @param null $parameters
+     * 
+     * @return void
+     */
     protected function createQuery($sql, $parameters = null)
     {
         if ($parameters) {
@@ -42,6 +57,11 @@ abstract class DAO
         return $result;
     }
 
+    /**
+     * @param mixed $row
+     * 
+     * @return void
+     */
     protected function buildObject($row)
     {
         if ($row) {

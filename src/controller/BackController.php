@@ -5,9 +5,15 @@ namespace App\src\controller;
 use App\Framework\Method;
 use App\src\helpers\Upload;
 
+/**
+ * Class BackController
+ */
 class BackController extends BlogController
 
 {
+    /**
+     * @return void
+     */
     private function checkLoggedIn()
     {
         if (!$this->session->get('pseudo')) {
@@ -18,6 +24,9 @@ class BackController extends BlogController
         }
     }
 
+    /**
+     * @return void
+     */
     private function checkAdmin()
     {
         $this->checkLoggedIn();
@@ -28,6 +37,10 @@ class BackController extends BlogController
             return true;
         }
     }
+
+    /**
+     * @return void
+     */
     public function administration()
     {
         if ($this->checkAdmin()) {
@@ -43,6 +56,11 @@ class BackController extends BlogController
         }
     }
 
+    /**
+     * @param Method $postMethod
+     * 
+     * @return void
+     */
     public function addPost(Method $postMethod)
     {
         $target = "blog";
@@ -69,6 +87,12 @@ class BackController extends BlogController
     }
 
 
+    /**
+     * @param Method $postMethod
+     * @param mixed $postId
+     * 
+     * @return void
+     */
     public function editPost(Method $postMethod, $postId)
     {
         $target = "blog";
@@ -103,6 +127,9 @@ class BackController extends BlogController
         }
     }
 
+    /**
+     * @return void
+     */
     public function profile()
     {
         if ($this->checkLoggedIn()) {
@@ -120,6 +147,11 @@ class BackController extends BlogController
         }
     }
 
+    /**
+     * @param mixed $pseudo
+     * 
+     * @return void
+     */
     public function checkProfile($pseudo)
     {
         $comments = $this->commentDAO->getCommentsByPseudo($pseudo);
@@ -128,6 +160,11 @@ class BackController extends BlogController
         ]);
     }
 
+    /**
+     * @param Method $postMethod
+     * 
+     * @return void
+     */
     public function updatePassword(Method $postMethod)
     {
         if ($this->checkLoggedIn()) {
@@ -147,6 +184,9 @@ class BackController extends BlogController
         }
     }
 
+    /**
+     * @return void
+     */
     public function logout()
     {
         if ($this->checkLoggedIn()) {
@@ -157,6 +197,11 @@ class BackController extends BlogController
         }
     }
 
+    /**
+     * @param mixed $pseudo
+     * 
+     * @return void
+     */
     public function desactivateAccountAdmin($pseudo)
     {
         $this->userDAO->desactivateAccount($pseudo);
@@ -165,6 +210,11 @@ class BackController extends BlogController
     }
 
 
+    /**
+     * @param mixed $pseudo
+     * 
+     * @return void
+     */
     public function setAdmin($pseudo)
     {
         $this->userDAO->setAdmin($pseudo);
@@ -173,6 +223,11 @@ class BackController extends BlogController
     }
 
 
+    /**
+     * @param mixed $userId
+     * 
+     * @return void
+     */
     public function hideUser($userId)
     {
         if ($this->checkAdmin()) {
@@ -182,6 +237,11 @@ class BackController extends BlogController
         }
     }
 
+    /**
+     * @param mixed $postId
+     * 
+     * @return void
+     */
     public function hidePost($postId)
     {
         if ($this->checkAdmin()) {
@@ -191,6 +251,11 @@ class BackController extends BlogController
         }
     }
 
+    /**
+     * @param mixed $commentId
+     * 
+     * @return void
+     */
     public function hideComment($commentId)
     {
         if ($this->checkAdmin()) {
@@ -200,6 +265,11 @@ class BackController extends BlogController
         }
     }
 
+    /**
+     * @param mixed $userId
+     * 
+     * @return void
+     */
     public function showUser($userId)
     {
         if ($this->checkAdmin()) {
@@ -209,6 +279,11 @@ class BackController extends BlogController
         }
     }
 
+    /**
+     * @param mixed $postId
+     * 
+     * @return void
+     */
     public function showPost($postId)
     {
         if ($this->checkAdmin()) {
@@ -218,6 +293,11 @@ class BackController extends BlogController
         }
     }
 
+    /**
+     * @param mixed $commentId
+     * 
+     * @return void
+     */
     public function showComment($commentId)
     {
         if ($this->checkAdmin()) {
@@ -227,6 +307,11 @@ class BackController extends BlogController
         }
     }
 
+    /**
+     * @param mixed $postId
+     * 
+     * @return void
+     */
     public function postComments($postId)
     {
         if ($this->checkAdmin()) {
@@ -244,6 +329,11 @@ class BackController extends BlogController
         }
     }
 
+    /**
+     * @param mixed $commentId
+     * 
+     * @return void
+     */
     public function validateComment($commentId)
     {
         $this->commentDAO->validateComment($commentId);
@@ -251,6 +341,11 @@ class BackController extends BlogController
         header('Location: ../public/index.php?route=administration');
     }
 
+    /**
+     * @param mixed $commentId
+     * 
+     * @return void
+     */
     public function inValidateComment($commentId)
     {
         $this->commentDAO->inValidateComment($commentId);
@@ -258,6 +353,11 @@ class BackController extends BlogController
         header('Location: ../public/index.php?route=administration');
     }
 
+    /**
+     * @param mixed $pseudo
+     * 
+     * @return void
+     */
     public function activateAccount($pseudo)
     {
         if ($this->checkAdmin()) {
@@ -268,6 +368,9 @@ class BackController extends BlogController
     }
 
 
+    /**
+     * @return void
+     */
     public function emptyTrash()
     {
         if ($this->checkAdmin()) {

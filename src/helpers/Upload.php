@@ -2,19 +2,25 @@
 
 namespace App\src\helpers;
 
+/**
+ * Class Upload
+ */
 class Upload
 {
 
+    /**
+     * @param mixed $target
+     * 
+     * @return void
+     */
     public static function uploadFile($target) //uploadPicture
     {
         $target_dir = $target === "user" ? USER_PICTURE : POST_PICTURE;
-;       $picture = $_FILES['userfile'];
-        // $target_dir = BLOG_PICTURE;
+        $picture = $_FILES['userfile'];
         $target_file = $target_dir . basename($picture["name"]);
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
         $allowedExt = ['jpg', 'jpeg', 'png', 'gif'];
-        // Check if image file is a actual image or fake image
         if (isset($picture)) {
             $check = getimagesize($picture["tmp_name"]);
             if ($check !== false) {
@@ -31,13 +37,11 @@ class Upload
             unlink($target_file);
         }
 
-        // Check file size
         if ($picture["size"] > 1000000) {
             echo "Le fichier est trop gros";
             $uploadOk = 0;
         }
 
-        // Allow certain file formats
         if (!in_array($imageFileType, $allowedExt)) {
             echo "Seules les images JPG, JPEG, PNG ou GIF sont acceptées.";
             $uploadOk = 0;

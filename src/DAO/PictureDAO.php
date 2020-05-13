@@ -5,8 +5,16 @@ namespace App\src\DAO;
 use App\Framework\Method;
 use App\Framework\DAO;
 
+/**
+ * Class PictureDAO
+ */
 class PictureDAO extends DAO
 {
+    /**
+     * @param mixed $postId
+     * 
+     * @return void
+     */
     public function getPostPicture($postId)
     {
 
@@ -17,18 +25,35 @@ class PictureDAO extends DAO
         return $picturePath;
     }
 
+    /**
+     * @param mixed $path
+     * @param mixed $postId
+     * 
+     * @return void
+     */
     public function addPostPicture($path, $postId)
     {
         $sql = 'INSERT INTO picture (path, post_id) VALUES (?, ?)';
         $this->createQuery($sql, [$path, $postId]);
     }
 
+    /**
+     * @param mixed $path
+     * @param mixed $userId
+     * 
+     * @return void
+     */
     public function addUserPicture($path, $userId)
     {
         $sql = 'INSERT INTO picture (path, user_id) VALUES (?, ?)';
         $this->createQuery($sql, [$path, $userId]);
     }
 
+    /**
+     * @param mixed $userId
+     * 
+     * @return void
+     */
     public function getUserPicture($userId)
     {
         $sql = 'SELECT path FROM picture WHERE user_id = ?';
@@ -38,6 +63,11 @@ class PictureDAO extends DAO
         return $picturePath;
     }
 
+    /**
+     * @param mixed $userId
+     * 
+     * @return void
+     */
     public function checkUserPicture($userId)
     {
         $sql = 'SELECT COUNT(user_id) FROM picture WHERE user_id = ?';
@@ -46,6 +76,11 @@ class PictureDAO extends DAO
         return $pictureExists;
     }
 
+    /**
+     * @param mixed $postId
+     * 
+     * @return void
+     */
     public function checkPostPicture($postId)
     {
         $sql = 'SELECT COUNT(post_id) FROM picture WHERE post_id = ?';
@@ -54,12 +89,24 @@ class PictureDAO extends DAO
         return $pictureExists;
     }
 
+    /**
+     * @param mixed $path
+     * @param mixed $userId
+     * 
+     * @return void
+     */
     public function updateUserPicture($path, $userId)
     {
         $sql = 'UPDATE picture SET path = ? WHERE user_id = ?';
         $this->createQuery($sql, [$path, $userId]);
     }
 
+    /**
+     * @param mixed $postId
+     * @param mixed $path
+     * 
+     * @return void
+     */
     public function updatePostPicture($postId, $path)
     {
         $checkPostPicture = $this->checkPostPicture($postId);

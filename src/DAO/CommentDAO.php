@@ -6,8 +6,14 @@ use App\src\model\Comment;
 use App\Framework\Method;
 use App\Framework\DAO;
 
+/**
+ * Class CommentDAO
+ */
 class CommentDAO extends DAO
 {
+    /**
+     * @return void
+     */
     public function getComments()
     {
         $sql = 'SELECT id, user_id, content, visible, DATE_FORMAT(createdAt, "%d/%m/%Y à %H:%i") AS createdAt, validate, post_id, erasedAt FROM comment ORDER BY createdAt DESC';
@@ -22,6 +28,11 @@ class CommentDAO extends DAO
         return $comments;
     }
 
+    /**
+     * @param mixed $postId
+     * 
+     * @return void
+     */
     public function getCommentsFromPost($postId)
     {
         $sql = 'SELECT comment.id AS id, comment.user_id AS user_id, comment.content AS content, 
@@ -40,18 +51,34 @@ class CommentDAO extends DAO
     }
 
 
+    /**
+     * @param mixed $commentId
+     * 
+     * @return void
+     */
     public function hideComment($commentId)
     {
         $sql = 'UPDATE comment SET visible = 0 WHERE id = ?';
         $this->createQuery($sql, [$commentId]);        
     }
 
+    /**
+     * @param mixed $commentId
+     * 
+     * @return void
+     */
     public function showComment($commentId)
     {
         $sql = 'UPDATE comment SET visible = 1 WHERE id = ?';
         $this->createQuery($sql, [$commentId]);  
     }
 
+    /**
+     * @param Method $postMethod
+     * @param mixed $postId
+     * 
+     * @return void
+     */
     public function addComment(Method $postMethod, $postId)
     {
         $sql = 'INSERT INTO comment(user_id, content, createdAt, post_id) VALUES(?,?,NOW(),?)';
@@ -62,6 +89,11 @@ class CommentDAO extends DAO
             ]);
     }
 
+    /**
+     * @param mixed $commentId
+     * 
+     * @return void
+     */
     public function deleteComment($commentId)
     {
         $this->invalidateComment($commentId);
@@ -69,6 +101,11 @@ class CommentDAO extends DAO
         $this->createQuery($sql, [$commentId]);
     }
 
+    /**
+     * @param mixed $pseudo
+     * 
+     * @return void
+     */
     public function getCommentsByPseudo($pseudo) // Profile 
     {
         $sql = 'SELECT comment.id AS id, comment.user_id AS user_id, comment.content AS content,
@@ -85,18 +122,33 @@ class CommentDAO extends DAO
         return $comments;
     }
 
+    /**
+     * @param mixed $commentId
+     * 
+     * @return void
+     */
     public function validateComment($commentId)
     {
         $sql = 'UPDATE comment  SET validate = 1 WHERE id = ?';
         $this->createQuery($sql, [$commentId]);
     }
 
+    /**
+     * @param mixed $commentId
+     * 
+     * @return void
+     */
     public function invalidateComment($commentId)
     {
         $sql = 'UPDATE comment  SET validate = 0 WHERE id = ?';
         $this->createQuery($sql, [$commentId]);
     }
 
+    /**
+     * @param mixed $commentId
+     * 
+     * @return void
+     */
     public function getPostFromComment($commentId)
     {
         $sql = 'SELECT post.id, post.title, post.content, post.heading, post.user_id as author, comment.id, 
@@ -109,6 +161,11 @@ class CommentDAO extends DAO
         return  $post->buildObject($row); 
     }  
 
+    /**
+     * @param mixed $commentId
+     * 
+     * @return void
+     */
     public function getUserFromComment($commentId)
     {
         $sql = 'SELECT user.pseudo AS pseudo, user.id AS id,  DATE_FORMAT(user.createdAt, "%d/%m/%Y à %H:%i") AS createdAt 
@@ -121,6 +178,9 @@ class CommentDAO extends DAO
     }  
 
 
+    /**
+     * @return void
+     */
     public function eraseComment()
     {
         $sql = 'UPDATE comment SET erasedAt = NOW() WHERE visible = 0';

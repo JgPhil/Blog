@@ -3,9 +3,18 @@
 namespace App\src\constraint;
 use App\Framework\Method;
 
+/**
+ * Class UserValidation
+ */
 class UserValidation extends BlogValidationComponent
 {
 
+    /**
+     * @param mixed $name
+     * @param mixed $value
+     * 
+     * @return void
+     */
     public function checkField($name, $value)
     {        
         if($name === 'pseudo') {
@@ -18,6 +27,12 @@ class UserValidation extends BlogValidationComponent
         }
     }
 
+    /**
+     * @param mixed $name
+     * @param mixed $value
+     * 
+     * @return void
+     */
     private function checkPseudo($name, $value)
     {
         if($this->constraint->blank($name, $value)) {
@@ -31,6 +46,12 @@ class UserValidation extends BlogValidationComponent
         }
     }
 
+    /**
+     * @param mixed $name
+     * @param mixed $value
+     * 
+     * @return void
+     */
     private function checkPassword($name, $value)
     {        
         if($this->constraint->blank($name, $value)) {

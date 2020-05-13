@@ -10,6 +10,9 @@ use App\Framework\Controller;
 use App\Framework\Validation;
 use App\src\helpers\Upload;
 
+/**
+ * Class BlogController
+ */
 abstract class BlogController extends Controller
 {
     protected $postDAO;
@@ -19,6 +22,9 @@ abstract class BlogController extends Controller
     protected $validation;
     
 
+    /**
+     * @return void
+     */
     public function __construct()
     {
         parent::__construct();

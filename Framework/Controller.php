@@ -2,6 +2,9 @@
 
 namespace App\Framework;
 
+/**
+ * Class Controller
+ */
 abstract class Controller
 {
     protected $view;
@@ -12,6 +15,9 @@ abstract class Controller
    
     
 
+    /**
+     * @return void
+     */
     public function __construct()
     {
         $this->view = new View;

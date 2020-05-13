@@ -5,15 +5,29 @@ namespace App\Framework;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+/**
+ * Class Mail
+ */
 class Mail extends Request
 
 {
     private $token;
 
+    /**
+     * @return void
+     */
     public function createToken()
     {
         return $this->token = bin2hex(openssl_random_pseudo_bytes(16));
     }
+
+
+    /**
+     * @param Method $postMethod
+     * @param mixed $token
+     * 
+     * @return void
+     */
     public function registerMail(Method $postMethod, $token)
     {
         $pseudo = htmlspecialchars($this->postMethod->getParameter('pseudo'));
@@ -53,6 +67,11 @@ class Mail extends Request
 
 
 
+    /**
+     * @param Method $postMethod
+     * 
+     * @return void
+     */
     public function contactMail(Method $postMethod)
     {
         $name = htmlspecialchars($this->postMethod->getParameter('name'));

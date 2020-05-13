@@ -3,8 +3,19 @@
 namespace App\src\constraint;
 use App\Framework\Method;
 
+
+/**
+ * Class EmailValidation
+ */
 class EmailValidation extends BlogValidationComponent
 {
+
+    /**
+     * @param mixed $name
+     * @param mixed $value
+     * 
+     * @return void
+     */
     public function checkField($name, $value)
     {
         if($name === 'name') {
@@ -25,6 +36,12 @@ class EmailValidation extends BlogValidationComponent
         }
     }
 
+    /**
+     * @param mixed $name
+     * @param mixed $value
+     * 
+     * @return void
+     */
     private function checkName($name, $value)
     {
         if($this->constraint->blank($name, $value)) {
@@ -38,6 +55,12 @@ class EmailValidation extends BlogValidationComponent
         }
     }
 
+    /**
+     * @param mixed $name
+     * @param mixed $value
+     * 
+     * @return void
+     */
     private function checkEmail($name, $value)
     {
         if($this->constraint->blank($name, $value)) {
@@ -48,6 +71,12 @@ class EmailValidation extends BlogValidationComponent
         }
     }
 
+    /**
+     * @param mixed $name
+     * @param mixed $value
+     * 
+     * @return void
+     */
     private function checkMessage($name, $value)
     {
         if($this->constraint->blank($name, $value)) {
@@ -61,6 +90,12 @@ class EmailValidation extends BlogValidationComponent
         }
     }
 
+    /**
+     * @param mixed $name
+     * @param mixed $value
+     * 
+     * @return void
+     */
     private function checkPhone($name, $value)
     {
         if($this->constraint->blank($name, $value)) {

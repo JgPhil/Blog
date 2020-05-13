@@ -5,6 +5,12 @@ use App\Framework\Method;
 
 class PostValidation extends BlogValidationComponent
 {
+    /**
+     * @param mixed $name
+     * @param mixed $value
+     * 
+     * @return void
+     */
     public function checkField($name, $value)
     {
         if($name === 'title') {
@@ -21,6 +27,12 @@ class PostValidation extends BlogValidationComponent
         }
     }
 
+    /**
+     * @param mixed $name
+     * @param mixed $value
+     * 
+     * @return void
+     */
     private function checkTitle($name, $value)
     {
         if($this->constraint->blank($name, $value)) {
@@ -34,6 +46,12 @@ class PostValidation extends BlogValidationComponent
         }
     }
 
+    /**
+     * @param mixed $name
+     * @param mixed $value
+     * 
+     * @return void
+     */
     private function checkContent($name, $value)
     {
         if($this->constraint->blank($name, $value)) {
@@ -44,6 +62,12 @@ class PostValidation extends BlogValidationComponent
         }
     }
 
+    /**
+     * @param mixed $name
+     * @param mixed $value
+     * 
+     * @return void
+     */
     private function checkHeading($name, $value)
     {
         if($this->constraint->blank($name, $value)) {

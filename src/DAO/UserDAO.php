@@ -7,8 +7,14 @@ use App\Framework\Method;
 use App\src\model\User;
 use App\Framework\Mail;
 
+/**
+ * Class UserDAO
+ */
 class UserDAO extends DAO
 {
+    /**
+     * @return void
+     */
     public function getUsers()
     {
         $sql = 'SELECT user.id AS id, user.pseudo AS pseudo,DATE_FORMAT(user.createdAt, "%d/%m/%Y à %H:%i") 
@@ -24,6 +30,11 @@ class UserDAO extends DAO
         return $users;
     }
 
+    /**
+     * @param mixed $pseudo
+     * 
+     * @return void
+     */
     public function getUser($pseudo)
     {
         $sql = 'SELECT user.id AS id, user.email as email, user.createdAt as createdAt FROM user WHERE pseudo = ?';
@@ -36,6 +47,11 @@ class UserDAO extends DAO
         return [$user, $picturePath];
     }
 
+    /**
+     * @param Method $postMethod
+     * 
+     * @return void
+     */
     public function register(Method $postMethod)
     {
         $this->checkUser($postMethod);
@@ -57,6 +73,11 @@ class UserDAO extends DAO
         return $userId;
     }
 
+    /**
+     * @param Method $postMethod
+     * 
+     * @return void
+     */
     public function contactEmail(Method $postMethod)
     {
         $mail = new Mail;
@@ -70,6 +91,11 @@ class UserDAO extends DAO
         $mail->contactMail($postMethod);
     }
 
+    /**
+     * @param Method $postMethod
+     * 
+     * @return void
+     */
     public function checkUser(Method $postMethod)
     {
         $sql = 'SELECT COUNT(pseudo) FROM user WHERE pseudo = ?';
@@ -82,6 +108,11 @@ class UserDAO extends DAO
 
     
 
+    /**
+     * @param Method $postMethod
+     * 
+     * @return void
+     */
     public function login(Method $postMethod)
     {
         $sql = 'SELECT user.id , user.role_id, user.password, role.name FROM user 
@@ -101,6 +132,11 @@ class UserDAO extends DAO
         }
     }
 
+    /**
+     * @param Method $getMethod
+     * 
+     * @return void
+     */
     public function emailConfirm(Method $getMethod)
     {
         $sql = 'SELECT token, createdAt FROM token WHERE user_id = (SELECT id FROM user WHERE pseudo = ?)';
@@ -113,18 +149,34 @@ class UserDAO extends DAO
         }
     }
 
+    /**
+     * @param mixed $pseudo
+     * 
+     * @return void
+     */
     public function tokenErase($pseudo)
     {
         $sql = 'DELETE FROM token WHERE user_id = (SELECT id FROM user WHERE pseudo = ?)';
         $this->createQuery($sql, [$pseudo]);
     }
 
+    /**
+     * @param Method $postMethod
+     * @param mixed $pseudo
+     * 
+     * @return void
+     */
     public function updatePassword(Method $postMethod, $pseudo)
     {
         $sql = 'UPDATE user SET password = ? WHERE pseudo = ?';
         $this->createQuery($sql, [password_hash(filter_var($postMethod->getParameter('password'), FILTER_SANITIZE_STRING), PASSWORD_BCRYPT), $pseudo]);
     }
 
+    /**
+     * @param mixed $pseudo
+     * 
+     * @return void
+     */
     public function desactivateAccount($pseudo)
     {
         $sql = 'UPDATE comment INNER JOIN user ON comment.pseudo= user.pseudo SET validate = 0 WHERE user.pseudo = ?';
@@ -133,12 +185,22 @@ class UserDAO extends DAO
         $this->createQuery($sql, [$pseudo]);
     }
 
+    /**
+     * @param mixed $pseudo
+     * 
+     * @return void
+     */
     public function activateAccount($pseudo)
     {
         $sql = 'UPDATE user SET activated = 1 WHERE pseudo = ?';
         $this->createQuery($sql, [$pseudo]);
     }
 
+    /**
+     * @param mixed $userId
+     * 
+     * @return void
+     */
     public function hideUser($userId)
     {
         $sql = 'UPDATE comment SET visible = 0 WHERE pseudo IN
@@ -149,6 +211,11 @@ class UserDAO extends DAO
         $this->desactivateAccount($userId);
     }
 
+    /**
+     * @param mixed $userId
+     * 
+     * @return void
+     */
     public function showUser($userId)
     {
         $sql = 'UPDATE user SET visible = 1 WHERE id = ?';
@@ -158,24 +225,42 @@ class UserDAO extends DAO
         $this->createQuery($sql, [$userId]);
     }
 
+    /**
+     * @param mixed $pseudo
+     * 
+     * @return void
+     */
     public function setAdmin($pseudo)
     {
         $sql = 'UPDATE user SET role_id = 1 WHERE pseudo = ?';
         $this->createQuery($sql, [$pseudo]);
     }
 
+    /**
+     * @return void
+     */
     public function eraseUser()
     {
         $sql = 'UPDATE user SET erasedAt = NOW() WHERE visible = 0 ';
         $this->createQuery($sql);
     }
 
+    /**
+     * @param mixed $pseudo
+     * 
+     * @return void
+     */
     public function deleteUser($pseudo)
     {
         $sql = 'DELETE FROM user WHERE $pseudo = ?';
         $this->createQuery($sql);
     }
 
+    /**
+     * @param mixed $userId
+     * 
+     * @return void
+     */
     public function getUserPicture($userId)
     {
         $sql = 'SELECT path FROM picture WHERE user_id = ?';

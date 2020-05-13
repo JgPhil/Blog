@@ -7,6 +7,12 @@ class Validation
     protected $errors= [];
    
 
+    /**
+     * @param mixed $data
+     * @param mixed $name
+     * 
+     * @return void
+     */
     public function validate($data, $name)
     {
         $class = CONSTRAINT_PATH.$name.'Validation'; // i.e.: "UserValidation"
@@ -16,6 +22,27 @@ class Validation
         return $errors;
     }
 
+
+    /**
+     * @param mixed $name
+     * @param mixed $value
+     * 
+     * @return void
+     */
+    protected function checkField($name, $value)
+    {
+        $checkMethod = 'check'.ucfirst($name);
+        $error = $this->$checkMethod($name, $value);
+        $this->addError($name, $error);
+    }
+
+
+
+    /**
+     * @param Method $postMethod
+     * 
+     * @return void
+     */
     public function check(Method $postMethod)
     {
         foreach ($postMethod->allParameters() as $key => $value) {
@@ -24,6 +51,12 @@ class Validation
         return $this->errors;
     }
 
+    /**
+     * @param mixed $name
+     * @param mixed $error
+     * 
+     * @return void
+     */
     protected function addError($name, $error) {
         if($error) {
             $this->errors += [
@@ -32,10 +65,5 @@ class Validation
         }
     }
 
-    protected function checkField($name, $value)
-    {
-        $checkMethod = 'check'.ucfirst($name);
-        $error = $this->$checkMethod($name, $value);
-        $this->addError($name, $error);
-    }
+    
 }
