@@ -206,4 +206,4 @@ class User
             return $this->picture;
         }
     }
-}
+} 

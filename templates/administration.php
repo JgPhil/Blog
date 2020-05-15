@@ -146,7 +146,7 @@ $this->title = $title; ?>
                         <tr>
                             <td><?= htmlentities($post->getId()); ?></td>
                             <td><a href="../public/index.php?route=post&postId=<?= htmlentities($post->getId()); ?>"><?= htmlentities($post->getTitle()); ?></a></td>
-                            <td> <?= htmlentities($post->getHeading()); ?></td>
+                            <td> <?= $post->getHeading(); ?></td>
                             <td><?= htmlentities($post->getUser()->getPseudo()); ?> (<?= htmlentities($post->getUser()->getRole()) ?>)</td>
                             <td>Dernière modif. le : <?= htmlentities($post->getLastUpdate()); ?></td>
 
@@ -295,12 +295,12 @@ $this->title = $title; ?>
 
             ?>
                         <tr>
-                            <td><?php echo (htmlspecialchars($comment->getId())); ?></td>
-                            <td><?php echo (htmlspecialchars($comment->getUser()->getPseudo())); ?></td>
-                            <td><?php echo (htmlspecialchars($comment->getPost()->getTitle())); ?></td>
+                            <td><?= $comment->getId(); ?></td>
+                            <td><?= $comment->getUser()->getPseudo(); ?></td>
+                            <td><?= $comment->getPost()->getTitle(); ?></td>
                             <!--Appel à la méthode "getPostObj" du modèle "Comment" qui retourne un objet Post -->
-                            <td><?php echo (substr(htmlspecialchars($comment->getContent()), 0, 150)); ?></td>
-                            <td>Créé le : <?php echo (htmlspecialchars($comment->getCreatedAt())); ?></td>
+                            <td><?= substr($comment->getContent(), 0, 150); ?></td>
+                            <td>Créé le : <?= $comment->getCreatedAt(); ?></td>
                             <td>
                                 <?php
                                 if ($adminRoute) {

@@ -70,7 +70,7 @@ class BackController extends BlogController
                 $errors = $this->validation->validate($postMethod, 'Post');
                 if (!$errors) {
                     $postId = $this->postDAO->addPost($postMethod, $this->session->get('id'));
-                    if ($_FILES['userfile']) {
+                    if (!empty($_FILES['userfile']['name'])) {
                         $path = Upload::uploadFile($target);
                         $this->pictureDAO->addPostPicture($path, $postId);
                     }                    
@@ -102,7 +102,7 @@ class BackController extends BlogController
             if ($postMethod->getParameter('submit')) {
                 $errors = $this->validation->validate($postMethod, 'Post');
                 if (!$errors) {
-                    if ($_FILES['userfile']) {
+                    if (!empty($_FILES['userfile']['name'])) {
                         $path = Upload::uploadFile($target);
                         $this->pictureDAO->updatePostPicture($postId, $path);
                     }

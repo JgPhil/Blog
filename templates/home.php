@@ -123,7 +123,7 @@ $this->title = "Accueil"; ?>
 
         if ($post->getVisible() === "1") {
       ?>
-          <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
+          <div  class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
             <article class="card shadow">
               <?php $postPicture = $post->getPicture() ?>
               <img class="rounded card-img-top" src=<?= isset($postPicture) ? POST_PICTURE . $postPicture->getPath() : POST_EMPTY_PICTURE   ?> alt="post-thumb">
