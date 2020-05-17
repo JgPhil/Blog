@@ -126,7 +126,7 @@ $this->title = "Accueil"; ?>
           <div  class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
             <article class="card shadow">
               <?php $postPicture = $post->getPicture() ?>
-              <img class="rounded card-img-top" src=<?= isset($postPicture) ? POST_PICTURE . $postPicture->getPath() : POST_EMPTY_PICTURE   ?> alt="post-thumb">
+              <img class="rounded card-img-top img-responsive"  src=<?= isset($postPicture) ? POST_PICTURE . $postPicture->getPath() : POST_EMPTY_PICTURE   ?> alt="post-thumb">
               <div class="card-body">
                 <h4 class="card-title"><a href="<?= INDEX_PATH . SLUG . "post&postId=" . htmlentities($post->getId()); ?>"><?= $post->getTitle(); ?></a></h4>
                 <h5><?= $post->getHeading(); ?></h5>

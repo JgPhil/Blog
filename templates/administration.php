@@ -50,6 +50,10 @@ $this->title = $title; ?>
                             ?>
                                 <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('empty_trash')) ?></h4>
                             <?php
+                            } elseif ($this->session->get('set_admin')) {
+                            ?>
+                                <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('set_admin')) ?></h4>
+                            <?php
                             } elseif ($this->session->get('desactivate_account')) {
                             ?>
                                 <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('desactivate_account')) ?></h4>

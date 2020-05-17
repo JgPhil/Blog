@@ -179,7 +179,8 @@ class UserDAO extends DAO
      */
     public function desactivateAccount($pseudo)
     {
-        $sql = 'UPDATE comment INNER JOIN user ON comment.pseudo= user.pseudo SET validate = 0 WHERE user.pseudo = ?';
+        $sql = 'UPDATE comment SET validate = 0 WHERE user_id IN
+        (SELECT id FROM user WHERE pseudo = ?)';
         $this->createQuery($sql, [$pseudo]);
         $sql = 'UPDATE user SET activated = 0 WHERE pseudo = ?';
         $this->createQuery($sql, [$pseudo]);

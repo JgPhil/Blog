@@ -47,12 +47,17 @@
           <li class="nav-item active">
             <a class="nav-link" href="<?= INDEX_PATH ?>">Accueil</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="<?= INDEX_PATH . SLUG . 'contact' ?>">Contact</a>
-          </li>
-
-
-          <?php if ($this->session->get('pseudo')) {
+          <?php
+          if ($this->session->get('role') !== 'admin') {
+          ?>
+            <li class="nav-item">
+              <a class="nav-link" href="<?= INDEX_PATH . SLUG . 'contact' ?>">Contact</a>
+            </li>
+          <?php
+          }
+          ?>
+          <?php
+          if ($this->session->get('pseudo')) {
             if ($this->session->get('role') === 'admin') {
           ?>
               <li class="nav-item">
@@ -78,11 +83,11 @@
             <li class="nav-item">
               <a class="nav-link" href="<?= INDEX_PATH . SLUG . "login" ?>"><span class="fas fa-sign-in-alt"></span> Connexion</a>
             </li>
-        
-        <?php
+
+          <?php
           }
-        ?>
-      </ul>
+          ?>
+        </ul>
       </div>
     </nav>
 
