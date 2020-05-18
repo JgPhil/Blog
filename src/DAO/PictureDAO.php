@@ -18,35 +18,35 @@ class PictureDAO extends DAO
     public function getPostPicture($postId)
     {
 
-        $sql = 'SELECT path FROM picture WHERE post_id = ?';
+        $sql = 'SELECT name FROM picture WHERE post_id = ?';
         $result = $this->createQuery($sql, [$postId]);
-        $picturePath = $result->fetch();
+        $name = $result->fetch();
         $result->closeCursor();
-        return $picturePath;
+        return $name;
     }
 
     /**
-     * @param mixed $path
+     * @param mixed $name
      * @param mixed $postId
      * 
      * @return void
      */
-    public function addPostPicture($path, $postId)
+    public function addPostPicture($name, $postId)
     {
-        $sql = 'INSERT INTO picture (path, post_id) VALUES (?, ?)';
-        $this->createQuery($sql, [$path, $postId]);
+        $sql = 'INSERT INTO picture (name, post_id) VALUES (?, ?)';
+        $this->createQuery($sql, [$name, $postId]);
     }
 
     /**
-     * @param mixed $path
+     * @param mixed $name
      * @param mixed $userId
      * 
      * @return void
      */
-    public function addUserPicture($path, $userId)
+    public function addUserPicture($name, $userId)
     {
-        $sql = 'INSERT INTO picture (path, user_id) VALUES (?, ?)';
-        $this->createQuery($sql, [$path, $userId]);
+        $sql = 'INSERT INTO picture (name, user_id) VALUES (?, ?)';
+        $this->createQuery($sql, [$name, $userId]);
     }
 
     /**
@@ -56,11 +56,11 @@ class PictureDAO extends DAO
      */
     public function getUserPicture($userId)
     {
-        $sql = 'SELECT path FROM picture WHERE user_id = ?';
+        $sql = 'SELECT name FROM picture WHERE user_id = ?';
         $result = $this->createQuery($sql, [$userId]);
-        $picturePath = $result->fetch();
+        $name = $result->fetch();
         $result->closeCursor();
-        return $picturePath;
+        return $name;
     }
 
     /**
@@ -90,31 +90,31 @@ class PictureDAO extends DAO
     }
 
     /**
-     * @param mixed $path
+     * @param mixed $name
      * @param mixed $userId
      * 
      * @return void
      */
-    public function updateUserPicture($path, $userId)
+    public function updateUserPicture($name, $userId)
     {
-        $sql = 'UPDATE picture SET path = ? WHERE user_id = ?';
-        $this->createQuery($sql, [$path, $userId]);
+        $sql = 'UPDATE picture SET name = ? WHERE user_id = ?';
+        $this->createQuery($sql, [$name, $userId]);
     }
 
     /**
      * @param mixed $postId
-     * @param mixed $path
+     * @param mixed $name
      * 
      * @return void
      */
-    public function updatePostPicture($postId, $path)
+    public function updatePostPicture($postId, $name)
     {
         $checkPostPicture = $this->checkPostPicture($postId);
         if ($checkPostPicture) {
-            $sql = 'UPDATE picture SET path = ? WHERE post_id = ?';
-            $this->createQuery($sql, [$path, $postId]);
+            $sql = 'UPDATE picture SET name = ? WHERE post_id = ?';
+            $this->createQuery($sql, [$name, $postId]);
         } else {
-            $this->addPostPicture($path, $postId);
+            $this->addPostPicture($name, $postId);
         }
     }
 }

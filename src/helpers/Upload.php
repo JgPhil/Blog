@@ -53,8 +53,8 @@ class Upload
             // if everything is ok, try to upload file
         } else {
             if (move_uploaded_file($picture["tmp_name"], $target_file)) {
-                $path = basename($picture["name"]);
-                return $path;
+                $name = basename($picture["name"]);
+                return $name;
             } else {
                 return "Désolé, le fichier n'a pas été téléchargé";
             }

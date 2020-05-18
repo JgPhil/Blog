@@ -9,7 +9,7 @@ class Picture
 {
 
     private $id;
-    private $path;
+    private $name;
 
     /**
      * @return void
@@ -32,18 +32,18 @@ class Picture
     /**
      * @return void
      */
-    public function getPath()
+    public function getName()
     {
-        return $this->path;
+        return $this->name;
     }
 
     /**
-     * @param mixed $path
+     * @param mixed $name
      * 
      * @return void
      */
-    public function setPath($path)
+    public function setName($name)
     {
-        $this->path = $path;
+        $this->name = $name;
     }
 }

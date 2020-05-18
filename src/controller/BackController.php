@@ -136,12 +136,11 @@ class BackController extends BlogController
             $pseudo = $this->session->get('pseudo');
             $comments = $this->commentDAO->getCommentsByPseudo($pseudo);
             $posts = $this->postDAO->getPostsFromPseudo($pseudo);
-            [$user, $picturePath] = $this->userDAO->getUser($pseudo);
+            $user = $this->userDAO->getUser($pseudo);
             return $this->view->render('profile', [
                 'user' => $user,
                 'pseudo' => $pseudo,
                 'posts' => $posts,
-                'picturePath' => $picturePath,
                 'comments' => $comments
             ]);
         }

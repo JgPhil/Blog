@@ -133,7 +133,7 @@ class PostDAO extends DAO
      */
     public function getPostPicture($postId)
     {
-        $sql = 'SELECT path FROM picture WHERE post_id = ?';
+        $sql = 'SELECT name FROM picture WHERE post_id = ?';
         $result = $this->createQuery($sql, [$postId]);
         $row = $result->fetch(); //array
         $result->closeCursor();
