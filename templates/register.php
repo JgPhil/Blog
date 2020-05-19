@@ -66,7 +66,7 @@
             </div><!-- /EMAIL-->
 
             <p><b>Image</b></p>
-            <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
+            <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
             <input name="userfile" class="form-control" type="file" />
             <div class="col-lg-6 col-10 mx-auto">
 
