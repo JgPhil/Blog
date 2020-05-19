@@ -101,9 +101,9 @@ class FrontController extends BlogController
             if (!$errors) {
                 $target = "user";
                 $userId = $this->userDAO->register($postMethod);
-                if ($postMethod->getParameter('userfile')) {
+                if ($_FILES['userfile']['name']) {
                     $path = Upload::uploadFile($target);
-                    $this->pictureDAO->addPostPicture($path, $userId);
+                    $this->pictureDAO->addUserPicture($path, $userId);
                 }
                 $this->session->set('register', 'votre inscription a bien été éffectuée, Merci de cliquer sur le lien présent dans le mail de confirmation qui vient de vous être envoyé.');
                 return $this->view->render('register2');

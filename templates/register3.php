@@ -30,7 +30,7 @@
         </div>
         <div class="col-lg-8 mx-auto">
             <div class="bg-white rounded text-center p-5 shadow-down">
-            <h4 class="mb-80"><b><?= htmlentities($this->session->show('email_confirmation'));?></b> </h4>
+            <h4 class="mb-80"><b><?= $this->session->show('email_confirmation');?></b> </h4>
         </div>
       </div>
     </div>
