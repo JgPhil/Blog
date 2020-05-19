@@ -42,7 +42,7 @@ if (!empty($comments)) {
                     </div>
                     <div class="profile-userpic col-lg-4">
                         <?php $userPicture = $comment->getUser()->getPicture(); ?>
-                        <img height="80" src=<?= isset($userPicture) ? USER_PICTURE . $userPicture->getPath() : USER_AVATAR ?> class="img-responsive" alt="user_picture">
+                        <img height="80" src=<?= isset($userPicture) ? USER_PICTURE . $userPicture->getName() : USER_AVATAR ?> class="img-responsive" alt="<?="Une image de ".htmlentities($comment->getUser()->getPseudo())?>">
                     </div>
                 </div>
                 <div class="mb-4"><a class="btn btn-danger btn-xs mr-2" href="../public/index.php?route=hideComment&commentId=<?= htmlentities($comment->getId()); ?>" onclick="return confirm('Voulez-vous mettre ce commentaire à la corbeille?  ( Irréverssible !!)')">Supprimer </a>

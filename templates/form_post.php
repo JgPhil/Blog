@@ -56,7 +56,7 @@ $h2 = $route === 'addPost' ? 'Rédaction d\'un article' : 'Mis à jour de l\'art
         <textarea class="form-control" rows="12" id="content" name="content"><?= isset($postMethod) ? $postMethod->getParameter('content') : ''; ?></textarea><br>
         <?= isset($errors['content']) ? $errors['content'] : ''; ?>
 
-        <p><b>Image actuelle: </b><em><?= isset($postMethod) ? $postMethod->getParameter('picturePath')->getPath() : ''; ?></em></p>
+        <p><b>Image actuelle: </b><em><?= isset($postMethod) ? $postMethod->getParameter('picturePath')->getName() : ''; ?></em></p>
         <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
         <input name="userfile" class="form-control" type="file" />
       </div>
