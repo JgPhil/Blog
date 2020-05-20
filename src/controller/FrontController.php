@@ -70,13 +70,13 @@ class FrontController extends BlogController
     {
         if ($postMethod->getParameter('submit')) {
             $target = "user";
-            $path = Upload::uploadFile($target);
+            $name = Upload::uploadFile($target);
             $userId = $this->session->get('id');
             $checkUserPicture = $this->pictureDAO->checkUserPicture($userId);
             if ($checkUserPicture) {
-                $this->pictureDAO->updateUserPicture($path, $userId);
+                $this->pictureDAO->updateUserPicture($name, $userId);
             } else {
-                $this->pictureDAO->addUserPicture($path, $userId);
+                $this->pictureDAO->addUserPicture($name, $userId);
             }
             $this->session->set('update_user_picture', 'Votre image a été changée');
             header('Location: ../public/index.php?route=profile');
@@ -102,8 +102,8 @@ class FrontController extends BlogController
                 $target = "user";
                 $userId = $this->userDAO->register($postMethod);
                 if ($_FILES['userfile']['name']) {
-                    $path = Upload::uploadFile($target);
-                    $this->pictureDAO->addUserPicture($path, $userId);
+                    $name = Upload::uploadFile($target);
+                    $this->pictureDAO->addUserPicture($name, $userId);
                 }
                 $this->session->set('register', 'votre inscription a bien été éffectuée, Merci de cliquer sur le lien présent dans le mail de confirmation qui vient de vous être envoyé.');
                 return $this->view->render('register2');

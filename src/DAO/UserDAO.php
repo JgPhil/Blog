@@ -41,10 +41,7 @@ class UserDAO extends DAO
         $data = $this->createQuery($sql, [$pseudo]);
         $result = $data->fetch();
         $user = $this->buildObject($result);
-        $sql = 'SELECT path FROM picture WHERE user_id = ?';
-        $res = $this->createQuery($sql, [$result['id']]);
-        $picturePath = $res->fetch();
-        return [$user, $picturePath];
+        return $user;
     }
 
     /**
@@ -121,13 +118,9 @@ class UserDAO extends DAO
         $result = $data->fetch();
         if ($result) {
             $isPasswordValid = password_verify(filter_var($postMethod->getParameter('password'), FILTER_SANITIZE_STRING), $result['password']);
-            $sql = 'SELECT path FROM picture WHERE user_id = ?';
-            $res = $this->createQuery($sql, [$result['id']]);
-            $picturePath = $res->fetch();
             return [
                 'result' => $result, //array
-                'isPasswordValid' => $isPasswordValid, //bool
-                'picturePath' => $picturePath
+                'isPasswordValid' => $isPasswordValid
             ];
         }
     }
@@ -264,7 +257,7 @@ class UserDAO extends DAO
      */
     public function getUserPicture($userId)
     {
-        $sql = 'SELECT path FROM picture WHERE user_id = ?';
+        $sql = 'SELECT name FROM picture WHERE user_id = ?';
         $result = $this->createQuery($sql, [$userId]);
         $row = $result->fetch(); //array
         $result->closeCursor();
