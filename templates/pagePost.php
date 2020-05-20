@@ -57,8 +57,7 @@
 
         <div class="content">
           <?php $postPicture = $post->getPicture(); ?>
-          <img src=<?=!empty($postPicture) ? POST_PICTURE . $postPicture->getName() : POST_EMPTY_PICTURE ?> alt="post-thumb" class="img-fluid rounded float-left mr-5 mb-4">
-
+          <img src=<?=!empty($postPicture) ? POST_PICTURE . $postPicture->getName() : POST_EMPTY_PICTURE//htmlentities($picturePath['path']) ?> alt="<?="une image de l'article ". $post->getTitle()?>" class="img-fluid rounded float-left mr-5 mb-4">
           <p><?= nl2br($post->getContent()); ?></p>
         </div>
       </div>
@@ -83,7 +82,7 @@
             <div class="bg-gray p-4 mb-4">
               <div class="media border-bottom py-2">
               <?php $userPicture = $comment->getUser()->getPicture(); ?>
-                        <img height="80" src=<?= isset($userPicture) ? USER_PICTURE . $userPicture->getName() : USER_AVATAR ?> class="img-responsive" alt="user_picture">
+                        <img height="80" src=<?= isset($userPicture) ? USER_PICTURE . $userPicture->getName() : USER_AVATAR ?> class="img-responsive" alt="<?="Une image de ".$comment->getUser()->getPseudo() ?>">
                 <div class="media-body ml-5">
                   <h5 class="mt-0"><?= $comment->getUser()->getPseudo(); ?></h5>
                   <p><?= htmlentities($comment->getCreatedAt()); ?></p>

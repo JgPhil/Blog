@@ -35,7 +35,7 @@
                 <div class="col-lg-12 text-center bg-light border mt-2">
                   <div class="profile-userpic">
                     <?php $userPicture = $user->getPicture(); ?>
-                    <img src=<?= isset($userPicture) ? USER_PICTURE . $user->getPicture()->getName() : USER_AVATAR ?> class="img-responsive" alt="">
+                    <img src=<?= isset($userPicture) ? USER_PICTURE . $user->getPicture()->getName() : USER_AVATAR ?> class="img-responsive" alt="<?="Une image de ".$pseudo?>">
                   </div>
                   <div class="row text-center mt-2">
                     <div class="col-lg-12 text-center ">
