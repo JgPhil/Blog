@@ -101,7 +101,7 @@ class FrontController extends BlogController
             if (!$errors) {
                 $target = "user";
                 $userId = $this->userDAO->register($postMethod);
-                if ($_FILES['userfile']['name']) {
+                if ($this->files->getParameter('userfile')['name']) {
                     $name = Upload::uploadFile($target);
                     $this->pictureDAO->addUserPicture($name, $userId);
                 }
@@ -183,7 +183,7 @@ class FrontController extends BlogController
      * 
      * @return void
      */
-    public function contactEmail(Method $postMethod)
+    public function contact(Method $postMethod)
     {
         if ($postMethod->getParameter('submit')) {
             $errors = $this->validation->validate($postMethod, 'Email');
@@ -199,13 +199,6 @@ class FrontController extends BlogController
                 ]);
             }
         }
-    }
-
-    /**
-     * @return void
-     */
-    public function contact()
-    {
         return $this->view->render('contact');
     }
 }

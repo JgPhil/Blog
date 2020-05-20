@@ -12,6 +12,7 @@ abstract class Controller
     protected $getMethod;
     protected $postMethod;
     protected $session;
+    protected $files;
    
     
 
@@ -25,5 +26,6 @@ abstract class Controller
         $this->getMethod = $this->request->getGet();
         $this->postMethod = $this->request->getPost();
         $this->session = $this->request->getSession();
+        $this->files = $this->request->getFiles();
     }
 }
