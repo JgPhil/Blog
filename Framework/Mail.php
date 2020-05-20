@@ -52,7 +52,7 @@ class Mail extends Request
         <html>
         <body>
             <div>
-            Bonjour ' .htmlentities($_POST['pseudo'])  . ' ! <br><br>
+            Bonjour ' .$pseudo. ' ! <br><br>
             Pour finaliser votre inscription, merci de <br>'
             . $link . '<br>
             pour vérifier votre adresse email. <br><br>

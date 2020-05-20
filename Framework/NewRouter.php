@@ -40,27 +40,24 @@ class NewRouter
         $action = null;
 
         try {
-            if (isset($_SERVER['REQUEST_URI'])) {
 
-                if (empty($route)) {
-                    return $action = $this->frontController->home();
-                } else {
-                    foreach ($routes as $xmlRoute) {                        
-                        $param = $xmlRoute->getAttribute('param');
-                        $controller = substr($xmlRoute->getAttribute('application'), 0, -3) . 'Controller';
-                        $method = $xmlRoute->getAttribute('method') . '(' . $param . ')';
-                        $action = '$this->' . $controller . '->' . $method.';';
-                        if ($xmlRoute->getAttribute('url') == $route) {                          
-                            return eval($action);
-                        }
+            if (empty($route)) {
+                return $action = $this->frontController->home();
+            } else {
+                foreach ($routes as $xmlRoute) {
+                    $param = $xmlRoute->getAttribute('param');
+                    $controller = substr($xmlRoute->getAttribute('application'), 0, -3) . 'Controller';
+                    $method = $xmlRoute->getAttribute('method') . '(' . $param . ')';
+                    $action = '$this->' . $controller . '->' . $method . ';';
+                    if ($xmlRoute->getAttribute('url') == $route) {
+                        return eval($action);
                     }
                 }
-                if (null === $action) {
-                    return $this->errorController->errorNotFound();
-                } else {
-                    return $action; 
-                }
             }
+            if (null === $action) {
+                return $this->errorController->errorNotFound();
+            }
+            return $action;
         } catch (Exception $e) {
             $this->errorController->errorServer();
         }

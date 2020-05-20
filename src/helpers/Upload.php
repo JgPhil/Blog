@@ -37,8 +37,8 @@ class Upload
             } else {
                 if ($uploadOk !== 0) {
                     if (move_uploaded_file($picture["tmp_name"], $target_file)) {
-                        $path = basename($picture["name"]);
-                        return $path;
+                        $name = basename($picture["name"]);
+                        return $name;
                     }
                 }   
             }
