@@ -2,7 +2,7 @@
 
 namespace App\src\controller;
 
-use App\src\helpers\Upload;
+use App\Framework\Upload;
 use App\Framework\Method;
 
 /**
@@ -70,7 +70,8 @@ class FrontController extends BlogController
     {
         if ($postMethod->getParameter('submit')) {
             $target = "user";
-            $name = Upload::uploadFile($target);
+            $file = new Upload;
+            $name = $file->uploadFile($target);
             $userId = $this->session->get('id');
             $checkUserPicture = $this->pictureDAO->checkUserPicture($userId);
             if ($checkUserPicture) {
@@ -102,7 +103,8 @@ class FrontController extends BlogController
                 $target = "user";
                 $userId = $this->userDAO->register($postMethod);
                 if ($this->files->getParameter('userfile')['name']) {
-                    $name = Upload::uploadFile($target);
+                    $file = new Upload;
+                    $name = $file->uploadFile($target);
                     $this->pictureDAO->addUserPicture($name, $userId);
                 }
                 $this->session->set('register', 'votre inscription a bien été éffectuée, Merci de cliquer sur le lien présent dans le mail de confirmation qui vient de vous être envoyé.');
