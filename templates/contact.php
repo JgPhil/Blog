@@ -34,7 +34,7 @@ $this->title="Contact"; ?>
       <div class="col-lg-8 mx-auto">
         <div class="bg-white rounded text-center p-5 shadow-down">
           <h4 class="mb-80">Formulaire de contact</h4>
-          <form method="post" action="../public/index.php?route=contactEmail" class="row">
+          <form method="post" action="../public/index.php?route=contact" class="row">
             <div class="col-md-6">
               <input type="text" id="name" name="name" placeholder="Votre nom" class="form-control px-0 mb-4">
               <?php

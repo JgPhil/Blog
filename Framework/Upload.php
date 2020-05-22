@@ -1,34 +1,38 @@
 <?php
 
-namespace App\src\helpers;
+namespace App\Framework;
+
+
 
 /**
  * Class Upload
  */
-class Upload
+class Upload extends Request
 {
+    private $picture;
+
 
     /**
      * @param mixed $target
      * 
      * @return void
      */
-    public static function uploadFile($target) //uploadPicture
+    public function uploadFile($target) //uploadPicture
     {
         $target_dir = $target === "user" ? USER_PICTURE : POST_PICTURE;
-        $picture = $_FILES['userfile'];
-        $target_file = $target_dir . basename($picture["name"]);
+        $this->picture = $this->files->getParameter('userfile');
+        $target_file = $target_dir . basename($this->picture["name"]);
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
         $allowedExt = ['jpg', 'jpeg', 'png', 'gif'];
 
-        if (!empty($picture['name'])) {
+        if (!empty($this->picture['name'])) {
             if (file_exists($target_file)) {
                 chmod($target_file, 0755);
                 unlink($target_file);
             }
 
-            if ($picture["size"] > 1000000) {
+            if ($this->picture["size"] > 1000000) {
                 $uploadOk = 0;
             }
 
@@ -36,8 +40,8 @@ class Upload
                 $uploadOk = 0;
             } else {
                 if ($uploadOk !== 0) {
-                    if (move_uploaded_file($picture["tmp_name"], $target_file)) {
-                        $name = basename($picture["name"]);
+                    if (move_uploaded_file($this->picture["tmp_name"], $target_file)) {
+                        $name = basename($this->picture["name"]);
                         return $name;
                     }
                 }   

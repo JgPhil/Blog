@@ -3,7 +3,7 @@
 namespace App\src\controller;
 
 use App\Framework\Method;
-use App\src\helpers\Upload;
+use App\Framework\Upload;
 
 /**
  * Class BackController
@@ -11,6 +11,8 @@ use App\src\helpers\Upload;
 class BackController extends BlogController
 
 {
+
+    private $dao;
     /**
      * @return void
      */
@@ -64,16 +66,16 @@ class BackController extends BlogController
     public function addPost(Method $postMethod)
     {
         $target = "blog";
-        $path = null;
+        $name = null;
         if ($this->checkAdmin()) {
             if ($postMethod->getParameter('submit')) {
                 $errors = $this->validation->validate($postMethod, 'Post');
                 if (!$errors) {
                     $postId = $this->postDAO->addPost($postMethod, $this->session->get('id'));
-                    if (!empty($_FILES['userfile']['name'])) {
-                        $path = Upload::uploadFile($target);
-                        $this->pictureDAO->addPostPicture($path, $postId);
-                    }                    
+                    if (!empty($this->files->getParameter('userfile')['name'])) {
+                        $name = Upload::uploadFile($target);
+                        $this->pictureDAO->addPostPicture($name, $postId);
+                    }
                     $this->session->set('add_post', 'Le nouvel article a bien été ajouté');
                     header('Location: ../public/index.php?route=administration');
                 }
@@ -96,15 +98,15 @@ class BackController extends BlogController
     public function editPost(Method $postMethod, $postId)
     {
         $target = "blog";
-        $path = null;
+        $name = null;
         if ($this->checkAdmin()) {
             $post = $this->postDAO->getPost($postId);
             if ($postMethod->getParameter('submit')) {
                 $errors = $this->validation->validate($postMethod, 'Post');
                 if (!$errors) {
-                    if (!empty($_FILES['userfile']['name'])) {
-                        $path = Upload::uploadFile($target);
-                        $this->pictureDAO->updatePostPicture($postId, $path);
+                    if (!empty($this->files->getParameter('userfile')['name'])) {
+                        $name = Upload::uploadFile($target);
+                        $this->pictureDAO->updatePostPicture($postId, $name);
                     }
                     $this->postDAO->editPost($postMethod, $postId, $this->session->get('id'));
                     $this->session->set('edit_post', 'L\' article a bien été modifié');
@@ -222,89 +224,48 @@ class BackController extends BlogController
     }
 
 
-    /**
-     * @param mixed $userId
-     * 
-     * @return void
-     */
-    public function hideUser($userId)
+    public function trash($id)
     {
         if ($this->checkAdmin()) {
-            $this->userDAO->hideUser($userId);
-            $this->session->set('delete_account', 'Le compte a bien été mis à la corbeille');
+            switch ($this->getMethod->getParameter('route')) {
+                case 'hideUser':
+                    $this->userDAO->hideUser($id);
+                    $this->session->set('hide_user', 'L\'utilisateur a été envoyé vers la corbeille');
+                    break;
+                case 'hidePost':
+                    $this->postDAO->hidePost($id);
+                    $this->session->set('hide_post', 'L\'article a été envoyé vers la corbeille');
+                    break;
+                case 'hideComment':
+                    $this->commentDAO->hideComment($id);
+                    $this->session->set('hide_comment', 'Le commentairee a été envoyé vers la corbeille');
+                    break;
+            }
             header('Location: ../public/index.php?route=administration');
         }
     }
 
-    /**
-     * @param mixed $postId
-     * 
-     * @return void
-     */
-    public function hidePost($postId)
+    public function show($id)
     {
         if ($this->checkAdmin()) {
-            $this->postDAO->hidePost($postId);
-            $this->session->set('delete_post', 'L\'article a bien été mis à la corbeille');
-            header('Location: ../public/index.php?route=administration');
+            switch ($this->getMethod->getParameter('route')) {
+                case 'showUser':
+                    $this->userDAO->showUser($id);
+                    $this->session->set('show_user', 'L\'utilisateur est à nouveau visible sur la page d\'administration');
+                    break;
+                case 'showPost':
+                    $this->postDAO->showPost($id);
+                    $this->session->set('show_post', 'L\'article est à nouveau visible sur la page d\'administration');
+                    break;
+                    case 'showComment':
+                        $this->commentDAO->showComment($id);
+                        $this->session->set('show_comment', 'Le commentaire est à nouveau visible sur la page d\'administration');
+                        break;
+            }
+            header('Location: ../public/index.php?route=trash');
         }
     }
 
-    /**
-     * @param mixed $commentId
-     * 
-     * @return void
-     */
-    public function hideComment($commentId)
-    {
-        if ($this->checkAdmin()) {
-            $this->commentDAO->hideComment($commentId);
-            $this->session->set('delete_comment', 'Le commentaire a bien été mis à la corbeille');
-            header('Location: ../public/index.php?route=administration');
-        }
-    }
-
-    /**
-     * @param mixed $userId
-     * 
-     * @return void
-     */
-    public function showUser($userId)
-    {
-        if ($this->checkAdmin()) {
-            $this->userDAO->showUser($userId);
-            $this->session->set('show_account', 'Le compte est à nouveau visible');
-            header('Location: ../public/index.php?route=administration');
-        }
-    }
-
-    /**
-     * @param mixed $postId
-     * 
-     * @return void
-     */
-    public function showPost($postId)
-    {
-        if ($this->checkAdmin()) {
-            $this->postDAO->showPost($postId);
-            $this->session->set('show_post', 'L\'article est à nouveau visible');
-            header('Location: ../public/index.php?route=administration');
-        }
-    }
-
-    /**
-     * @param mixed $commentId
-     * 
-     * @return void
-     */
-    public function showComment($commentId)
-    {
-        if ($this->checkAdmin()) {
-            $this->commentDAO->showComment($commentId);
-            $this->session->set('show_comment', 'Le commentaire est à nouveau visible');
-            header('Location: ../public/index.php?route=administration');
-        }
-    }
 
     /**
      * @param mixed $postId

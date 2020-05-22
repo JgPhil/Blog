@@ -197,8 +197,7 @@ class UserDAO extends DAO
      */
     public function hideUser($userId)
     {
-        $sql = 'UPDATE comment SET visible = 0 WHERE pseudo IN
-        (SELECT pseudo FROM user WHERE id = ?)';
+        $sql = 'UPDATE comment SET visible = 0 WHERE user_id = ?';
         $this->createQuery($sql, [$userId]);
         $sql = 'UPDATE user SET visible = 0 WHERE id = ?';
         $this->createQuery($sql, [$userId]);
@@ -214,8 +213,7 @@ class UserDAO extends DAO
     {
         $sql = 'UPDATE user SET visible = 1 WHERE id = ?';
         $this->createQuery($sql, [$userId]);
-        $sql = 'UPDATE comment SET visible = 1 WHERE pseudo IN
-        (SELECT pseudo FROM user WHERE id = ?)';
+        $sql = 'UPDATE comment SET visible = 1 WHERE user_id = ? ';
         $this->createQuery($sql, [$userId]);
     }
 
