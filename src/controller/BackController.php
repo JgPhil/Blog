@@ -12,19 +12,7 @@ class BackController extends BlogController
 
 {
 
-    private $dao;
-    /**
-     * @return void
-     */
-    private function checkLoggedIn()
-    {
-        if (!$this->session->get('pseudo')) {
-            $this->session->set('need_login', 'Vous devez vous connecter pour accéder à cette page');
-            header('Location: ../public/index.php?route=login');
-        } else {
-            return true;
-        }
-    }
+
 
     /**
      * @return void
@@ -130,75 +118,6 @@ class BackController extends BlogController
     }
 
     /**
-     * @return void
-     */
-    public function profile()
-    {
-        if ($this->checkLoggedIn()) {
-            $pseudo = $this->session->get('pseudo');
-            $comments = $this->commentDAO->getCommentsByPseudo($pseudo);
-            $posts = $this->postDAO->getPostsFromPseudo($pseudo);
-            $user = $this->userDAO->getUser($pseudo);
-            return $this->view->render('profile', [
-                'user' => $user,
-                'pseudo' => $pseudo,
-                'posts' => $posts,
-                'comments' => $comments
-            ]);
-        }
-    }
-
-    /**
-     * @param mixed $pseudo
-     * 
-     * @return void
-     */
-    public function checkProfile($pseudo)
-    {
-        $comments = $this->commentDAO->getCommentsByPseudo($pseudo);
-        return $this->view->render('profilComments', [
-            'comments' => $comments
-        ]);
-    }
-
-    /**
-     * @param Method $postMethod
-     * 
-     * @return void
-     */
-    public function updatePassword(Method $postMethod)
-    {
-        if ($this->checkLoggedIn()) {
-            if ($postMethod->getParameter('submit')) {
-                $errors = $this->validation->validate($postMethod, 'User');
-                if (!$errors) {
-                    $this->userDAO->updatePassword($postMethod, $this->session->get('pseudo'));
-                    $this->session->set('update_password', 'Le mot de passe a été mis à jour');
-                    header('Location: ../public/index.php');
-                }
-                return $this->view->render('update_password', [
-                    'postMethod' => $postMethod,
-                    'errors' => $errors
-                ]);
-            }
-            return $this->view->render('update_password');
-        }
-    }
-
-    /**
-     * @return void
-     */
-    public function logout()
-    {
-        if ($this->checkLoggedIn()) {
-            $this->session->stop();
-            $this->session->start();
-            $this->session->set('logout', 'À bientôt');
-            header('Location: ../public/index.php');
-        }
-    }
-
-    /**
      * @param mixed $pseudo
      * 
      * @return void
@@ -257,10 +176,10 @@ class BackController extends BlogController
                     $this->postDAO->showPost($id);
                     $this->session->set('show_post', 'L\'article est à nouveau visible sur la page d\'administration');
                     break;
-                    case 'showComment':
-                        $this->commentDAO->showComment($id);
-                        $this->session->set('show_comment', 'Le commentaire est à nouveau visible sur la page d\'administration');
-                        break;
+                case 'showComment':
+                    $this->commentDAO->showComment($id);
+                    $this->session->set('show_comment', 'Le commentaire est à nouveau visible sur la page d\'administration');
+                    break;
             }
             header('Location: ../public/index.php?route=trash');
         }

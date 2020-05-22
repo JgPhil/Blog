@@ -1,10 +1,8 @@
 <?php
-
-$adminRoute = $_REQUEST['route'] === 'administration';
-
+$route = $this->getMethod->getParameter('route');
+$adminRoute = isset($route) && $route === 'administration';
 $title = $h1 =  $adminRoute ? 'Administration' : 'Corbeille';
-$return = $adminRoute ? INDEX_PATH : INDEX_PATH . SLUG . 'administration';
-$returnText = $adminRoute ? 'Retour' : 'Retour';
+$return = $adminRoute ? INDEX_PATH : INDEX_PATH . SLUG . 'administration'; //navbar arrow
 $visible = $adminRoute ? '1' : '0';
 
 $this->title = $title; ?>
@@ -20,47 +18,47 @@ $this->title = $title; ?>
                             <?php
                             if ($this->session->get('add_post')) {
                             ?>
-                                <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('add_post')) ?></h4>
+                                <h4 class="alert alert-success" role="alert"><? print_r(htmlentities($this->session->show('add_post'))) ?></h4>
                             <?php
                             } elseif ($this->session->get('edit_post')) {
                             ?>
-                                <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('edit_post')) ?></h4>
+                                <h4 class="alert alert-success" role="alert"><? print_r(htmlentities($this->session->show('edit_post'))) ?></h4>
                             <?php
                             } elseif ($this->session->get('hide_post')) {
                             ?>
-                                <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('hide_post')) ?></h4>
+                                <h4 class="alert alert-success" role="alert"><? print_r(htmlentities($this->session->show('hide_post'))) ?></h4>
                             <?php
                             } elseif ($this->session->get('hide_comment')) {
                             ?>
-                                <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('hide_comment')) ?></h4>
+                                <h4 class="alert alert-success" role="alert"><? print_r(htmlentities($this->session->show('hide_comment'))) ?></h4>
                             <?php
                             } elseif ($this->session->get('hide_user')) {
                             ?>
-                                <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('hide_user')) ?></h4>
+                                <h4 class="alert alert-success" role="alert"><? print_r(htmlentities($this->session->show('hide_user'))) ?></h4>
                             <?php
                             } elseif ($this->session->get('validate_comment')) {
                             ?>
-                                <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('validate_comment')) ?></h4>
+                                <h4 class="alert alert-success" role="alert"><? print_r(htmlentities($this->session->show('validate_comment'))) ?></h4>
                             <?php
                             } elseif ($this->session->get('invalidate_comment')) {
                             ?>
-                                <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('invalidate_comment')) ?></h4>
+                                <h4 class="alert alert-success" role="alert"><? print_r(htmlentities($this->session->show('invalidate_comment'))) ?></h4>
                             <?php
                             } elseif ($this->session->get('activate_account')) {
                             ?>
-                                <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('activate_account')) ?></h4>
+                                <h4 class="alert alert-success" role="alert"><? print_r(htmlentities($this->session->show('activate_account'))) ?></h4>
                             <?php
                             } elseif ($this->session->get('empty_trash')) {
                             ?>
-                                <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('empty_trash')) ?></h4>
+                                <h4 class="alert alert-success" role="alert"><? print_r(htmlentities($this->session->show('empty_trash'))) ?></h4>
                             <?php
                             } elseif ($this->session->get('set_admin')) {
                             ?>
-                                <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('set_admin')) ?></h4>
+                                <h4 class="alert alert-success" role="alert"><? print_r(htmlentities($this->session->show('set_admin'))) ?></h4>
                             <?php
                             } elseif ($this->session->get('desactivate_account')) {
                             ?>
-                                <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('desactivate_account')) ?></h4>
+                                <h4 class="alert alert-success" role="alert"><? print_r(htmlentities($this->session->show('desactivate_account'))) ?></h4>
                             <?php
                             }
                             ?>
@@ -68,7 +66,7 @@ $this->title = $title; ?>
                     </div>
                 </div>
 
-                <h1 class="text-white font-tertiary"><br><?= htmlentities($h1) ?></h1>
+                <h1 class="text-white font-tertiary"><br><? print_r(htmlentities($h1)) ?></h1>
             </div>
         </div>
     </div>
@@ -87,7 +85,7 @@ $this->title = $title; ?>
     <nav class="navbar navbar-expand-lg d-flex justify-content-center ">
         <div class="navbar-brand" id="admin_nav">
             <ul class="navbar-nav navbar-dark mx-auto d-flex align-items-center">
-                <li class="nav-item"><a class="nav-link" href=<?= htmlentities($return) ?>><i class="fas fa-long-arrow-alt-left"></i><?= htmlentities($returnText) ?></a></li>
+                <li class="nav-item"><a class="nav-link" href=<? print_r(htmlentities($return)) ?>><i class="fas fa-long-arrow-alt-left"></i>Retour</a></li>
                 <li class="nav-item"><a class="nav-link" href="#posts">Articles</a></li>
                 <li class="nav-item"><a class="nav-link" href="#users">Utilisateurs</a></li>
                 <li class="nav-item"><a class="nav-link" href="#comments">commentaires</a></li>
@@ -95,13 +93,13 @@ $this->title = $title; ?>
                 if ($adminRoute) {
                 ?>
 
-                    <li class="nav-item"><a class="nav-link" href="<?= INDEX_PATH . SLUG . "trash" ?>"><i class="fas fa-trash-alt" style="font-size:17px"></i>Corbeille</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<? print_r(INDEX_PATH . SLUG . "trash") ?>"><i class="fas fa-trash-alt" style="font-size:17px"></i>Corbeille</a></li>
 
 
                 <?php
                 } else {
                 ?>
-                    <a class="d-flex justify-content-end btn btn-danger mx-auto" href="<?= INDEX_PATH . SLUG . "emptyTrash" ?>" onclick="return confirm('êtes-vous sûr de vouloir vider la corbeille?')">Vider La Corbeille</a>
+                    <a class="d-flex justify-content-end btn btn-danger mx-auto" href="<? print_r(INDEX_PATH . SLUG . "emptyTrash") ?>" onclick="return confirm('êtes-vous sûr de vouloir vider la corbeille?')">Vider La Corbeille</a>
                 <?php
                 }
 
@@ -124,7 +122,7 @@ $this->title = $title; ?>
         <?php
         if ($adminRoute) {
         ?>
-            <a class="btn btn-primary col-lg-2 d-flex justify-content-center btn btn-primary mx-auto mb-20" href="<?= INDEX_PATH . SLUG . "addPost" ?>">Nouvel article</a>
+            <a class="btn btn-primary col-lg-2 d-flex justify-content-center btn btn-primary mx-auto mb-20" href="<? print_r(INDEX_PATH . SLUG . "addPost") ?>">Nouvel article</a>
         <?php
         }
         ?>
@@ -148,27 +146,27 @@ $this->title = $title; ?>
             </tr>
             <?php
             foreach ($posts as $post) {
-                if (is_null($post->getErasedAt())) {
+                if ($post->getErasedAt()===null) {
                     if ($post->getVisible() === $visible) {
             ?>
                         <tr>
-                            <td><?= htmlentities($post->getId()); ?></td>
-                            <td><a href="../public/index.php?route=post&postId=<?= htmlentities($post->getId()); ?>"><?= htmlentities($post->getTitle()); ?></a></td>
-                            <td> <?= $post->getHeading(); ?></td>
-                            <td><?= htmlentities($post->getUser()->getPseudo()); ?> (<?= htmlentities($post->getUser()->getRole()) ?>)</td>
-                            <td>Dernière modif. le : <?= htmlentities($post->getLastUpdate()); ?></td>
+                            <td><? print_r(htmlentities($post->getId())); ?></td>
+                            <td><a href="../public/index.php?route=post&postId=<? print_r(htmlentities($post->getId())) ?>"><? print_r(htmlentities($post->getTitle())); ?></a></td>
+                            <td> <? print_r($post->getHeading()); ?></td>
+                            <td><? print_r(htmlentities($post->getUser()->getPseudo())); ?> (<? print_r(htmlentities($post->getUser()->getRole())) ?>)</td>
+                            <td>Dernière modif. le : <? print_r(htmlentities($post->getLastUpdate())); ?></td>
 
                             <?php if ($adminRoute) {
                             ?>
-                                <td><a href="../public/index.php?route=postComments&postId=<?= htmlentities($post->getId()); ?>">Voir</a></td>
+                                <td><a href="../public/index.php?route=postComments&postId=<? print_r(htmlentities($post->getId())); ?>">Voir</a></td>
                                 <td>
-                                    <a href="../public/index.php?route=editPost&postId=<?= htmlentities($post->getId()); ?>">Modifier</a>
-                                    <a href="../public/index.php?route=hidePost&postId=<?= htmlentities($post->getId()); ?>" onclick="return confirm('êtes-vous sûr de vouloir mettre l\'article à la corbeille?')">Supprimer</a>
+                                    <a href="../public/index.php?route=editPost&postId=<? print_r(htmlentities($post->getId())); ?>">Modifier</a>
+                                    <a href="../public/index.php?route=hidePost&postId=<? print_r(htmlentities($post->getId())); ?>" onclick="return confirm('êtes-vous sûr de vouloir mettre l\'article à la corbeille?')">Supprimer</a>
                                 </td>
                             <?php
                             } else { // lien pour restaurer un article vers l'administration
                             ?>
-                                <td><a href="../public/index.php?route=showPost&postId=<?= htmlentities($post->getId()); ?>">Restaurer vers le panneau d'administration</a></td>
+                                <td><a href="../public/index.php?route=showPost&postId=<? print_r(htmlentities($post->getId())); ?>">Restaurer vers le panneau d'administration</a></td>
 
                             <?php
                             }
@@ -207,13 +205,13 @@ $this->title = $title; ?>
             </tr>
             <?php
             foreach ($users as $user) {
-                if (is_null($user->getErasedAt())) {
+                if ($user->getErasedAt()===null) {
                     if ($user->getVisible() === $visible) { ?>
 
                         <tr>
-                            <td><?php echo (htmlspecialchars($user->getId())); ?></td>
-                            <td><?php echo (htmlspecialchars($user->getPseudo())); ?></td>
-                            <td>Créé le : <?php echo (htmlspecialchars($user->getCreatedAt())); ?></td>
+                            <td><?php print_r(htmlspecialchars($user->getId())); ?></td>
+                            <td><?php print_r(htmlspecialchars($user->getPseudo())); ?></td>
+                            <td>Créé le : <?php print_r(htmlspecialchars($user->getCreatedAt())); ?></td>
                             <td>
                                 <?php
                                 if ($adminRoute) {
@@ -222,7 +220,7 @@ $this->title = $title; ?>
                                 <a href="../public/index.php?route=setAdmin&pseudo=<?php print_r(htmlspecialchars($user->getPseudo())); ?>" onclick="return confirm('êtes-vous sûr de vouloir donner le statut administrateur à l\'utilisateur ?')">Promouvoir</a>
                             <?php
                                     } else {
-                                        echo ('Administrateur');
+                                        print_r('Administrateur');
                                     }
                             ?>
                             </td>
@@ -233,10 +231,10 @@ $this->title = $title; ?>
                                         if ($user->getActivated() === '1') {
                                 ?>
                                         Compte actif
-                                        <a href="../public/index.php?route=desactivateAccountAdmin&pseudo=<?php echo (htmlspecialchars($user->getPseudo())); ?>" onclick="return confirm('êtes-vous sûr de vouloir désactiver l\'utilisateur ?')">Désactiver</a>
+                                        <a href="../public/index.php?route=desactivateAccountAdmin&pseudo=<?php print_r(htmlspecialchars($user->getPseudo())); ?>" onclick="return confirm('êtes-vous sûr de vouloir désactiver l\'utilisateur ?')">Désactiver</a>
                                     <?php
                                         } else { ?>
-                                        <a href="../public/index.php?route=activateAccount&pseudo=<?php echo (htmlspecialchars($user->getPseudo())); ?>" onclick="return confirm('êtes-vous sûr de vouloir activer l\'utilisateur ?')">Activer</a>
+                                        <a href="../public/index.php?route=activateAccount&pseudo=<?php print_r(htmlspecialchars($user->getPseudo())); ?>" onclick="return confirm('êtes-vous sûr de vouloir activer l\'utilisateur ?')">Activer</a>
                                     <?php
                                         }
                                     } else { ?>
@@ -248,7 +246,7 @@ $this->title = $title; ?>
                             <td>
                                 <?php
                                     if ($user->getRole() != 'admin') { ?>
-                                    <a href="../public/index.php?route=hideUser&userId=<?php echo (htmlspecialchars($user->getId())); ?>" onclick="return confirm('êtes-vous sûr de vouloir mettre l\'utilisateur à la corbeille?')">Supprimer</a>
+                                    <a href="../public/index.php?route=hideUser&userId=<?php print_r(htmlspecialchars($user->getId())); ?>" onclick="return confirm('êtes-vous sûr de vouloir mettre l\'utilisateur à la corbeille?')">Supprimer</a>
                             </td>
                         <?php
                                     } else {
@@ -258,7 +256,7 @@ $this->title = $title; ?>
                                     }
                                 } else {
                         ?>
-                        <a href="../public/index.php?route=showUser&userId=<?php echo (htmlspecialchars($user->getId())); ?>" onclick="return confirm('êtes-vous sûr de vouloir restaurer l\'utilisateur vers le panneau d\'administration?')">Restaurer</a></td>
+                        <a href="../public/index.php?route=showUser&userId=<?php print_r(htmlspecialchars($user->getId())); ?>" onclick="return confirm('êtes-vous sûr de vouloir restaurer l\'utilisateur vers le panneau d\'administration?')">Restaurer</a></td>
                     <?php
                                 }
                     ?>
@@ -298,39 +296,39 @@ $this->title = $title; ?>
             <?php
             foreach ($comments as $comment) {
 
-                if (is_null($comment->getErasedAt())) {
+                if ($comment->getErasedAt()===null) {
                     if ($comment->getVisible() === $visible) {
 
             ?>
                         <tr>
-                            <td><?= $comment->getId(); ?></td>
-                            <td><?= $comment->getUser()->getPseudo(); ?></td>
-                            <td><?= $comment->getPost()->getTitle(); ?></td>
+                            <td><? print_r($comment->getId()) ?></td>
+                            <td><? print_r($comment->getUser()->getPseudo()) ?></td>
+                            <td><? print_r($comment->getPost()->getTitle()) ?></td>
                             <!--Appel à la méthode "getPostObj" du modèle "Comment" qui retourne un objet Post -->
-                            <td><?= substr($comment->getContent(), 0, 150); ?></td>
-                            <td>Créé le : <?= $comment->getCreatedAt(); ?></td>
+                            <td><? print_r(substr($comment->getContent(), 0, 150)) ?></td>
+                            <td>Créé le : <? print_r($comment->getCreatedAt()) ?></td>
                             <td>
                                 <?php
                                 if ($adminRoute) {
                                     if ($comment->getValidate() === '0') {
                                 ?>
-                                        <a href="../public/index.php?route=validateComment&commentId=<?php echo (htmlspecialchars($comment->getId())); ?>">Valider le commentaire</a></td>
+                                        <a href="../public/index.php?route=validateComment&commentId=<?php print_r(htmlspecialchars($comment->getId())); ?>">Valider le commentaire</a></td>
                         <?php
                                     } else {
-                                        echo ('Commentaire validé');
+                                        print_r('Commentaire validé');
                         ?>
-                            <a href="../public/index.php?route=invalidateComment&commentId=<?php echo (htmlspecialchars($comment->getId())); ?>">Invalider le commentaire</a></td>
+                            <a href="../public/index.php?route=invalidateComment&commentId=<?php print_r(htmlspecialchars($comment->getId())); ?>">Invalider le commentaire</a></td>
                         <?php
                                     }
 
                         ?>
-                        <td><a href="../public/index.php?route=hideComment&commentId=<?php echo (htmlspecialchars($comment->getId())); ?>" onclick=" return confirm('êtes-vous sûr de mettre le commentaire à la corbeille')">Supprimer</a></td>
+                        <td><a href="../public/index.php?route=hideComment&commentId=<?php print_r(htmlspecialchars($comment->getId())); ?>" onclick=" return confirm('êtes-vous sûr de mettre le commentaire à la corbeille')">Supprimer</a></td>
 
                         </tr>
                     <?php
                                 } else {
                     ?>
-                        <a href="../public/index.php?route=showComment&commentId=<?php echo (htmlspecialchars($comment->getId())); ?>">Restaurer</a></td>
+                        <a href="../public/index.php?route=showComment&commentId=<?php print_r(htmlspecialchars($comment->getId())); ?>">Restaurer</a></td>
         <?php
                                 }
                             }

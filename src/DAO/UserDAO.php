@@ -237,16 +237,6 @@ class UserDAO extends DAO
         $this->createQuery($sql);
     }
 
-    /**
-     * @param mixed $pseudo
-     * 
-     * @return void
-     */
-    public function deleteUser($pseudo)
-    {
-        $sql = 'DELETE FROM user WHERE $pseudo = ?';
-        $this->createQuery($sql);
-    }
 
     /**
      * @param mixed $userId

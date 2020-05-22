@@ -167,7 +167,7 @@ class Post
      */
     public function getUser()
     {
-        if (empty($user)) {
+        if (empty($this->user)) {
             $this->user = $this->getUserObj($this->id);
         }
         return $this->user;
@@ -207,7 +207,7 @@ class Post
      */
     public function getPicture()
     {
-        if (empty($picture))
+        if (empty($this->picture))
         {
             $this->picture = $this->getPictureObj($this->id);
             return $this->picture;
