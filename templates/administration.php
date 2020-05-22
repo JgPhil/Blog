@@ -26,13 +26,17 @@ $this->title = $title; ?>
                             ?>
                                 <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('edit_post')) ?></h4>
                             <?php
-                            } elseif ($this->session->get('delete_post')) {
+                            } elseif ($this->session->get('hide_post')) {
                             ?>
-                                <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('delete_post')) ?></h4>
+                                <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('hide_post')) ?></h4>
                             <?php
-                            } elseif ($this->session->get('delete_comment')) {
+                            } elseif ($this->session->get('hide_comment')) {
                             ?>
-                                <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('delete_comment')) ?></h4>
+                                <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('hide_comment')) ?></h4>
+                            <?php
+                            } elseif ($this->session->get('hide_user')) {
+                            ?>
+                                <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('hide_user')) ?></h4>
                             <?php
                             } elseif ($this->session->get('validate_comment')) {
                             ?>

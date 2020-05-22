@@ -3,7 +3,7 @@
 namespace App\src\controller;
 
 use App\Framework\Method;
-use App\src\helpers\Upload;
+use App\Framework\Upload;
 
 /**
  * Class BackController
@@ -227,9 +227,20 @@ class BackController extends BlogController
     public function trash($id)
     {
         if ($this->checkAdmin()) {
-            $name = substr($this->getMethod->getParameter('route'), 4);
-            eval('$this->' . lcfirst($name) . 'DAO->hide' . $name . '( ' . $id . ');');
-            $this->session->set('delete_' . $name, 'Envoyé vers la corbeille');
+            switch ($this->getMethod->getParameter('route')) {
+                case 'hideUser':
+                    $this->userDAO->hideUser($id);
+                    $this->session->set('hide_user', 'L\'utilisateur a été envoyé vers la corbeille');
+                    break;
+                case 'hidePost':
+                    $this->postDAO->hidePost($id);
+                    $this->session->set('hide_post', 'L\'article a été envoyé vers la corbeille');
+                    break;
+                case 'hideComment':
+                    $this->commentDAO->hideComment($id);
+                    $this->session->set('hide_comment', 'Le commentairee a été envoyé vers la corbeille');
+                    break;
+            }
             header('Location: ../public/index.php?route=administration');
         }
     }
@@ -237,14 +248,25 @@ class BackController extends BlogController
     public function show($id)
     {
         if ($this->checkAdmin()) {
-            $name = substr($this->getMethod->getParameter('route'), 4);
-            eval('$this->' . lcfirst($name) . 'DAO->show' . $name . '( ' . $id . ');');
-            $this->session->set('show_account', 'L\'élément  est à nouveau visible');
-            header('Location: ../public/index.php?route=administration');
+            switch ($this->getMethod->getParameter('route')) {
+                case 'showUser':
+                    $this->userDAO->showUser($id);
+                    $this->session->set('show_user', 'L\'utilisateur est à nouveau visible sur la page d\'administration');
+                    break;
+                case 'showPost':
+                    $this->postDAO->showPost($id);
+                    $this->session->set('show_post', 'L\'article est à nouveau visible sur la page d\'administration');
+                    break;
+                    case 'showComment':
+                        $this->commentDAO->showComment($id);
+                        $this->session->set('show_comment', 'Le commentaire est à nouveau visible sur la page d\'administration');
+                        break;
+            }
+            header('Location: ../public/index.php?route=trash');
         }
     }
 
-    
+
     /**
      * @param mixed $postId
      * 
