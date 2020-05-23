@@ -8,7 +8,8 @@ use App\src\DAO\pictureDAO;
 use App\src\DAO\CommentDAO;
 use App\Framework\Controller;
 use App\Framework\Validation;
-use App\src\helpers\Upload;
+use App\Framework\Upload;
+use App\Framework\Method;
 
 /**
  * Class BlogController
@@ -20,7 +21,7 @@ abstract class BlogController extends Controller
     protected $userDAO;
     protected $pictureDAO;
     protected $validation;
-    
+
 
     /**
      * @return void

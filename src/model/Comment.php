@@ -144,7 +144,7 @@ class Comment
      */
     public function getPost()
     {
-        if (empty($post))
+        if (empty($this->post))
             {
                $this->post = $this->getPostObj($this->id);
             }
@@ -165,7 +165,7 @@ class Comment
      */
     public function getUser()
     {
-        if (empty($user))
+        if (empty($this->user))
             {
                $this->user = $this->getUserObj($this->id);
             }

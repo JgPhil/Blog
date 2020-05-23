@@ -165,6 +165,12 @@ class UserDAO extends DAO
         $this->createQuery($sql, [password_hash(filter_var($postMethod->getParameter('password'), FILTER_SANITIZE_STRING), PASSWORD_BCRYPT), $pseudo]);
     }
 
+    public function deleteUser($pseudo)
+    {
+        $sql = 'DELETE FROM user WHERE pseudo = ?' ;
+        $this->createQuery($sql,[ $pseudo]);
+    }
+
     /**
      * @param mixed $pseudo
      * 
@@ -237,16 +243,6 @@ class UserDAO extends DAO
         $this->createQuery($sql);
     }
 
-    /**
-     * @param mixed $pseudo
-     * 
-     * @return void
-     */
-    public function deleteUser($pseudo)
-    {
-        $sql = 'DELETE FROM user WHERE $pseudo = ?';
-        $this->createQuery($sql);
-    }
 
     /**
      * @param mixed $userId

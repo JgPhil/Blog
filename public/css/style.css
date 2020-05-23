@@ -1,15 +1,17 @@
-/*!------------------------------------------------------------------
+/* !------------------------------------------------------------------
 [MAIN STYLESHEET]
 
 PROJECT:	Project Name
 VERSION:	Versoin Number
 ------------------------------------------------------------------- */
-/*------------------------------------------------------------------
+
+/* ------------------------------------------------------------------
 [TABLE OF CONTENTS]
 ------------------------------------------------------------------- */
-/*  typography */
-@import url("https://fonts.googleapis.com/css?family=Playfair+Display:400,700|Roboto:300,400,500,700");
 
+/*  typography */
+
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display:400,700|Roboto:300,400,500,700");
 @font-face {
   font-family: "BwNistaInt-xBd";
   src: url("../plugins/fonts/BwNistaInt-xBd.woff") format("woff");
@@ -27,8 +29,7 @@ body {
   overflow-x: hidden;
 }
 
-p,
-.paragraph {
+p, .paragraph {
   font-weight: 400;
   color: #4c4c4c;
   font-size: 15px;
@@ -36,63 +37,49 @@ p,
   font-family: "Roboto", sans-serif;
 }
 
-p-lg,
 .paragraph-lg {
   font-size: 22px;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
   color: #000;
   font-family: "Playfair Display", serif;
   line-height: 1.2;
 }
 
-h1,
-.h1 {
+h1, .h1 {
   font-size: 80px;
 }
 
 @media (max-width: 991px) {
-  h1,
-  .h1 {
+  h1, .h1 {
     font-size: 65px;
   }
 }
 
-h2,
-.h2 {
+h2, .h2 {
   font-size: 60px;
 }
 
 @media (max-width: 991px) {
-  h2,
-  .h2 {
+  h2, .h2 {
     font-size: 50px;
   }
 }
 
-h3,
-.h3 {
+h3, .h3 {
   font-size: 40px;
 }
 
-h4,
-.h4 {
+h4, .h4 {
   font-size: 22px;
 }
 
-h5,
-.h5 {
+h5, .h5 {
   font-size: 18px;
 }
 
-h6,
-.h6 {
+h6, .h6 {
   font-size: 14px;
 }
 
@@ -147,8 +134,7 @@ h6,
   background: #542cb7;
 }
 
-.btn-primary.focus,
-.btn-primary.active {
+.btn-primary.focus, .btn-primary.active {
   background: #542cb7 !important;
   box-shadow: none !important;
 }
@@ -159,11 +145,9 @@ h6,
   font-weight: bold;
 }
 
-.btn-transparent:active,
-.btn-transparent:hover {
+.btn-transparent:active, .btn-transparent:hover {
   color: #41228e;
 }
-
 
 ::-moz-selection {
   background: #542cb7;
@@ -190,8 +174,7 @@ h6,
   justify-content: center;
 }
 
-ol,
-ul {
+ol, ul {
   list-style-type: none;
   margin: 0;
 }
@@ -199,25 +182,19 @@ ul {
 img {
   vertical-align: middle;
   border: 0;
-  max-height:240px;
+  max-height: 240px;
 }
 
-a,
-a:hover,
-a:focus {
+a, a:hover, a:focus {
   text-decoration: none;
 }
 
-a,
-button,
-select {
+a, button, select {
   cursor: pointer;
   transition: 0.2s ease;
 }
 
-a:focus,
-button:focus,
-select:focus {
+a:focus, button:focus, select:focus {
   outline: 0;
 }
 
@@ -231,8 +208,8 @@ a:hover {
 }
 
 #cv {
-    position: absolute;
-    z-index: 4;
+  position: absolute;
+  z-index: 4;
 }
 
 .slick-slide {
@@ -373,6 +350,7 @@ a:hover {
 }
 
 /* icon */
+
 .icon {
   font-size: 45px;
 }
@@ -440,6 +418,7 @@ textarea.form-control {
 /* /form */
 
 /* card */
+
 .card {
   border: 0;
 }
@@ -453,6 +432,7 @@ textarea.form-control {
 }
 
 /* /card */
+
 .navigation {
   padding: 40px 130px;
   transition: 0.3s ease;
@@ -506,9 +486,7 @@ textarea.form-control {
   }
 }
 
-.hero-area h1,
-h3,
-h4 {
+.hero-area h1, h3, h4 {
   position: relative;
   z-index: 2;
 }
@@ -570,6 +548,7 @@ h4 {
 }
 
 /* skills */
+
 .progress-wrapper {
   height: 130px;
   overflow: hidden;
@@ -581,8 +560,7 @@ h4 {
   height: 100%;
 }
 
-.wave::before,
-.wave::after {
+.wave::before, .wave::after {
   content: "";
   position: absolute;
   width: 800px;
@@ -613,7 +591,6 @@ h4 {
     -webkit-transform: translateX(-50%) rotate(180deg);
     transform: translateX(-50%) rotate(180deg);
   }
-
   100% {
     -webkit-transform: translateX(-50%) rotate(360deg);
     transform: translateX(-50%) rotate(360deg);
@@ -625,7 +602,6 @@ h4 {
     -webkit-transform: translateX(-50%) rotate(180deg);
     transform: translateX(-50%) rotate(180deg);
   }
-
   100% {
     -webkit-transform: translateX(-50%) rotate(360deg);
     transform: translateX(-50%) rotate(360deg);
@@ -635,6 +611,7 @@ h4 {
 /* /skills */
 
 /* education */
+
 .edu-bg-image {
   position: absolute;
   left: 0;
@@ -678,6 +655,7 @@ h4 {
 /* /service */
 
 /* portfolio */
+
 .hover-wrapper {
   overflow: hidden;
 }
@@ -724,6 +702,7 @@ h4 {
 /* /portfolio */
 
 /* testimonial */
+
 .testimonial-content strong {
   color: #2bfdff;
   font-weight: normal;
@@ -775,6 +754,7 @@ h4 {
 /* /testimonial */
 
 /* footer */
+
 .footer-section {
   padding-top: 200px;
 }
@@ -790,7 +770,7 @@ h4 {
 .shadow-down::before {
   position: absolute;
   content: "";
-  box-shadow: 0 0px 80.75px 14.25px rgba(224, 241, 255, 0.34);
+  box-shadow: 0 0 80.75px 14.25px rgba(224, 241, 255, 0.34);
   height: 100%;
   width: 100%;
   left: 0;
@@ -799,6 +779,7 @@ h4 {
 }
 
 /* /footer */
+
 .card-lg {
   flex-direction: row-reverse;
   align-items: center;

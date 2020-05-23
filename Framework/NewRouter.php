@@ -43,17 +43,17 @@ class NewRouter
 
             if (empty($route)) {
                 return $action = $this->frontController->home();
-            } else {
-                foreach ($routes as $xmlRoute) {
-                    $param = $xmlRoute->getAttribute('param');
-                    $controller = substr($xmlRoute->getAttribute('application'), 0, -3) . 'Controller';
-                    $method = $xmlRoute->getAttribute('method') . '(' . $param . ')';
-                    $action = '$this->' . $controller . '->' . $method . ';';
-                    if ($xmlRoute->getAttribute('url') == $route) {
-                        return eval($action);
-                    }
+            }
+            foreach ($routes as $xmlRoute) {
+                $param = $xmlRoute->getAttribute('param');
+                $controller = substr($xmlRoute->getAttribute('application'), 0, -3) . 'Controller';
+                $method = $xmlRoute->getAttribute('method') . '(' . $param . ')';
+                $action = '$this->' . $controller . '->' . $method . ';';
+                if ($xmlRoute->getAttribute('url') == $route) {
+                    return eval($action);
                 }
             }
+
             if (null === $action) {
                 return $this->errorController->errorNotFound();
             }

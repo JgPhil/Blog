@@ -90,18 +90,6 @@ class CommentDAO extends DAO
     }
 
     /**
-     * @param mixed $commentId
-     * 
-     * @return void
-     */
-    public function deleteComment($commentId)
-    {
-        $this->invalidateComment($commentId);
-        $sql = 'UPDATE comment SET visible = 0 WHERE id = ?';
-        $this->createQuery($sql, [$commentId]);
-    }
-
-    /**
      * @param mixed $pseudo
      * 
      * @return void

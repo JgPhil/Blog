@@ -9,7 +9,7 @@
   border: 0;
   position: relative;
   z-index: 1;
-  transition: .2s ease;
+  transition: 0.2s ease;
 
   &:focus {
     outline: 0;
@@ -49,7 +49,6 @@
     box-shadow: none !important;
   }
 }
-
 
 .btn-transparent {
   background: transparent;

@@ -17,6 +17,7 @@ class View
     public function __construct()
     {
         $this->request = new Request;
+        $this->getMethod= $this->request->getGet();
         $this->session = $this->request->getSession();
     }
 
@@ -35,7 +36,7 @@ class View
             'content' => $content,
             'session' => $this->session
         ]);
-        echo($view) ;
+        print_r($view) ;
     }
 
     /**
