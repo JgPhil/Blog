@@ -29,7 +29,8 @@ body {
   overflow-x: hidden;
 }
 
-p, .paragraph {
+p,
+.paragraph {
   font-weight: 400;
   color: #4c4c4c;
   font-size: 15px;
@@ -41,45 +42,58 @@ p, .paragraph {
   font-size: 22px;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: #000;
   font-family: "Playfair Display", serif;
   line-height: 1.2;
 }
 
-h1, .h1 {
+h1,
+.h1 {
   font-size: 80px;
 }
 
 @media (max-width: 991px) {
-  h1, .h1 {
+  h1,
+  .h1 {
     font-size: 65px;
   }
 }
 
-h2, .h2 {
+h2,
+.h2 {
   font-size: 60px;
 }
 
 @media (max-width: 991px) {
-  h2, .h2 {
+  h2,
+  .h2 {
     font-size: 50px;
   }
 }
 
-h3, .h3 {
+h3,
+.h3 {
   font-size: 40px;
 }
 
-h4, .h4 {
+h4,
+.h4 {
   font-size: 22px;
 }
 
-h5, .h5 {
+h5,
+.h5 {
   font-size: 18px;
 }
 
-h6, .h6 {
+h6,
+.h6 {
   font-size: 14px;
 }
 
@@ -134,7 +148,8 @@ h6, .h6 {
   background: #542cb7;
 }
 
-.btn-primary.focus, .btn-primary.active {
+.btn-primary.focus,
+.btn-primary.active {
   background: #542cb7 !important;
   box-shadow: none !important;
 }
@@ -145,7 +160,8 @@ h6, .h6 {
   font-weight: bold;
 }
 
-.btn-transparent:active, .btn-transparent:hover {
+.btn-transparent:active,
+.btn-transparent:hover {
   color: #41228e;
 }
 
@@ -174,7 +190,8 @@ h6, .h6 {
   justify-content: center;
 }
 
-ol, ul {
+ol,
+ul {
   list-style-type: none;
   margin: 0;
 }
@@ -185,16 +202,22 @@ img {
   max-height: 240px;
 }
 
-a, a:hover, a:focus {
+a,
+a:hover,
+a:focus {
   text-decoration: none;
 }
 
-a, button, select {
+a,
+button,
+select {
   cursor: pointer;
   transition: 0.2s ease;
 }
 
-a:focus, button:focus, select:focus {
+a:focus,
+button:focus,
+select:focus {
   outline: 0;
 }
 
@@ -486,7 +509,9 @@ textarea.form-control {
   }
 }
 
-.hero-area h1, h3, h4 {
+.hero-area h1,
+h3,
+h4 {
   position: relative;
   z-index: 2;
 }
@@ -560,7 +585,8 @@ textarea.form-control {
   height: 100%;
 }
 
-.wave::before, .wave::after {
+.wave::before,
+.wave::after {
   content: "";
   position: absolute;
   width: 800px;
