@@ -107,7 +107,7 @@ class FrontController extends BlogController
                     $name = $file->uploadFile($target);
                     $this->pictureDAO->addUserPicture($name, $userId);
                 }
-                $this->session->set('register', 'votre inscription a bien été éffectuée, Merci de cliquer sur le lien présent dans le mail de confirmation qui vient de vous être envoyé.');
+                $this->session->set('message', 'votre inscription a bien été éffectuée, Merci de cliquer sur le lien présent dans le mail de confirmation qui vient de vous être envoyé.');
                 return $this->view->render('register2');
             }
 
@@ -164,7 +164,7 @@ class FrontController extends BlogController
         if ($postMethod->getParameter('submit')) {
             $result = $this->userDAO->login($postMethod);
             if ($result && $result['isPasswordValid']) {
-                $this->session->set('login', 'Content de vous revoir');
+                $this->session->set('message', 'Content de vous revoir');
                 $this->session->set('id', $result['result']['id']);
                 $this->session->set('role', $result['result']['name']);
                 $this->session->set('pseudo', $postMethod->getParameter('pseudo'));
@@ -191,7 +191,7 @@ class FrontController extends BlogController
             $errors = $this->validation->validate($postMethod, 'Email');
             if (!$errors) {
                 $this->userDAO->contactEmail($postMethod);
-                $this->session->set('confirm_email', 'Votre email a bien été envoyé');
+                $this->session->set('message', 'Votre email a bien été envoyé');
                 header('Location: ../public/index.php');
             } else {
                 $this->session->set('error_email', 'Votre email n\'a pas été envoyé');
@@ -257,7 +257,7 @@ class FrontController extends BlogController
         if ($this->checkLoggedIn()) {
             $this->session->stop();
             $this->session->start();
-            $this->session->set('logout', 'À bientôt ' . $this->session->get('pseudo'));
+            $this->session->set('message', 'À bientôt ' . $this->session->get('pseudo'));
             header('Location: ../public/index.php');
         }
     }
