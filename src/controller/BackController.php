@@ -19,7 +19,6 @@ class BackController extends BlogController
      */
     private function checkAdmin()
     {
-        $this->checkLoggedIn();
         if (!($this->session->get('role') === 'admin')) {
             $this->session->set('not_admin', 'Vous n\'avez pas le droit d\'accéder à cette page');
             header('Location: ../public/index.php?route=profile');
@@ -64,7 +63,7 @@ class BackController extends BlogController
                         $name = Upload::uploadFile($target);
                         $this->pictureDAO->addPostPicture($name, $postId);
                     }
-                    $this->session->set('add_post', 'Le nouvel article a bien été ajouté');
+                    $this->session->set('admin_message', 'Le nouvel article a bien été ajouté');
                     header('Location: ../public/index.php?route=administration');
                 }
                 return $this->view->render('add_post', [
@@ -97,7 +96,7 @@ class BackController extends BlogController
                         $this->pictureDAO->updatePostPicture($postId, $name);
                     }
                     $this->postDAO->editPost($postMethod, $postId, $this->session->get('id'));
-                    $this->session->set('edit_post', 'L\' article a bien été modifié');
+                    $this->session->set('admin_message', 'L\' article a bien été modifié');
                     header('Location: ../public/index.php?route=administration');
                 }
                 return $this->view->render('edit_post', [
@@ -125,7 +124,7 @@ class BackController extends BlogController
     public function desactivateAccountAdmin($pseudo)
     {
         $this->userDAO->desactivateAccount($pseudo);
-        $this->session->set('desactivate_account', 'Le compte a bien été désactivé');
+        $this->session->set('admin_message', 'Le compte a bien été désactivé');
         header('Location: ../public/index.php?route=administration');
     }
 
@@ -138,7 +137,7 @@ class BackController extends BlogController
     public function setAdmin($pseudo)
     {
         $this->userDAO->setAdmin($pseudo);
-        $this->session->set('set_admin', 'Le rôle "admin" a bien été appliqué à l\'utilisateur ' . $pseudo);
+        $this->session->set('admin_message', 'Le rôle "admin" a bien été appliqué à l\'utilisateur ' . $pseudo);
         header('Location: ../public/index.php?route=administration');
     }
 
@@ -149,15 +148,15 @@ class BackController extends BlogController
             switch ($this->getMethod->getParameter('route')) {
                 case 'hideUser':
                     $this->userDAO->hideUser($id);
-                    $this->session->set('hide_user', 'L\'utilisateur a été envoyé vers la corbeille');
+                    $this->session->set('admin_message', 'L\'utilisateur a été envoyé vers la corbeille');
                     break;
                 case 'hidePost':
                     $this->postDAO->hidePost($id);
-                    $this->session->set('hide_post', 'L\'article a été envoyé vers la corbeille');
+                    $this->session->set('admin_message', 'L\'article a été envoyé vers la corbeille');
                     break;
                 case 'hideComment':
                     $this->commentDAO->hideComment($id);
-                    $this->session->set('hide_comment', 'Le commentairee a été envoyé vers la corbeille');
+                    $this->session->set('admin_message', 'Le commentairee a été envoyé vers la corbeille');
                     break;
             }
             header('Location: ../public/index.php?route=administration');
@@ -170,15 +169,15 @@ class BackController extends BlogController
             switch ($this->getMethod->getParameter('route')) {
                 case 'showUser':
                     $this->userDAO->showUser($id);
-                    $this->session->set('show_user', 'L\'utilisateur est à nouveau visible sur la page d\'administration');
+                    $this->session->set('admin_message', 'L\'utilisateur est à nouveau visible sur la page d\'administration');
                     break;
                 case 'showPost':
                     $this->postDAO->showPost($id);
-                    $this->session->set('show_post', 'L\'article est à nouveau visible sur la page d\'administration');
+                    $this->session->set('admin_message', 'L\'article est à nouveau visible sur la page d\'administration');
                     break;
                 case 'showComment':
                     $this->commentDAO->showComment($id);
-                    $this->session->set('show_comment', 'Le commentaire est à nouveau visible sur la page d\'administration');
+                    $this->session->set('admin_message', 'Le commentaire est à nouveau visible sur la page d\'administration');
                     break;
             }
             header('Location: ../public/index.php?route=trash');
@@ -216,7 +215,7 @@ class BackController extends BlogController
     public function validateComment($commentId)
     {
         $this->commentDAO->validateComment($commentId);
-        $this->session->set('validate_comment', 'commentaire validé');
+        $this->session->set('admin_message', 'commentaire validé');
         header('Location: ../public/index.php?route=administration');
     }
 
@@ -228,7 +227,7 @@ class BackController extends BlogController
     public function inValidateComment($commentId)
     {
         $this->commentDAO->inValidateComment($commentId);
-        $this->session->set('invalidate_comment', 'commentaire invalidé');
+        $this->session->set('admin_message', 'commentaire invalidé');
         header('Location: ../public/index.php?route=administration');
     }
 
@@ -241,7 +240,7 @@ class BackController extends BlogController
     {
         if ($this->checkAdmin()) {
             $this->userDAO->activateAccount($pseudo);
-            $this->session->set('activate_acccount', 'Le compte vient d\'être activé !');
+            $this->session->set('admin_message', 'Le compte vient d\'être activé !');
             header('Location: ../public/index.php?route=administration');
         }
     }
@@ -256,7 +255,7 @@ class BackController extends BlogController
             $this->userDAO->eraseUser();
             $this->postDAO->erasePost();
             $this->commentDAO->eraseComment();
-            $this->session->set('empty_trash', 'La corbeille a été vidée');
+            $this->session->set('admin_message', 'La corbeille a été vidée');
             header('Location: ../public/index.php?route=administration');
         }
     }

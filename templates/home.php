@@ -31,7 +31,7 @@ $this->title = "Accueil"; ?>
       <div class="row">
         <div class="col-2">
           <a class="btn btn-tertiary" id="cv" href="<?= INDEX_PATH . CV_PATH ?>" download="CV">
-             Mon CV
+            Mon CV
           </a>
         </div>
       </div>
@@ -89,25 +89,9 @@ $this->title = "Accueil"; ?>
         <div class="container row">
           <div class="col-lg-8 mx-auto">
             <?php
-            if ($this->session->get('register')) {
+            if ($this->session->get('message')) {
             ?>
-              <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('register')) . ' <b>' . htmlentities($this->session->get('pseudo')) . '</b>'; ?></h4>
-            <?php
-            } elseif ($this->session->get('confirm_email')) {
-            ?>
-              <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('confirm_email')) ?></h4>
-            <?php
-            } elseif ($this->session->get('login')) {
-            ?>
-              <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('login')) . ' <b>' . htmlentities($this->session->get('pseudo')) . '</b>'; ?></h4>
-            <?php
-            } elseif ($this->session->get('logout')) {
-            ?>
-              <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('logout')) . ' <b>' . htmlentities($this->session->get('pseudo')) . '</b>'; ?></h4>
-            <?php
-            } elseif ($this->session->get('delete_account')) {
-            ?>
-              <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('delete_account')) . ' <b>' . htmlentities($this->session->get('pseudo')) . '</b>'; ?></h4>
+              <h4 class="alert alert-success" role="alert"><?= htmlentities($this->session->show('message')) . ' <b>' . htmlentities($this->session->get('pseudo')) . '</b>'; ?></h4>
             <?php
             }
             ?>
@@ -123,10 +107,10 @@ $this->title = "Accueil"; ?>
 
         if ($post->getVisible() === "1") {
       ?>
-          <div  class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
+          <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
             <article class="card shadow">
               <?php $postPicture = $post->getPicture() ?>
-              <img class="rounded card-img-top img-responsive"  src=<?= isset($postPicture) ? POST_PICTURE . $postPicture->getName() : POST_EMPTY_PICTURE   ?> alt="<?="Une image de l'article ". $post->getTitle()?>">
+              <img class="rounded card-img-top img-responsive" src=<?= isset($postPicture) ? POST_PICTURE . $postPicture->getName() : POST_EMPTY_PICTURE   ?> alt="<?= "Une image de l'article " . $post->getTitle() ?>">
               <div class="card-body">
                 <h4 class="card-title"><a href="<?= INDEX_PATH . SLUG . "post&postId=" . htmlentities($post->getId()); ?>"><?= $post->getTitle(); ?></a></h4>
                 <h5><?= $post->getHeading(); ?></h5>

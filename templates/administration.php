@@ -16,49 +16,9 @@ $this->title = $title; ?>
                     <div class="container row">
                         <div class="col-lg-8 mx-auto">
                             <?php
-                            if ($this->session->get('add_post')) {
+                            if ($this->session->get('admin_message')) {
                             ?>
-                                <h4 class="alert alert-success" role="alert"><? print_r(htmlentities($this->session->show('add_post'))) ?></h4>
-                            <?php
-                            } elseif ($this->session->get('edit_post')) {
-                            ?>
-                                <h4 class="alert alert-success" role="alert"><? print_r(htmlentities($this->session->show('edit_post'))) ?></h4>
-                            <?php
-                            } elseif ($this->session->get('hide_post')) {
-                            ?>
-                                <h4 class="alert alert-success" role="alert"><? print_r(htmlentities($this->session->show('hide_post'))) ?></h4>
-                            <?php
-                            } elseif ($this->session->get('hide_comment')) {
-                            ?>
-                                <h4 class="alert alert-success" role="alert"><? print_r(htmlentities($this->session->show('hide_comment'))) ?></h4>
-                            <?php
-                            } elseif ($this->session->get('hide_user')) {
-                            ?>
-                                <h4 class="alert alert-success" role="alert"><? print_r(htmlentities($this->session->show('hide_user'))) ?></h4>
-                            <?php
-                            } elseif ($this->session->get('validate_comment')) {
-                            ?>
-                                <h4 class="alert alert-success" role="alert"><? print_r(htmlentities($this->session->show('validate_comment'))) ?></h4>
-                            <?php
-                            } elseif ($this->session->get('invalidate_comment')) {
-                            ?>
-                                <h4 class="alert alert-success" role="alert"><? print_r(htmlentities($this->session->show('invalidate_comment'))) ?></h4>
-                            <?php
-                            } elseif ($this->session->get('activate_account')) {
-                            ?>
-                                <h4 class="alert alert-success" role="alert"><? print_r(htmlentities($this->session->show('activate_account'))) ?></h4>
-                            <?php
-                            } elseif ($this->session->get('empty_trash')) {
-                            ?>
-                                <h4 class="alert alert-success" role="alert"><? print_r(htmlentities($this->session->show('empty_trash'))) ?></h4>
-                            <?php
-                            } elseif ($this->session->get('set_admin')) {
-                            ?>
-                                <h4 class="alert alert-success" role="alert"><? print_r(htmlentities($this->session->show('set_admin'))) ?></h4>
-                            <?php
-                            } elseif ($this->session->get('desactivate_account')) {
-                            ?>
-                                <h4 class="alert alert-success" role="alert"><? print_r(htmlentities($this->session->show('desactivate_account'))) ?></h4>
+                                <h4 class="alert alert-success" role="alert"><?php print_r(htmlentities($this->session->show('admin_message'))) ?></h4>
                             <?php
                             }
                             ?>
@@ -66,7 +26,7 @@ $this->title = $title; ?>
                     </div>
                 </div>
 
-                <h1 class="text-white font-tertiary"><br><? print_r(htmlentities($h1)) ?></h1>
+                <h1 class="text-white font-tertiary"><br><?php print_r(htmlentities($h1)) ?></h1>
             </div>
         </div>
     </div>
@@ -85,7 +45,7 @@ $this->title = $title; ?>
     <nav class="navbar navbar-expand-lg d-flex justify-content-center ">
         <div class="navbar-brand" id="admin_nav">
             <ul class="navbar-nav navbar-dark mx-auto d-flex align-items-center">
-                <li class="nav-item"><a class="nav-link" href=<? print_r(htmlentities($return)) ?>><i class="fas fa-long-arrow-alt-left"></i>Retour</a></li>
+                <li class="nav-item"><a class="nav-link" href=<?php print_r(htmlentities($return)) ?>><i class="fas fa-long-arrow-alt-left"></i>Retour</a></li>
                 <li class="nav-item"><a class="nav-link" href="#posts">Articles</a></li>
                 <li class="nav-item"><a class="nav-link" href="#users">Utilisateurs</a></li>
                 <li class="nav-item"><a class="nav-link" href="#comments">commentaires</a></li>
@@ -93,13 +53,13 @@ $this->title = $title; ?>
                 if ($adminRoute) {
                 ?>
 
-                    <li class="nav-item"><a class="nav-link" href="<? print_r(INDEX_PATH . SLUG . "trash") ?>"><i class="fas fa-trash-alt" style="font-size:17px"></i>Corbeille</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php print_r(INDEX_PATH . SLUG . "trash") ?>"><i class="fas fa-trash-alt" style="font-size:17px"></i>Corbeille</a></li>
 
 
                 <?php
                 } else {
                 ?>
-                    <a class="d-flex justify-content-end btn btn-danger mx-auto" href="<? print_r(INDEX_PATH . SLUG . "emptyTrash") ?>" onclick="return confirm('êtes-vous sûr de vouloir vider la corbeille?')">Vider La Corbeille</a>
+                    <a class="d-flex justify-content-end btn btn-danger mx-auto" href="<?php print_r(INDEX_PATH . SLUG . "emptyTrash") ?>" onclick="return confirm('êtes-vous sûr de vouloir vider la corbeille?')">Vider La Corbeille</a>
                 <?php
                 }
 
@@ -122,7 +82,7 @@ $this->title = $title; ?>
         <?php
         if ($adminRoute) {
         ?>
-            <a class="btn btn-primary col-lg-2 d-flex justify-content-center btn btn-primary mx-auto mb-20" href="<? print_r(INDEX_PATH . SLUG . "addPost") ?>">Nouvel article</a>
+            <a class="btn btn-primary col-lg-2 d-flex justify-content-center btn btn-primary mx-auto mb-20" href="<?php print_r(INDEX_PATH . SLUG . "addPost") ?>">Nouvel article</a>
         <?php
         }
         ?>
@@ -146,7 +106,7 @@ $this->title = $title; ?>
             </tr>
             <?php
             foreach ($posts as $post) {
-                if ($post->getErasedAt()===null) {
+                if ($post->getErasedAt() === null) {
                     if ($post->getVisible() === $visible) {
             ?>
                         <tr>
@@ -158,15 +118,15 @@ $this->title = $title; ?>
 
                             <?php if ($adminRoute) {
                             ?>
-                                <td><a href="../public/index.php?route=postComments&postId=<? print_r(htmlspecialchars($post->getId())); ?>">Voir</a></td>
+                                <td><a href="../public/index.php?route=postComments&postId=<?php print_r(htmlspecialchars($post->getId())); ?>">Voir</a></td>
                                 <td>
-                                    <a href="../public/index.php?route=editPost&postId=<? print_r(htmlspecialchars($post->getId())); ?>">Modifier</a>
-                                    <a href="../public/index.php?route=hidePost&postId=<? print_r(htmlspecialchars($post->getId())); ?>" onclick="return confirm('êtes-vous sûr de vouloir mettre l\'article à la corbeille?')">Supprimer</a>
+                                    <a href="../public/index.php?route=editPost&postId=<?php print_r(htmlspecialchars($post->getId())); ?>">Modifier</a>
+                                    <a href="../public/index.php?route=hidePost&postId=<?php print_r(htmlspecialchars($post->getId())); ?>" onclick="return confirm('êtes-vous sûr de vouloir mettre l\'article à la corbeille?')">Supprimer</a>
                                 </td>
                             <?php
                             } else { // lien pour restaurer un article vers l'administration
                             ?>
-                                <td><a href="../public/index.php?route=showPost&postId=<? print_r(htmlspecialchars($post->getId())); ?>">Restaurer vers le panneau d'administration</a></td>
+                                <td><a href="../public/index.php?route=showPost&postId=<?php print_r(htmlspecialchars($post->getId())); ?>">Restaurer vers le panneau d'administration</a></td>
 
                             <?php
                             }
@@ -205,7 +165,7 @@ $this->title = $title; ?>
             </tr>
             <?php
             foreach ($users as $user) {
-                if ($user->getErasedAt()===null) {
+                if ($user->getErasedAt() === null) {
                     if ($user->getVisible() === $visible) { ?>
 
                         <tr>
@@ -296,7 +256,7 @@ $this->title = $title; ?>
             <?php
             foreach ($comments as $comment) {
 
-                if ($comment->getErasedAt()===null) {
+                if ($comment->getErasedAt() === null) {
                     if ($comment->getVisible() === $visible) {
 
             ?>
