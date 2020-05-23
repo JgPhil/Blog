@@ -201,9 +201,9 @@ class BackController extends BlogController
                 ]);
             }
 
-            echo '<script>
+            print_r ('<script>
             alert("Pas de commentaire sur cet article");
-            window.location.href="../public/index.php?route=administration"</script>';
+            window.location.href="../public/index.php?route=administration"</script>');
         }
     }
 

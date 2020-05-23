@@ -59,7 +59,7 @@
 .ti-signal:before {
   content: "\e60c";
 }
-.ti-shopping-cart:before {
+.ti-shopping-cart::before {
   content: "\e60d";
 }
 .ti-shopping-cart-full:before {
@@ -80,6 +80,7 @@
 .ti-cut:before {
   content: "\e613";
 }
+
 .ti-ruler:before {
   content: "\e614";
 }
