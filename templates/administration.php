@@ -150,23 +150,23 @@ $this->title = $title; ?>
                     if ($post->getVisible() === $visible) {
             ?>
                         <tr>
-                            <td><? print_r(htmlentities($post->getId())); ?></td>
-                            <td><a href="../public/index.php?route=post&postId=<? print_r(htmlentities($post->getId())) ?>"><? print_r(htmlentities($post->getTitle())); ?></a></td>
-                            <td> <? print_r($post->getHeading()); ?></td>
-                            <td><? print_r(htmlentities($post->getUser()->getPseudo())); ?> (<? print_r(htmlentities($post->getUser()->getRole())) ?>)</td>
-                            <td>Dernière modif. le : <? print_r(htmlentities($post->getLastUpdate())); ?></td>
+                            <td><?php print_r(htmlspecialchars($post->getId())); ?></td>
+                            <td><a href="../public/index.php?route=post&postId=<?php print_r(htmlspecialchars($post->getId())) ?>"><?php print_r(htmlspecialchars($post->getTitle())); ?></a></td>
+                            <td> <?php print_r($post->getHeading()); ?></td>
+                            <td><?php print_r(htmlspecialchars($post->getUser()->getPseudo())); ?> (<?php print_r(htmlspecialchars($post->getUser()->getRole())) ?>)</td>
+                            <td>Dernière modif. le : <?php print_r(htmlspecialchars($post->getLastUpdate())); ?></td>
 
                             <?php if ($adminRoute) {
                             ?>
-                                <td><a href="../public/index.php?route=postComments&postId=<? print_r(htmlentities($post->getId())); ?>">Voir</a></td>
+                                <td><a href="../public/index.php?route=postComments&postId=<? print_r(htmlspecialchars($post->getId())); ?>">Voir</a></td>
                                 <td>
-                                    <a href="../public/index.php?route=editPost&postId=<? print_r(htmlentities($post->getId())); ?>">Modifier</a>
-                                    <a href="../public/index.php?route=hidePost&postId=<? print_r(htmlentities($post->getId())); ?>" onclick="return confirm('êtes-vous sûr de vouloir mettre l\'article à la corbeille?')">Supprimer</a>
+                                    <a href="../public/index.php?route=editPost&postId=<? print_r(htmlspecialchars($post->getId())); ?>">Modifier</a>
+                                    <a href="../public/index.php?route=hidePost&postId=<? print_r(htmlspecialchars($post->getId())); ?>" onclick="return confirm('êtes-vous sûr de vouloir mettre l\'article à la corbeille?')">Supprimer</a>
                                 </td>
                             <?php
                             } else { // lien pour restaurer un article vers l'administration
                             ?>
-                                <td><a href="../public/index.php?route=showPost&postId=<? print_r(htmlentities($post->getId())); ?>">Restaurer vers le panneau d'administration</a></td>
+                                <td><a href="../public/index.php?route=showPost&postId=<? print_r(htmlspecialchars($post->getId())); ?>">Restaurer vers le panneau d'administration</a></td>
 
                             <?php
                             }
@@ -301,12 +301,12 @@ $this->title = $title; ?>
 
             ?>
                         <tr>
-                            <td><? print_r($comment->getId()) ?></td>
-                            <td><? print_r($comment->getUser()->getPseudo()) ?></td>
-                            <td><? print_r($comment->getPost()->getTitle()) ?></td>
+                            <td><?php print_r($comment->getId()) ?></td>
+                            <td><?php print_r($comment->getUser()->getPseudo()) ?></td>
+                            <td><?php print_r($comment->getPost()->getTitle()) ?></td>
                             <!--Appel à la méthode "getPostObj" du modèle "Comment" qui retourne un objet Post -->
-                            <td><? print_r(substr($comment->getContent(), 0, 150)) ?></td>
-                            <td>Créé le : <? print_r($comment->getCreatedAt()) ?></td>
+                            <td><?php print_r(substr($comment->getContent(), 0, 150)) ?></td>
+                            <td>Créé le : <?php print_r($comment->getCreatedAt()) ?></td>
                             <td>
                                 <?php
                                 if ($adminRoute) {
