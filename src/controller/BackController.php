@@ -13,7 +13,6 @@ class BackController extends BlogController
 {
 
 
-
     /**
      * @return void
      */
@@ -116,31 +115,6 @@ class BackController extends BlogController
         }
     }
 
-    /**
-     * @param mixed $pseudo
-     * 
-     * @return void
-     */
-    public function desactivateAccountAdmin($pseudo)
-    {
-        $this->userDAO->desactivateAccount($pseudo);
-        $this->session->set('admin_message', 'Le compte a bien été désactivé');
-        header('Location: ../public/index.php?route=administration');
-    }
-
-
-    /**
-     * @param mixed $pseudo
-     * 
-     * @return void
-     */
-    public function setAdmin($pseudo)
-    {
-        $this->userDAO->setAdmin($pseudo);
-        $this->session->set('admin_message', 'Le rôle "admin" a bien été appliqué à l\'utilisateur ' . $pseudo);
-        header('Location: ../public/index.php?route=administration');
-    }
-
 
     public function trash($id)
     {
@@ -200,7 +174,6 @@ class BackController extends BlogController
                     'comments' => $comments
                 ]);
             }
-
             echo '<script>
             alert("Pas de commentaire sur cet article");
             window.location.href="../public/index.php?route=administration"</script>';
@@ -229,20 +202,6 @@ class BackController extends BlogController
         $this->commentDAO->inValidateComment($commentId);
         $this->session->set('admin_message', 'commentaire invalidé');
         header('Location: ../public/index.php?route=administration');
-    }
-
-    /**
-     * @param mixed $pseudo
-     * 
-     * @return void
-     */
-    public function activateAccount($pseudo)
-    {
-        if ($this->checkAdmin()) {
-            $this->userDAO->activateAccount($pseudo);
-            $this->session->set('admin_message', 'Le compte vient d\'être activé !');
-            header('Location: ../public/index.php?route=administration');
-        }
     }
 
 
