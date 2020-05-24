@@ -5,13 +5,15 @@ namespace App\Framework;
 use App\src\controller\BackController;
 use App\src\controller\ErrorController;
 use App\src\controller\FrontController;
+use App\src\controller\AccountController;
 use Exception;
 
-class NewRouter
+class Router
 {
     private $frontController;
     private $errorController;
     private $backController;
+    private $accountController;
     private $request;
     protected $routes = [];
     protected $param;
@@ -24,6 +26,7 @@ class NewRouter
         $this->request = new Request;
         $this->frontController = new FrontController;
         $this->backController = new BackController;
+        $this->accountController = new AccountController;
         $this->errorController = new ErrorController;
     }
 

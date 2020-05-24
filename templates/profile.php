@@ -5,6 +5,19 @@
   <div class="container">
     <div class="row">
       <div class="col-12 text-center">
+        <div class="col-lg-12 text-center">
+          <div class="container row">
+            <div class="col-lg-8 mx-auto">
+              <?php
+              if ($this->session->get('profile_message')) {
+              ?>
+                <h4 class="alert alert-success" role="alert"><?php print_r(htmlentities($this->session->show('profile_message'))) ?></h4>
+              <?php
+              }
+              ?>
+            </div>
+          </div>
+        </div>
         <h1 class="text-white font-tertiary">Profil</h1>
       </div>
     </div>
@@ -35,7 +48,7 @@
                 <div class="col-lg-12 text-center bg-light border mt-2">
                   <div class="profile-userpic">
                     <?php $userPicture = $user->getPicture(); ?>
-                    <img src=<?= isset($userPicture) ? USER_PICTURE . $user->getPicture()->getName() : USER_AVATAR ?> class="img-responsive" alt="<?="Une image de ".$pseudo?>">
+                    <img src=<?= isset($userPicture) ? USER_PICTURE . $user->getPicture()->getName() : USER_AVATAR ?> class="img-responsive" alt="<?= "Une image de " . $pseudo ?>">
                   </div>
                   <div class="row text-center mt-2">
                     <div class="col-lg-12 text-center ">

@@ -44,8 +44,8 @@
 
       <div class="collapse navbar-collapse text-center" id="navigation">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="<?= INDEX_PATH ?>">Accueil</a>
+          <li class="nav-item ">
+            <a class="nav-link " href="<?= INDEX_PATH ?>">Accueil</a>
           </li>
           <?php
           if ($this->session->get('role') !== 'admin') {
@@ -177,7 +177,7 @@
 
   <!-- Main Script -->
   <script src="js/script.js"></script>
-
+  
 </body>
 
 </html>
