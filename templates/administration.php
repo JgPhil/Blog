@@ -26,7 +26,7 @@ $this->title = $title; ?>
                     </div>
                 </div>
 
-                <h1 class="text-white font-tertiary"><br><?php print_r(htmlentities($h1)) ?></h1>
+                <h1 class="text-white font-tertiary"><br><?php print( htmlentities($h1)) ?></h1>
             </div>
         </div>
     </div>
