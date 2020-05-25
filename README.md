@@ -1,5 +1,5 @@
 # P5_blog
-Project 5 Openclassrooms - My personnal blog where i talk about me &amp; my professional conversion in web development
+Project 5 Openclassrooms - Création d'un blog professionnel en PHP sans framework <br>
 
 <b>Installation</b><br>
 
