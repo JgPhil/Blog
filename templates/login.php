@@ -1,4 +1,4 @@
-<?php $this->title = "Connexion"; ?>
+<?php $this->title = "login"; ?>
 
 
 <!-- page title -->

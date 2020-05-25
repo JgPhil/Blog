@@ -1,4 +1,4 @@
-<?php $this->title = "Inscription"; ?>
+<?php $this->title = "register"; ?>
 
 
 <!-- page title -->

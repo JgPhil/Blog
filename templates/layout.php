@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8">
   <title><?= htmlentities($title) ?></title>
+  
 
   <!-- mobile responsive meta -->
 
@@ -44,13 +45,13 @@
 
       <div class="collapse navbar-collapse text-center" id="navigation">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item ">
+          <li class="nav-item  <?= $title=== "Accueil" ? "active" : ""?>">
             <a class="nav-link " href="<?= INDEX_PATH ?>">Accueil</a>
           </li>
           <?php
           if ($this->session->get('role') !== 'admin') {
           ?>
-            <li class="nav-item">
+            <li class="nav-item <?= $title === "Contact" ? "active" : ""?>">
               <a class="nav-link" href="<?= INDEX_PATH . SLUG . 'contact' ?>">Contact</a>
             </li>
           <?php
@@ -60,13 +61,13 @@
           if ($this->session->get('pseudo')) {
             if ($this->session->get('role') === 'admin') {
           ?>
-              <li class="nav-item">
+              <li class="nav-item <?= $title === "Administration" ? "active" : ""?>">
                 <a class="nav-link" href="<?= INDEX_PATH . SLUG . "administration" ?>"><span class="fas fa-toolbox"></span> Administration</a>
               </li>
             <?php
             }
             ?>
-            <li class="nav-item">
+            <li class="nav-item <?= $title === "profile" ? "active" : ""?>">
               <a class="nav-link" href="<?= INDEX_PATH . SLUG . "profile" ?>"><span class="fas fa-id-card"></span> Mon profil</a>
             </li>
             <li class="nav-item">
@@ -77,10 +78,10 @@
           } else {
           ?>
 
-            <li class="nav-item">
+            <li class="nav-item <?= $title === "register" ? "active" : ""?>">
               <a class="nav-link" href="<?= INDEX_PATH . SLUG . "register" ?>"><span class="fas fa-user"></span> S'inscrire</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item <?= $title === "login" ? "active" : ""?>">
               <a class="nav-link" href="<?= INDEX_PATH . SLUG . "login" ?>"><span class="fas fa-sign-in-alt"></span> Connexion</a>
             </li>
 
@@ -177,7 +178,10 @@
 
   <!-- Main Script -->
   <script src="js/script.js"></script>
-  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
 </body>
 
 </html>

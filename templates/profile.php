@@ -1,4 +1,4 @@
-<?php $this->title = 'Mon profil'; ?>
+<?php $this->title = 'profile'; ?>
 
 <!-- page title -->
 <section class="page-title bg-primary position-relative">
