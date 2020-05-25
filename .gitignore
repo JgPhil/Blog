@@ -1,3 +1,4 @@
 /vendor/
 /sql/
 /config/dev.php
+composer.phar
