@@ -35,13 +35,13 @@ class UserValidation extends BlogValidationComponent
      */
     private function checkPseudo($name, $value)
     {
-        if($this->constraint->blank($name, $value)) {
+        if($this->constraint->blank($name, htmlspecialchars($value))) {
             return $this->constraint->blank('pseudo', $value);
         }
-        if($this->constraint->tooShort($name, $value, 2)) {
+        if($this->constraint->tooShort($name, htmlspecialchars($value), 2)) {
             return $this->constraint->tooShort('pseudo', $value, 2);
         }
-        if($this->constraint->tooLong($name, $value, 255)) {
+        if($this->constraint->tooLong($name, htmlspecialchars($value), 255)) {
             return $this->constraint->tooLong('pseudo', $value, 255);
         }
     }
@@ -54,16 +54,16 @@ class UserValidation extends BlogValidationComponent
      */
     private function checkPassword($name, $value)
     {        
-        if($this->constraint->blank($name, $value)) {
+        if($this->constraint->blank($name, htmlspecialchars($value))) {
             return $this->constraint->blank('password', $value);
         }
-        if($this->constraint->tooShort($name, $value, 2)) {
+        if($this->constraint->tooShort($name, htmlspecialchars($value), 2)) {
             return $this->constraint->tooShort('password', $value, 2);
         }
-        if($this->constraint->tooLong($name, $value, 255)) {
+        if($this->constraint->tooLong($name, htmlspecialchars($value), 255)) {
             return $this->constraint->tooLong('password', $value, 255);
         }
-        if($this->constraint->weakPassword($name, $value)) {
+        if($this->constraint->weakPassword($name, htmlspecialchars($value))) {
             return $this->constraint->weakPassword($name, $value);
         }
     }

@@ -59,7 +59,8 @@ class BackController extends BlogController
                 if (!$errors) {
                     $postId = $this->postDAO->addPost($postMethod, $this->session->get('id'));
                     if (!empty($this->files->getParameter('userfile')['name'])) {
-                        $name = Upload::uploadFile($target);
+                        $file = new Upload;
+                        $name = $file->uploadFile($target);
                         $this->pictureDAO->addPostPicture($name, $postId);
                     }
                     $this->session->set('admin_message', 'Le nouvel article a bien été ajouté');
@@ -91,7 +92,8 @@ class BackController extends BlogController
                 $errors = $this->validation->validate($postMethod, 'Post');
                 if (!$errors) {
                     if (!empty($this->files->getParameter('userfile')['name'])) {
-                        $name = Upload::uploadFile($target);
+                        $file = new Upload;
+                        $name = $file->uploadFile($target);
                         $this->pictureDAO->updatePostPicture($postId, $name);
                     }
                     $this->postDAO->editPost($postMethod, $postId, $this->session->get('id'));

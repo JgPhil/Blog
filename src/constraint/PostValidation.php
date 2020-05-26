@@ -35,13 +35,13 @@ class PostValidation extends BlogValidationComponent
      */
     private function checkTitle($name, $value)
     {
-        if($this->constraint->blank($name, $value)) {
+        if($this->constraint->blank($name, htmlspecialchars($value))) {
             return $this->constraint->blank('titre', $value);
         }
-        if($this->constraint->tooShort($name, $value, 2)) {
+        if($this->constraint->tooShort($name, htmlspecialchars($value), 2)) {
             return $this->constraint->tooShort('titre', $value, 2);
         }
-        if($this->constraint->tooLong($name, $value, 255)) {
+        if($this->constraint->tooLong($name, htmlspecialchars($value), 255)) {
             return $this->constraint->tooLong('titre', $value, 255);
         }
     }
@@ -54,10 +54,10 @@ class PostValidation extends BlogValidationComponent
      */
     private function checkContent($name, $value)
     {
-        if($this->constraint->blank($name, $value)) {
+        if($this->constraint->blank($name, htmlspecialchars($value))) {
             return $this->constraint->blank('contenu', $value);
         }
-        if($this->constraint->tooShort($name, $value, 2)) {
+        if($this->constraint->tooShort($name, htmlspecialchars($value), 2)) {
             return $this->constraint->tooShort('contenu', $value, 2);
         }
     }
@@ -70,13 +70,13 @@ class PostValidation extends BlogValidationComponent
      */
     private function checkHeading($name, $value)
     {
-        if($this->constraint->blank($name, $value)) {
+        if($this->constraint->blank($name, htmlspecialchars($value))) {
             return $this->constraint->blank('châpo', $value);
         }
-        if($this->constraint->tooShort($name, $value, 2)) {
+        if($this->constraint->tooShort($name, htmlspecialchars($value), 2)) {
             return $this->constraint->tooShort('châpo', $value, 2);
         }
-        if($this->constraint->tooLong($name, $value, 255)) {
+        if($this->constraint->tooLong($name, htmlspecialchars($value), 255)) {
             return $this->constraint->tooLong('châpo', $value, 255);
         }
     }
