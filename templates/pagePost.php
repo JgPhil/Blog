@@ -69,7 +69,7 @@
 
 <section>
   <div class="container">
-    <div class="row">
+    <div class="row mb-5">
 
       <div class="col-lg-12">
         <h4 class="font-weight-bold mb-3">Commentaires</h4>
@@ -115,7 +115,7 @@
               }
               ?>
               <textarea name="content" id="content" placeholder="Message" class="form-control mb-4"></textarea>
-              <input type="submit" class="btn btn-primary w-100" id="submit" value="Soumettre" name="submit" />
+              <input type="submit" class="btn btn-primary w-50" id="submit" value="Soumettre" name="submit" />
             </div>
           </form>
         <?php

@@ -126,7 +126,7 @@ $this->title = $title; ?>
                             <?php
                             } else { // lien pour restaurer un article vers l'administration
                             ?>
-                                <td><a href="../public/index.php?route=showPost&postId=<?php print_r(htmlspecialchars($post->getId())); ?>">Restaurer vers le panneau d'administration</a></td>
+                                <td><a href="../public/index.php?route=showPost&postId=<?php print_r(htmlspecialchars($post->getId())); ?>">Restaurer</a></td>
 
                             <?php
                             }
