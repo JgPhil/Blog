@@ -31,7 +31,7 @@ $this->title = "Accueil"; ?>
     </div>
     <div class="row text-center">
         <div class="col-2">
-          <a class="btn btn-primary" id="cv" href="<?= INDEX_PATH . CV_PATH ?>" download="CV">
+          <a class="btn btn-primary" id="cv" href="<?= CV_PATH ?>" download="CV">
             Mon CV
           </a>
         </div>
