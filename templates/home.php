@@ -27,15 +27,15 @@ $this->title = "Accueil"; ?>
     <div class="row text-center mt-20">
       <div class="col-lg-8 mx-auto">
         <h4 style="color :white"><em>- Bienvenue sur mon blog -<br> Au travers de ces quelques articles je vais parler de mon cursus de formation et de ma passion pour le code </em></h4>
-      </div>
-      <div class="row">
+      </div>      
+    </div>
+    <div class="row text-center">
         <div class="col-2">
-          <a class="btn btn-tertiary" id="cv" href="<?= INDEX_PATH . CV_PATH ?>" download="CV">
+          <a class="btn btn-primary" id="cv" href="<?= INDEX_PATH . CV_PATH ?>" download="CV">
             Mon CV
           </a>
         </div>
       </div>
-    </div>
   </div>
 
 
