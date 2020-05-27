@@ -14,4 +14,4 @@ Page de téléchargement - <http://wampserver.aviatechno.net/?lang=fr> <br>
 8. importez-y la base de donnée grâce au fichier blog.sql qui se trouve à la racine du repo. <br>
 9. Installez Composer . Choississez la méthode adaptée à votre système d'exploitation <https://getcomposer.org/download/><br>
 10. Générez le fichier autoload avec cette commande: composer.phar dump-autoload. Le fichier composer.json se trouve dans le repo.<br>
-11.L'application devrait fonctionner parfaitement.<br>
+11. Dans votre navigateur, tapez: "blog/public". L'application devrait fonctionner parfaitement.<br>
