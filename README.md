@@ -1,4 +1,4 @@
-# P5_blog Blog professionnel en PHP
+# Blog professionnel en PHP
 Project 5 Openclassrooms - 5ème Projet de ma formation développeur d'application PHP/Symfony, cette application a été créé en PHP orienté objet et modèle MVC. <br><br><br>
 
 <b>Installation</b><br><br>
