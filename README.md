@@ -1,4 +1,7 @@
 # Blog professionnel en PHP
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ea4601ed913940a5b962c72a99d880be)](https://app.codacy.com/manual/JgPhil/Blog?utm_source=github.com&utm_medium=referral&utm_content=JgPhil/Blog&utm_campaign=Badge_Grade_Dashboard)
+
 Project 5 Openclassrooms - 5ème Projet de ma formation développeur d'application PHP/Symfony, cette application a été créé en PHP orienté objet et modèle MVC. <br><br><br>
 
 <b>Installation</b><br><br>
