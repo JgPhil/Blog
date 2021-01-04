@@ -16,13 +16,6 @@ abstract class Controller
    
     
 
-<<<<<<< HEAD
-    
-=======
-    /**
-     * @return void
-     */
->>>>>>> d9907105d01fe29955bb6725efb050d358200041
     public function __construct()
     {
         $this->view = new View;

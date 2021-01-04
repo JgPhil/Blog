@@ -38,7 +38,7 @@ class Mail extends Request
         $mail->SMTPDebug = 0;
         $mail->SMTPAuth = true;
         $mail->SMTPSecure = 'ssl';
-        $mail->Host = 'smtp.gmail.com';
+        $mail->Host = SMTP_HOST;
         $mail->Port = 465;
         $mail->Username   = ADMIN_EMAIL_ADRESS;
         $mail->Password = PASSWORD;
@@ -47,7 +47,7 @@ class Mail extends Request
         $mail->addAddress($email, $pseudo);
         $mail->isHTML(true);
 
-        $link = '<a href="http://' . HOST . PORT . '/?route=emailConfirm&pseudo=' . $pseudo . '&token=' . $token . '" target="_blank">CLIQUER ICI</a>';
+        $link = '<a href="http://' . HOST . ':3306/?route=emailConfirm&pseudo=' . $pseudo . '&token=' . $token . '" target="_blank">CLIQUER ICI</a>';
         $mail->Body = '
         <html>
         <body>
